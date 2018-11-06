@@ -1,6 +1,7 @@
 import React from 'react';
 import {Permissions, Location, MapView} from 'expo';
 import firebase from 'firebase';
+import Marker from 'react-native-maps';
 
 
 export default class App extends React.Component {
@@ -11,12 +12,23 @@ export default class App extends React.Component {
         this.state = {
             latitude: 0,
             longitude: 0,
+            barLat: 0,
+            barLong: 0,
             flex: 0
         }
     }
 
+
+    async _getBarCoords() {
+
+    this.setState({barLat: firebase.database().ref('Barer/BarID/Longitude'), barLong: firebase.database().ref('Barer/BarID/Latitude')})
+        console.log(this.state.barLat, this.state.barLong);
+    }
+
+
     componentWillMount() {
         this._getLocationAsync();
+        this._getBarCoords();
     }
 
     _getLocationAsync = async () => {
@@ -42,8 +54,17 @@ export default class App extends React.Component {
                     longitude: this.state.longitude,
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
-                }}
-            />
+                }}>
+                <MapView.Marker
+                    coordinate={{
+                        latitude: this.state.barLat,
+                        longitude: this.state.barLong
+                    }}
+                    title={"title"}
+                    description={"description"}
+                />
+            </MapView>
+
         );
     }
 }
