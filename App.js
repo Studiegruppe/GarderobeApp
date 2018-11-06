@@ -6,6 +6,7 @@ import AppNavigator from './navigation/AppNavigator';
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
+    skipLoadingScreen: false,
   };
   _loadResourcesAsync = async () => {
     return Promise.all([
