@@ -6,6 +6,7 @@ import TabBarIcon from '../common/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import MapScreen from '../screens/MapScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -53,8 +54,33 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+const MapStack = createStackNavigator({
+    Map: MapScreen,
+});
+
+MapStack.navigationOptions ={
+    tabBarLabel: 'Map',
+    tabBarIcon:({focused}) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? `ios-map${focused ? '' : '-outline'}` : 'md-map'}
+        />
+    ),
+};
+
+SettingsStack.navigationOptions = {
+    tabBarLabel: 'Settings',
+    tabBarIcon: ({focused}) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+        />
+    ),
+};
+
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
+    MapStack,
   SettingsStack,
 });
