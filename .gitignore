@@ -15,6 +15,8 @@ temp
 /.idea/workspace.xml
 /.idea/codeStyles/*
 /.vscode
+.idea/
+/.idea/
 
 .vs/ProjectSettings.json
 .vs/slnx.sqlite
