@@ -55,32 +55,32 @@ SettingsStack.navigationOptions = {
 };
 
 const MapStack = createStackNavigator({
-    Map: MapScreen,
+  Map: MapScreen,
 });
 
-MapStack.navigationOptions ={
-    tabBarLabel: 'Map',
-    tabBarIcon:({focused}) => (
-        <TabBarIcon
-            focused={focused}
-            name={Platform.OS === 'ios' ? `ios-map${focused ? '' : '-outline'}` : 'md-map'}
-        />
-    ),
+MapStack.navigationOptions = {
+  tabBarLabel: 'Map',
+  tabBarIcon: ({focused}) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-map${focused ? '' : '-outline'}` : 'md-map'}
+    />
+  ),
 };
 
 SettingsStack.navigationOptions = {
-    tabBarLabel: 'Settings',
-    tabBarIcon: ({focused}) => (
-        <TabBarIcon
-            focused={focused}
-            name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
-        />
-    ),
+  tabBarLabel: 'Settings',
+  tabBarIcon: ({focused}) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+    />
+  ),
 };
 
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
-    MapStack,
+  MapStack,
   SettingsStack,
 });
