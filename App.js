@@ -19,12 +19,12 @@ export default class App extends React.Component {
 
   componentWillMount() {
     firebase.initializeApp({
-      apiKey: "AIzaSyCxecGEtoqgPPDWftVQpXVKIZLdsQNDPAs",
-      authDomain: "garderobeapp-49283.firebaseapp.com",
-      databaseURL: "https://garderobeapp-49283.firebaseio.com",
-      projectId: "garderobeapp-49283",
-      storageBucket: "garderobeapp-49283.appspot.com",
-      messagingSenderId: "271748622389"
+        apiKey: "AIzaSyCxecGEtoqgPPDWftVQpXVKIZLdsQNDPAs",
+        authDomain: "garderobeapp-49283.firebaseapp.com",
+        databaseURL: "https://garderobeapp-49283.firebaseio.com",
+        projectId: "garderobeapp-49283",
+        storageBucket: "garderobeapp-49283.appspot.com",
+        messagingSenderId: "271748622389"
     });
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
