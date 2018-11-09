@@ -1,19 +1,18 @@
 import React from 'react';
-import {Platform, StatusBar, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, Platform, StatusBar, StyleSheet, View} from 'react-native';
 import {AppLoading, Asset, Font, Icon} from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import firebase from 'firebase';
+import LoginForm from "./screens/LoginForm";
 
 export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false,
-    skipLoadingScreen: false,
-  };
 
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: null
+      loggedIn: null,
+      isLoadingComplete: false,
+      skipLoadingScreen: false,
     }
   }
 
@@ -69,12 +68,23 @@ export default class App extends React.Component {
         />
       );
     } else {
-      return (
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
-          <AppNavigator/>
-        </View>
-      );
+      switch (this.state.loggedIn) {
+        case true:
+          return (
+            <View style={styles.container}>
+              {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
+              <AppNavigator/>
+            </View>
+          );
+        case false:
+          return (
+            <View style={styles.container}>
+              <LoginForm/>
+            </View>
+          );
+        default:
+          return <ActivityIndicator size="large"/>;
+      }
     }
   }
 }
