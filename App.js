@@ -3,6 +3,8 @@ import {Platform, StatusBar, StyleSheet, View} from 'react-native';
 import {AppLoading, Asset, Font, Icon} from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import firebase from 'firebase';
+import SplashScreen from './screens/SplashScreen';
+import HomeScreen from "./screens/HomeScreen";
 
 export default class App extends React.Component {
     state = {
@@ -59,23 +61,34 @@ export default class App extends React.Component {
         this.setState({isLoadingComplete: true});
     };
 
+
+
+    componentWillMount() {
+        this.state = {
+            view : <SplashScreen/>
+        };
+
+
+        setTimeout(() => {
+            //IF FALSE NAVIGATE TO ERROR
+            if(true) {
+                this.setState({
+                    view : <HomeScreen/>
+                })
+            } else {
+                this.setState({
+                    view : <Error/>
+                })
+            }
+        }, 2000) //TIME OF WAITING
+
+
+    }
+
     render() {
-        if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-            return (
-                <AppLoading
-                    startAsync={this._loadResourcesAsync}
-                    onError={this._handleLoadingError}
-                    onFinish={this._handleFinishLoading}
-                />
-            );
-        } else {
-            return (
-                <View style={styles.container}>
-                    {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
-                    <AppNavigator/>
-                </View>
-            );
-        }
+        return (
+            this.state.view
+        )
     }
 }
 
