@@ -1,2 +1,27 @@
+# dependencies
+/node_modules
+/browser-extensions/node_modules
 node_modules/**/*
 .expo/**/*
+
+# misc
+.DS_Store
+
+temp
+.tmp
+
+# Regularly changing or system specific IDE files
+/.idea/vcs.xml
+/.idea/workspace.xml
+/.idea/codeStyles/*
+/.vscode
+.idea/
+/.idea/
+
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+.vs/slnx.sqlite-journal
+.vs/VSWorkspaceState.json
+.vs/WoWAnalyzer/v15/.suo
+/.idea/markdown-navigator.xml
+/.idea/markdown-navigator/profiles_settings.xml
