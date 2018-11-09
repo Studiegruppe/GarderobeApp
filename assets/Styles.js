@@ -23,3 +23,8 @@ export default StyleSheet.create({
     color: 'red',
   },
 });
+
+/*
+farve top : #60C3FF
+farve bot : #5887F9
+*/
