@@ -1,8 +1,7 @@
 import React from 'react';
-import {ActivityIndicator, Platform, StatusBar, View} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import AppNavigator from './navigation/AppNavigator';
 import firebase from 'firebase';
-import LoginForm from "./screens/LoginForm";
 import SplashScreen from './screens/SplashScreen';
 
 export default class App extends React.Component {
@@ -17,9 +16,7 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    this.state = {
-      view: <SplashScreen/>
-    };
+    this.setState({view: <SplashScreen/>});
     firebase.initializeApp({
       apiKey: "AIzaSyCxecGEtoqgPPDWftVQpXVKIZLdsQNDPAs",
       authDomain: "garderobeapp-49283.firebaseapp.com",
@@ -40,7 +37,7 @@ export default class App extends React.Component {
     setTimeout(() => {
       //IF TRUE NAVIGATE TO APP-NAVIGATOR
       this.setState({
-        view: <AppNavigator/>
+        isLoadingComplete: true
       })
     }, 2000) //TIME OF WAITING
   }
@@ -55,16 +52,11 @@ export default class App extends React.Component {
       switch (this.state.loggedIn) {
         case true:
           return (
-            <View style={styles.container}>
-              {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
-              <AppNavigator/>
-            </View>
+            <AppNavigator/>
           );
         case false:
           return (
-            <View style={styles.container}>
-              <LoginForm/>
-            </View>
+            <AppNavigator/>
           );
         default:
           return <ActivityIndicator size="large"/>;
