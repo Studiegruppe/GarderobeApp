@@ -1,8 +1,10 @@
 import React from 'react';
 import {ActivityIndicator} from 'react-native';
-import AppNavigator from './navigation/AppNavigator';
+import AppNavigator from './navigation/MainTabSwitchNavigator';
 import firebase from 'firebase';
 import SplashScreen from './screens/SplashScreen';
+import LoginNavigator from "./navigation/AuthStackSwitchNavigator";
+
 
 export default class App extends React.Component {
 
@@ -56,7 +58,7 @@ export default class App extends React.Component {
           );
         case false:
           return (
-            <AppNavigator/>
+            <LoginNavigator/>
           );
         default:
           return <ActivityIndicator size="large"/>;

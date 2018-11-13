@@ -41,20 +41,6 @@ LinksStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-});
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({focused}) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
-    />
-  ),
-};
-
 const MapStack = createStackNavigator({
   Map: MapScreen,
 });
@@ -69,6 +55,10 @@ MapStack.navigationOptions = {
   ),
 };
 
+const SettingsStack = createStackNavigator({
+  Settings: SettingsScreen,
+});
+
 SettingsStack.navigationOptions = {
   tabBarLabel: 'Settings',
   tabBarIcon: ({focused}) => (
@@ -78,6 +68,7 @@ SettingsStack.navigationOptions = {
     />
   ),
 };
+
 
 export default createBottomTabNavigator({
   HomeStack,

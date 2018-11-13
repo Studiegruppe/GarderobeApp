@@ -1,7 +1,6 @@
 import React from 'react';
 import {ActivityIndicator, Button, Text, TextInput, View} from 'react-native';
 import firebase from 'firebase';
-import SecureStore from 'expo';
 import Styles from '../assets/Styles';
 
 export default class LoginForm extends React.Component {
@@ -15,6 +14,10 @@ export default class LoginForm extends React.Component {
       loading: false,
     }
   }
+
+  static navigationOptions = {
+    title: 'Please log in',
+  };
 
   render() {
     return (
@@ -52,7 +55,6 @@ export default class LoginForm extends React.Component {
 
   async signIn() {
     const {email, password} = this.state;
-    await SecureStore.setItemAsync('email', email);
     this.setState({
       error: '',
       loading: true,
