@@ -19,14 +19,6 @@ export default class App extends React.Component {
         }
     }
 
-    /* return firebase.database().ref('albums').on('value', function (snapshot) {
-        let albums = Object.values(snapshot.val()); */
-
-
-    async _getBarCoordObj() {
-    }
-
-
     componentWillMount() {
         this._getLocationAsync();
         this.generateMarkers();
