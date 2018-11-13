@@ -4,6 +4,7 @@ import AppNavigator from './navigation/AppNavigator';
 import firebase from 'firebase';
 import SplashScreen from './screens/SplashScreen';
 
+
 export default class App extends React.Component {
 
   constructor(props) {
