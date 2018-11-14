@@ -36,33 +36,6 @@ export default class App extends React.Component {
         }
     };
 
-    render() {
-        return (
-            <MapView
-                style={{flex: this.state.flex}}
-                showsUserLocation={true}
-                showsMyLocationButton={true}
-                followsUserLocation={false}
-                region={{
-                    latitude: this.state.latitude,
-                    longitude: this.state.longitude,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}>
-                {this.state.markers}
-                /*<MapView.Marker
-                    coordinate={{
-                        latitude: this.state.barLat,
-                        longitude: this.state.barLong
-                    }}
-                    title={"title"}
-                    description={"description"}
-                />*/
-            </MapView>
-
-        );
-    }
-
     generateMarkers() {
         let markerArray = [];
 
@@ -91,5 +64,24 @@ export default class App extends React.Component {
             });
         });
 
-        }
+    }
+
+    render() {
+        return (
+            <MapView
+                style={{flex: this.state.flex}}
+                showsUserLocation={true}
+                showsMyLocationButton={true}
+                followsUserLocation={false}
+                region={{
+                    latitude: this.state.latitude,
+                    longitude: this.state.longitude,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                }}>
+                {this.state.markers}
+            </MapView>
+
+        );
+    }
 }
