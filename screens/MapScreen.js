@@ -91,26 +91,5 @@ export default class App extends React.Component {
             });
         });
 
-
         }
-
-
-       /* for (let key in markerArray) {
-            let step = markerArray[key];
-            for (let keyLookingForLat in step) {
-                let lat = step[keyLookingForLat];
-                if (keyLookingForLat === "Latitude") {
-                    markerArray.push(
-                        <MapView.Marker
-                            coordinate={{
-                                latitude: lat,
-                            }}
-                            title={"title"}
-                            description={"description"}
-                        />
-                    );
-                }
-            }
-        }*/
-
 }
