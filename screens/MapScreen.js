@@ -1,87 +1,91 @@
 import React from 'react';
-import {View, Text} from 'react-native';
 
-import {Permissions, Location, MapView} from 'expo';
+import {Location, MapView, Permissions} from 'expo';
 import firebase from 'firebase';
-import Marker from 'react-native-maps';
 
+const debugBarer = false;
+const debug = true;
 
 export default class App extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            latitude: 0,
-            longitude: 0,
-            barLat: 0,
-            barLong: 0,
-            flex: 0
+  constructor(props) {
+    super(props);
+    this.state = {
+      latitude: 0,
+      longitude: 0,
+      barLat: 0,
+      barLong: 0,
+      flex: 0
+    }
+  }
+
+  componentWillMount() {
+    this._getLocationAsync();
+    this.generateMarkers();
+
+  }
+
+  _getLocationAsync = async () => {
+    let {status} = await Permissions.askAsync(Permissions.LOCATION);
+    if (status === 'granted') {
+      let location = await Location.getCurrentPositionAsync({});
+      this.setState({latitude: location.coords.latitude, longitude: location.coords.longitude});
+      this.setState({flex: 1});
+    } else {
+      alert("Permission to access location was denied");
+    }
+  };
+
+  generateMarkers() {
+    let markerArray = [];
+
+    let that = this;
+    firebase.database().ref('Barer').once('value', function (snapshot) {
+
+      let barer = snapshot.val();
+      debugBarer && console.log(barer);
+
+      for (let key in barer) {
+        if (barer.hasOwnProperty(key)) {
+          debug && console.log(key);
+          let bar = barer[key];
+          markerArray.push(
+            <MapView.Marker
+              coordinate={{
+                latitude: bar.Latitude,
+                longitude: bar.Longitude
+              }}
+              title={bar.Navn}
+              description={"description"}
+              key={key}
+            />
+          )
         }
-    }
+      }
 
-    componentWillMount() {
-        this._getLocationAsync();
-        this.generateMarkers();
+      that.setState({
+        markers: markerArray
+      });
+    });
 
-    }
+  }
 
-    _getLocationAsync = async () => {
-        let {status} = await Permissions.askAsync(Permissions.LOCATION);
-        if (status === 'granted') {
-            let location = await Location.getCurrentPositionAsync({});
-            this.setState({latitude: location.coords.latitude, longitude: location.coords.longitude});
-            this.setState({flex: 1});
-        } else {
-            alert("Permission to access location was denied");
-        }
-    };
+  render() {
+    return (
+      <MapView
+        style={{flex: this.state.flex}}
+        showsUserLocation={true}
+        showsMyLocationButton={true}
+        followsUserLocation={false}
+        region={{
+          latitude: this.state.latitude,
+          longitude: this.state.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}>
+        {this.state.markers}
+      </MapView>
 
-    generateMarkers() {
-        let markerArray = [];
-
-        var that = this;
-        firebase.database().ref('Barer').once('value', function (snapshot) {
-
-            let barer = snapshot.val();
-            console.log(barer);
-
-            for (var key in barer) {
-                var bar = barer[key];
-                markerArray.push(
-                    <MapView.Marker
-                        coordinate={{
-                            latitude: bar.Latitude,
-                            longitude: bar.Longitude
-                        }}
-                        title={"title"}
-                        description={"description"}
-                    />
-                )
-            }
-
-            that.setState({
-                markers: markerArray
-            });
-        });
-
-    }
-
-    render() {
-        return (
-            <MapView
-                style={{flex: this.state.flex}}
-                showsUserLocation={true}
-                showsMyLocationButton={true}
-                followsUserLocation={false}
-                region={{
-                    latitude: this.state.latitude,
-                    longitude: this.state.longitude,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}>
-                {this.state.markers}
-            </MapView>
-
-        );
-    }
+    );
+  }
 }
