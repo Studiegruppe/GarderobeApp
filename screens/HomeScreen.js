@@ -17,37 +17,37 @@ const debug = true;
 
 export default class HomeScreen extends React.Component {
 
-    static navigationOptions = {
-        header: null,
-    };
+  static navigationOptions = {
+    header: null,
+  };
 
-    signOutUser = async () => {
-        try {
-            await firebase.auth().signOut();
-            debug && console.log("LOGGED OUT");
-        } catch (e) {
-            debug && console.log(e);
-        }
-    };
-
-    renderLogOutButton() {
-        return (
-            <Button title="logout" onPress={() => this.signOutUser()}/>
-        )
+  signOutUser = async () => {
+    try {
+      await firebase.auth().signOut();
+      debug && console.log("LOGGED OUT");
+    } catch (e) {
+      debug && console.log(e);
     }
+  };
 
-    render() {
-        return (
-            <View style={[Styles.containerTab, {paddingTop: 40}]}>
-                <ScrollableTabView
-                    /*tabBarActiveTextColor="#5887F9"*/
-                    renderTabBar={() => <TabBar underlineColor="#5887F9"/>}>
-                    <AktivScreen tabLabel={{label: "ACTIVE"}} label="ACTIVE"/>
-                    <HistoryScreen tabLabel={{label: "HISTORY"}} label="HISTORY"/>
-                    <OfferScreen tabLabel={{label: "OFFERS"}} label="OFFERS"/>
-                    <CheckinScreen tabLabel={{label: "CHECKIN"}} label="CHECKIN"/>
-                </ScrollableTabView>
-            </View>
-        );
-    }
+  renderLogOutButton() {
+    return (
+      <Button title="logout" onPress={() => this.signOutUser()}/>
+    )
+  }
+
+  render() {
+    return (
+      <View style={[Styles.containerTab, {paddingTop: 40}]}>
+        <ScrollableTabView
+          /*tabBarActiveTextColor="#5887F9"*/
+          renderTabBar={() => <TabBar underlineColor="#5887F9"/>}>
+          <AktivScreen tabLabel={{label: "ACTIVE"}} label="ACTIVE"/>
+          <HistoryScreen tabLabel={{label: "HISTORY"}} label="HISTORY"/>
+          <OfferScreen tabLabel={{label: "OFFERS"}} label="OFFERS"/>
+          <CheckinScreen tabLabel={{label: "CHECKIN"}} label="CHECKIN"/>
+        </ScrollableTabView>
+      </View>
+    );
+  }
 }
