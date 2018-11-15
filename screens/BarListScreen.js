@@ -1,16 +1,20 @@
-import {Text, View} from "react-native";
 import React from "react";
-import Styles from "../assets/Styles";
-
+import {View} from "react-native";
+import globals from "../assets/Globals";
 
 export default class BarListScreen extends React.Component {
 
+  componentWillMount() {
+  }
+
+  componentDidMount() {
+    console.log(globals);
+  }
+
   render() {
     return (
-      <View style={Styles.scrollableTab}>
-        <Text style={Styles.welcomeTab}>
-          LiSte MED barerS
-        </Text>
+      <View>
+        {globals.uid}
       </View>
 
     );
