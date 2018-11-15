@@ -3,23 +3,16 @@ import React from "react";
 import Styles from "../assets/Styles";
 
 
-
-
-
 export default class ActiveOffersScreen extends React.Component {
-    static navigationOptions = {
-        title: 'app.json',
-    };
 
-    render() {
-        return (
+  render() {
+    return (
+      <View style={Styles.scrollableTab}>
+        <Text style={Styles.welcomeTab}>
+          ACTIVE OFFERS
+        </Text>
+      </View>
 
-            <View style={Styles.scrollableTab}>
-                <Text style={Styles.welcomeTab}>
-                    ACTIVE OFFERS
-                </Text>
-            </View>
-
-        );
-    }
+    );
+  }
 }

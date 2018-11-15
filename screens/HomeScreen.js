@@ -1,5 +1,4 @@
 import React from 'react';
-import {Text, View,} from 'react-native';
 import Styles from "../assets/Styles";
 import {Button} from "react-native-elements";
 import firebase from 'firebase';
@@ -16,36 +15,35 @@ const debug = true;
 
 export default class HomeScreen extends React.Component {
 
-    static navigationOptions = {
-        header: null,
-    };
+  static navigationOptions = {
+    header: null,
+  };
 
-    signOutUser = async () => {
-        try {
-            await firebase.auth().signOut();
-            debug && console.log("LOGGED OUT");
-        } catch (e) {
-            debug && console.log(e);
-        }
-    };
-
-    renderLogOutButton() {
-        return (
-            <Button title="logout" onPress={() => this.signOutUser()}/>
-        )
+  signOutUser = async () => {
+    try {
+      await firebase.auth().signOut();
+      debug && console.log("LOGGED OUT");
+    } catch (e) {
+      debug && console.log(e);
     }
+  };
 
-    render() {
-        return (
-            <View style={[Styles.scrollableTab, {paddingTop: 40}]}>
-                <ScrollableTabView
-                    /*tabBarActiveTextColor="#5887F9"*/
-                    renderTabBar={() => <TabBar underlineColor="#5887F9"/>}>
-                    <AktivScreen tabLabel={{label: "ACTIVE"}} label="ACTIVE"/>
-                    <HistoryScreen tabLabel={{label: "HISTORY"}} label="HISTORY"/>
-                    <CheckinScreen tabLabel={{label: "CHECKIN"}} label="CHECKIN"/>
-                </ScrollableTabView>
-            </View>
-        );
-    }
+  renderLogOutButton() {
+    return (
+      <Button title="logout" onPress={() => this.signOutUser()}/>
+    )
+  }
+
+  render() {
+    return (
+      <ScrollableTabView
+        style={Styles.scrollableTab}
+        /*tabBarActiveTextColor="#5887F9"*/
+        renderTabBar={() => <TabBar underlineColor="#5887F9"/>}>
+        <AktivScreen tabLabel={{label: "ACTIVE"}} label="ACTIVE"/>
+        <HistoryScreen tabLabel={{label: "HISTORY"}} label="HISTORY"/>
+        <CheckinScreen tabLabel={{label: "CHECKIN"}} label="CHECKIN"/>
+      </ScrollableTabView>
+    );
+  }
 }
