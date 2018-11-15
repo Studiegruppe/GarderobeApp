@@ -19,14 +19,6 @@ export default class App extends React.Component {
         }
     }
 
-    /* return firebase.database().ref('albums').on('value', function (snapshot) {
-        let albums = Object.values(snapshot.val()); */
-
-
-    async _getBarCoordObj() {
-    }
-
-
     componentWillMount() {
         this._getLocationAsync();
         this.generateMarkers();
@@ -43,33 +35,6 @@ export default class App extends React.Component {
             alert("Permission to access location was denied");
         }
     };
-
-    render() {
-        return (
-            <MapView
-                style={{flex: this.state.flex}}
-                showsUserLocation={true}
-                showsMyLocationButton={true}
-                followsUserLocation={false}
-                region={{
-                    latitude: this.state.latitude,
-                    longitude: this.state.longitude,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}>
-                {this.state.markers}
-                /*<MapView.Marker
-                    coordinate={{
-                        latitude: this.state.barLat,
-                        longitude: this.state.barLong
-                    }}
-                    title={"title"}
-                    description={"description"}
-                />*/
-            </MapView>
-
-        );
-    }
 
     generateMarkers() {
         let markerArray = [];
@@ -99,26 +64,24 @@ export default class App extends React.Component {
             });
         });
 
+    }
 
-        }
+    render() {
+        return (
+            <MapView
+                style={{flex: this.state.flex}}
+                showsUserLocation={true}
+                showsMyLocationButton={true}
+                followsUserLocation={false}
+                region={{
+                    latitude: this.state.latitude,
+                    longitude: this.state.longitude,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                }}>
+                {this.state.markers}
+            </MapView>
 
-
-       /* for (let key in markerArray) {
-            let step = markerArray[key];
-            for (let keyLookingForLat in step) {
-                let lat = step[keyLookingForLat];
-                if (keyLookingForLat === "Latitude") {
-                    markerArray.push(
-                        <MapView.Marker
-                            coordinate={{
-                                latitude: lat,
-                            }}
-                            title={"title"}
-                            description={"description"}
-                        />
-                    );
-                }
-            }
-        }*/
-
+        );
+    }
 }
