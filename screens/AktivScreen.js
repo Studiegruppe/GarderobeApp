@@ -48,7 +48,7 @@ export default class AktivScreen extends React.Component {
     render() {
         return (
 
-            <View style={Styles.containerTab}>
+            <View style={Styles.scrollableTab}>
                 <Text style={Styles.welcomeTab}>
                     AKTIV
                 </Text>

@@ -6,7 +6,7 @@ import Styles from "../assets/Styles";
 
 
 
-export default class OfferScreen extends React.Component {
+export default class ClaimedOffersScreen extends React.Component {
     static navigationOptions = {
         title: 'app.json',
     };
@@ -14,9 +14,9 @@ export default class OfferScreen extends React.Component {
     render() {
         return (
 
-            <View style={Styles.containerTab}>
+            <View style={Styles.scrollableTab}>
                 <Text style={Styles.welcomeTab}>
-                    OFFERS
+                    CLAIMED OFFERS
                 </Text>
             </View>
 

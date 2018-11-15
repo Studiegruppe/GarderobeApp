@@ -4,10 +4,9 @@ import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 
 import TabBarIcon from '../common/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import OffersScreen from '../screens/OffersScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import MapScreen from '../screens/MapScreen';
-
 
 
 const HomeStack = createStackNavigator({
@@ -28,20 +27,6 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
-});
-
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({focused}) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
-    />
-  ),
-};
-
 const MapStack = createStackNavigator({
   Map: MapScreen,
 });
@@ -52,6 +37,20 @@ MapStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name={Platform.OS === 'ios' ? `ios-map${focused ? '' : '-outline'}` : 'md-map'}
+    />
+  ),
+};
+
+const OffersStack = createStackNavigator({
+  Links: OffersScreen,
+});
+
+OffersStack.navigationOptions = {
+  tabBarLabel: 'Offers',
+  tabBarIcon: ({focused}) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
     />
   ),
 };
@@ -73,7 +72,7 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
   MapStack,
+  OffersStack,
   SettingsStack,
 });

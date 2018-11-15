@@ -5,21 +5,21 @@ import Styles from "../assets/Styles";
 
 
 
-export default class CheckinScreen extends React.Component {
+
+export default class ActiveOffersScreen extends React.Component {
     static navigationOptions = {
         title: 'app.json',
     };
-
-
 
     render() {
         return (
 
             <View style={Styles.scrollableTab}>
                 <Text style={Styles.welcomeTab}>
-                    OFFERS
+                    ACTIVE OFFERS
                 </Text>
             </View>
+
         );
     }
 }
