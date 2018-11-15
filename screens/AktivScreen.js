@@ -27,6 +27,7 @@ export default class AktivScreen extends React.Component {
   componentDidMount() {
     const {currUser} = firebase.auth()
     this.setState({currentUser: currUser})
+    console.log()
   }
 
 
@@ -34,8 +35,7 @@ export default class AktivScreen extends React.Component {
   getActiveTicketAsync() {
     let ticketArray = [];
     let that = this;
-
-    firebase.database().ref('Brugere/123').once('value', function (snapshot) {
+    firebase.database().ref('Brugere/').once('value', function (snapshot) {
       let user = snapshot.val();
 
       for (let i = 0; i < 3; i++) {
