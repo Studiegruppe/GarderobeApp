@@ -3,6 +3,7 @@ import React from "react";
 import Styles from "../assets/Styles";
 import firebase from 'firebase';
 import {Button} from "react-native-elements";
+import globals from "../assets/Globals";
 
 
 export default class AktivScreen extends React.Component {
@@ -27,6 +28,7 @@ export default class AktivScreen extends React.Component {
   componentDidMount() {
     const {currentUser} = firebase.auth();
     this.setState({currentUser})
+
   }
 
 
@@ -34,17 +36,18 @@ export default class AktivScreen extends React.Component {
   getActiveTicketAsync() {
     let ticketArray = [];
     let that = this;
-    firebase.database().ref('Brugere/').once('value', function (snapshot) {
+    firebase.database().ref('Brugere/123/'/*`Brugere/${globals.uid}`*/).once('value', function (snapshot) {
       let user = snapshot.val();
+      console.log(`Brugere/${globals.uid}`);
 
       for (let i = 0; i < 3; i++) {
         ticketArray.push(
-          <Text>
+          <Text key={i}>
             Checkin time : {user.Billetter.Aktive.TicketID.checkind + "\n"}
             Color of ticket : {user.Billetter.Aktive.TicketID.farve + "\n"}
             Your number {user.Billetter.Aktive.TicketID.nummer + "\n"}
             The amount : {user.Billetter.Aktive.TicketID.antal + "\n"}
-            {that.renderCheckOutButton()}
+            {that.renderCheckOutButton(user.Billetter.Aktive.TicketID.ticketid)}
           </Text>
         )
       }
@@ -54,15 +57,15 @@ export default class AktivScreen extends React.Component {
     });
   }
 
-  checkoutTicket() {
-
+  checkoutTicket(id) {
+    console.log(id)
 
   }
 
 
-  renderCheckOutButton() {
+  renderCheckOutButton(key) {
     return (
-      <Button title="logout" onPress={() => this.checkoutTicket()}/>
+      <Button title="logout" key={key} onPress={() => this.checkoutTicket(key)}/>
     )
   }
 
