@@ -10,8 +10,11 @@ export default class AktivScreen extends React.Component {
     super(props);
     this.state = {
       loggedinUserId: 123,
+      checkintime: "",
+      color: "",
+      number: 123,
+      amount: 0,
     }
-
   }
 
   componentWillMount() {
@@ -26,13 +29,17 @@ export default class AktivScreen extends React.Component {
   }
 
   getActiveTicketAsync() {
-
-    firebase.database().ref('Brugere').once('value', function (snapshot) {
-      let uid = snapshot.val();
-
+    let that = this;
+    firebase.database().ref('Brugere/123').once('value', function (snapshot) {
+      let user = snapshot.val();
+      console.log(user);
+      console.log("-------------------------------");
+      that.setState({checkintime: user.Billetter.Aktive.TicketID.checkind});
+      that.setState({color: user.Billetter.Aktive.TicketID.farve});
+      that.setState({number: user.Billetter.Aktive.TicketID.nummer});
+      that.setState({amount: user.Billetter.Aktive.TicketID.antal});
 
     });
-
   }
 
 
@@ -44,7 +51,7 @@ export default class AktivScreen extends React.Component {
   render() {
     return (
 
-      <View style={Styles.scrollableTab}>
+      <View style={Styles.containerTab}>
         <Text style={Styles.welcomeTab}>
           AKTIV
         </Text>
