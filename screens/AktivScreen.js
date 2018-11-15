@@ -2,7 +2,6 @@ import {Text, View} from "react-native";
 import React from "react";
 import Styles from "../assets/Styles";
 import firebase from 'firebase';
-import App from '../App';
 
 
 export default class AktivScreen extends React.Component {

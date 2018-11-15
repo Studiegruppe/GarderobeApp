@@ -1,5 +1,4 @@
 import React from 'react';
-import {Text, View,} from 'react-native';
 import Styles from "../assets/Styles";
 import {Button} from "react-native-elements";
 import firebase from 'firebase';
@@ -8,7 +7,6 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import TabBar from "react-native-underline-tabbar";
 import AktivScreen from '../screens/AktivScreen';
 import HistoryScreen from '../screens/HistoryScreen';
-import OfferScreen from '../screens/OfferScreen';
 import CheckinScreen from '../screens/CheckinScreen';
 
 
@@ -38,16 +36,14 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
-      <View style={[Styles.containerTab, {paddingTop: 40}]}>
-        <ScrollableTabView
-          /*tabBarActiveTextColor="#5887F9"*/
-          renderTabBar={() => <TabBar underlineColor="#5887F9"/>}>
-          <AktivScreen tabLabel={{label: "ACTIVE"}} label="ACTIVE"/>
-          <HistoryScreen tabLabel={{label: "HISTORY"}} label="HISTORY"/>
-          <OfferScreen tabLabel={{label: "OFFERS"}} label="OFFERS"/>
-          <CheckinScreen tabLabel={{label: "CHECKIN"}} label="CHECKIN"/>
-        </ScrollableTabView>
-      </View>
+      <ScrollableTabView
+        style={Styles.scrollableTab}
+        /*tabBarActiveTextColor="#5887F9"*/
+        renderTabBar={() => <TabBar underlineColor="#5887F9"/>}>
+        <AktivScreen tabLabel={{label: "ACTIVE"}} label="ACTIVE"/>
+        <HistoryScreen tabLabel={{label: "HISTORY"}} label="HISTORY"/>
+        <CheckinScreen tabLabel={{label: "CHECKIN"}} label="CHECKIN"/>
+      </ScrollableTabView>
     );
   }
 }
