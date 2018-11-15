@@ -30,15 +30,22 @@ export default class AktivScreen extends React.Component {
   }
 
   getActiveTicketAsync() {
+    let ticketArray = [];
+
     let that = this;
     firebase.database().ref('Brugere/123').once('value', function (snapshot) {
       let user = snapshot.val();
-      console.log(user);
+      ticketArray.push(
+
+
+      )
+      /*console.log(user);
       console.log("-------------------------------");
       that.setState({checkintime: user.Billetter.Aktive.TicketID.checkind});
-      that.setState({color: user.Billetter.Aktive.TicketID.farve});
-      that.setState({number: user.Billetter.Aktive.TicketID.nummer});
-      that.setState({amount: user.Billetter.Aktive.TicketID.antal});
+       that.setState({color: user.Billetter.Aktive.TicketID.farve});
+       that.setState({number: user.Billetter.Aktive.TicketID.nummer});
+       that.setState({amount: user.Billetter.Aktive.TicketID.antal}); */
+
 
     });
   }
