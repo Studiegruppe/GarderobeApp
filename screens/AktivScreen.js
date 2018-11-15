@@ -3,6 +3,7 @@ import React from "react";
 import Styles from "../assets/Styles";
 import firebase from 'firebase';
 
+const debug = false;
 
 export default class AktivScreen extends React.Component {
 
@@ -32,7 +33,7 @@ export default class AktivScreen extends React.Component {
     let that = this;
     firebase.database().ref('Brugere/123').once('value', function (snapshot) {
       let user = snapshot.val();
-      console.log(user);
+      debug && console.log(user);
       console.log("-------------------------------");
       that.setState({checkintime: user.Billetter.Aktive.TicketID.checkind});
       that.setState({color: user.Billetter.Aktive.TicketID.farve});
@@ -50,7 +51,6 @@ export default class AktivScreen extends React.Component {
 
   render() {
     return (
-
       <View style={Styles.containerTab}>
         <Text style={Styles.welcomeTab}>
           AKTIV

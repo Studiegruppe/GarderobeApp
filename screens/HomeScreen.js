@@ -8,10 +8,11 @@ import TabBar from "react-native-underline-tabbar";
 import AktivScreen from '../screens/AktivScreen';
 import HistoryScreen from '../screens/HistoryScreen';
 import CheckinScreen from '../screens/CheckinScreen';
+import BarListScreen from "./BarListScreen";
 
 
 const debug = true;
-
+const hasActiveTicket = false;
 
 export default class HomeScreen extends React.Component {
 
@@ -40,6 +41,7 @@ export default class HomeScreen extends React.Component {
         style={Styles.scrollableTab}
         /*tabBarActiveTextColor="#5887F9"*/
         renderTabBar={() => <TabBar underlineColor="#5887F9"/>}>
+        <BarListScreen tabLabel={{label: "BARS"}} label="BARS"/>
         <AktivScreen tabLabel={{label: "ACTIVE"}} label="ACTIVE"/>
         <HistoryScreen tabLabel={{label: "HISTORY"}} label="HISTORY"/>
         <CheckinScreen tabLabel={{label: "CHECKIN"}} label="CHECKIN"/>
