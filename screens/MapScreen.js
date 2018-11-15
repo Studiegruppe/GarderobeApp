@@ -4,7 +4,7 @@ import {Location, MapView, Permissions} from 'expo';
 import firebase from 'firebase';
 
 const debugBarer = false;
-const debug = true;
+const debug = false;
 
 export default class App extends React.Component {
 

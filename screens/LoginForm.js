@@ -2,6 +2,7 @@ import React from 'react';
 import {ActivityIndicator, Button, Text, TextInput, View} from 'react-native';
 import firebase from 'firebase';
 import Styles from '../assets/Styles';
+import globals from "../assets/Globals";
 
 export default class LoginForm extends React.Component {
 
@@ -60,21 +61,22 @@ export default class LoginForm extends React.Component {
       loading: true,
     });
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(this.onSignUpSuccess.bind(this))
-      .catch(this.onSignUpFailed.bind(this));
+      .then(this.onSignInSuccess.bind(this))
+      .catch(this.onSignInFailed.bind(this));
   }
 
-  onSignUpSuccess() {
+  onSignInSuccess() {
     this.setState({
       email: '',
       password: '',
       loading: false,
       error: '',
     });
+    globals.uid = firebase.auth().currentUser.uid;
     alert("User signed in successfully");
   }
 
-  onSignUpFailed(error) {
+  onSignInFailed(error) {
     this.setState({
       loading: false,
       error: error.message,

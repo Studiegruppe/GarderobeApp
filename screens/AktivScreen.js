@@ -25,9 +25,8 @@ export default class AktivScreen extends React.Component {
   }
 
   componentDidMount() {
-    const {currUser} = firebase.auth()
-    this.setState({currentUser: currUser})
-    console.log()
+    const {currentUser} = firebase.auth();
+    this.setState({currentUser})
   }
 
 
@@ -75,7 +74,7 @@ export default class AktivScreen extends React.Component {
   render() {
     return (
 
-      <View style={Styles.containerTab}>
+      <View style={Styles.scrollableTab}>
         <Text style={Styles.welcomeTab}>
           AKTIV
         </Text>
