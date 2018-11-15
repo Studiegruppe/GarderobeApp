@@ -2,6 +2,7 @@ import {Text, View} from "react-native";
 import React from "react";
 import Styles from "../assets/Styles";
 import firebase from 'firebase';
+import {Button} from "react-native-elements";
 
 
 export default class AktivScreen extends React.Component {
@@ -9,6 +10,7 @@ export default class AktivScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentUser: null,
       loggedinUserId: 123,
       checkintime: "",
       color: "",
@@ -23,10 +25,12 @@ export default class AktivScreen extends React.Component {
   }
 
   componentDidMount() {
-    const {currentUser} = firebase.auth()
-    this.setState({currentUser})+
+    const {currUser} = firebase.auth()
+    this.setState({currentUser: currUser})
   }
 
+
+  /*METODEN SKAL RETTES NÅR OPRET BRUGER ER FÆRDIG MED DE RIGTIGE UID'S*/
   getActiveTicketAsync() {
     let ticketArray = [];
     let that = this;
@@ -41,6 +45,7 @@ export default class AktivScreen extends React.Component {
             Color of ticket : {user.Billetter.Aktive.TicketID.farve + "\n"}
             Your number {user.Billetter.Aktive.TicketID.nummer + "\n"}
             The amount : {user.Billetter.Aktive.TicketID.antal + "\n"}
+            {that.renderCheckOutButton()}
           </Text>
         )
       }
@@ -50,6 +55,17 @@ export default class AktivScreen extends React.Component {
     });
   }
 
+  checkoutTicket() {
+
+
+  }
+
+
+  renderCheckOutButton() {
+    return (
+      <Button title="logout" onPress={() => this.checkoutTicket()}/>
+    )
+  }
 
   static navigationOptions = {
     title: 'app.json',
@@ -64,6 +80,7 @@ export default class AktivScreen extends React.Component {
           AKTIV
         </Text>
         {this.state.array}
+
       </View>
 
     );
