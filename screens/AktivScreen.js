@@ -3,7 +3,6 @@ import React from "react";
 import Styles from "../assets/Styles";
 import firebase from 'firebase';
 
-const debug = false;
 
 export default class AktivScreen extends React.Component {
 
@@ -24,22 +23,30 @@ export default class AktivScreen extends React.Component {
   }
 
   componentDidMount() {
-    const {currentUser} = firebase.auth()
+    const {currentUser} = firebase.auth();
     this.setState({currentUser})
-    /*console.log(currentUser);*/
   }
 
   getActiveTicketAsync() {
+    let ticketArray = [];
     let that = this;
+
     firebase.database().ref('Brugere/123').once('value', function (snapshot) {
       let user = snapshot.val();
-      debug && console.log(user);
-      console.log("-------------------------------");
-      that.setState({checkintime: user.Billetter.Aktive.TicketID.checkind});
-      that.setState({color: user.Billetter.Aktive.TicketID.farve});
-      that.setState({number: user.Billetter.Aktive.TicketID.nummer});
-      that.setState({amount: user.Billetter.Aktive.TicketID.antal});
 
+      for (let i = 0; i < 3; i++) {
+        ticketArray.push(
+          <Text>
+            Checkin time : {user.Billetter.Aktive.TicketID.checkind + "\n"}
+            Color of ticket : {user.Billetter.Aktive.TicketID.farve + "\n"}
+            Your number {user.Billetter.Aktive.TicketID.nummer + "\n"}
+            The amount : {user.Billetter.Aktive.TicketID.antal + "\n"}
+          </Text>
+        )
+      }
+      that.setState({
+        array: ticketArray
+      });
     });
   }
 
@@ -51,10 +58,12 @@ export default class AktivScreen extends React.Component {
 
   render() {
     return (
-      <View style={Styles.containerTab}>
+
+      <View style={Styles.scrollableTab}>
         <Text style={Styles.welcomeTab}>
           AKTIV
         </Text>
+        {this.state.array}
       </View>
 
     );

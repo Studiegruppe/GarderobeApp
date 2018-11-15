@@ -38,8 +38,8 @@ export default class App extends React.Component {
 
   generateMarkers() {
     let markerArray = [];
-
     let that = this;
+
     firebase.database().ref('Barer').once('value', function (snapshot) {
 
       let barer = snapshot.val();
