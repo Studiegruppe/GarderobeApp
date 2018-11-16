@@ -5,10 +5,12 @@ import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 import TabBarIcon from '../common/TabBarIcon';
 import LoginForm from "../screens/LoginForm";
 import RegisterScreen from "../screens/RegisterScreen";
+import ForgotPassword from "../screens/ForgotPassword";
 
 
 const LoginStack = createStackNavigator({
   Login: LoginForm,
+  ForgotPassword: ForgotPassword,
 });
 
 LoginStack.navigationOptions = {

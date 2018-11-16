@@ -16,7 +16,7 @@ export default class LoginForm extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Please log in',
+    title: 'Log in',
   };
 
   render() {
@@ -36,6 +36,8 @@ export default class LoginForm extends React.Component {
           secureTextEntry={true}
           onChangeText={password => this.setState({password})}
         />
+        <Button title="Forgot Password" onPress={()=>this.props.navigation.navigate('ForgotPassword')}/>
+
         <Text style={Styles.errorStyle}>
           {this.state.error}
         </Text>
@@ -47,6 +49,7 @@ export default class LoginForm extends React.Component {
   renderButton() {
     if (this.state.loading) {
       return <ActivityIndicator size={'small'}/>
+
     }
     return (
       <Button title={'Sign in'} style={Styles.buttonStyle} onPress={this.signIn.bind(this)}/>
@@ -80,4 +83,7 @@ export default class LoginForm extends React.Component {
       error: error.message,
     })
   }
+
+
+
 }
