@@ -47,6 +47,7 @@ export default class AktivScreen extends React.Component {
             Color of ticket : {user.Billetter.Aktive.TicketID.farve + "\n"}
             Your number {user.Billetter.Aktive.TicketID.nummer + "\n"}
             The amount : {user.Billetter.Aktive.TicketID.antal + "\n"}
+            TICKET ID : {user.Billetter.Aktive.TicketID.ticketid + "\n" + "\n"}
             {that.renderCheckOutButton(user.Billetter.Aktive.TicketID.ticketid)}
           </Text>
         )
@@ -57,10 +58,18 @@ export default class AktivScreen extends React.Component {
     });
   }
 
-  checkoutTicket(id) {
-    console.log(id)
+  checkoutTicket(array, id) {
+    array = this.state.array;
+    const deleteItem = array[id];
+    console.log(deleteItem);
+    array.splice(deleteItem, 1);
+    //firebase.database().ref('Brugere/123'/*`Brugere/${globals.uid}`*/).remove(id);
 
   }
+
+
+  /*SKAL SLETTES*/
+
 
 
   renderCheckOutButton(key) {
@@ -69,7 +78,8 @@ export default class AktivScreen extends React.Component {
     )
   }
 
-  static navigationOptions = {
+  static
+  navigationOptions = {
     title: 'app.json',
   };
 
