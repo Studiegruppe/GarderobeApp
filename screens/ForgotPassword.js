@@ -31,7 +31,7 @@ export default class LoginForm extends React.Component {
       <View style={Styles.containerStyle}>
         <Text> FORGOT PASSWORD YOU IDIOT? </Text>
 
-        <TextInput style={{width: 200, height: 40, borderWidth: 1}}
+        <TextInput style={Styles.textField}
                    value={this.state.email}
                    onChangeText={(text) => {
                      this.setState({email: text})
@@ -43,7 +43,8 @@ export default class LoginForm extends React.Component {
         />
 
         <Button title="Reset Password" onPress={this.onResetPasswordPress}/>
-        <Button title="Back to Login..." onPress={()=>this.props.navigation.goBack()}/>
+        <Button title="Back to Login..." onPress={() => this.props.navigation.goBack()}/>
       </View>
-    )}
-    }
+    )
+  }
+}

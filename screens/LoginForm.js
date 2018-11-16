@@ -1,8 +1,10 @@
 import React from 'react';
-import {ActivityIndicator, Button, Text, TextInput, View} from 'react-native';
+import {ActivityIndicator, ImageBackground, Text, TextInput, View} from 'react-native';
 import firebase from 'firebase';
 import Styles from '../assets/Styles';
 import globals from "../assets/Globals";
+import Avatar from "react-native-elements/src/avatar/Avatar";
+import {Button, Icon, Input} from "react-native-elements";
 
 export default class LoginForm extends React.Component {
 
@@ -17,44 +19,13 @@ export default class LoginForm extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Log in',
+    header: null,
   };
-
-  render() {
-    return (
-      <View style={Styles.containerStyle}>
-        <TextInput
-          style={Styles.inputStyle}
-          label={'Username'}
-          placeholder={'User@mail.com'}
-          value={this.state.email}
-          onChangeText={email => this.setState({email})}
-        />
-        <TextInput
-          label={'Password'}
-          placeholder={'password'}
-          value={this.state.password}
-          secureTextEntry={true}
-          onChangeText={password => this.setState({password})}
-        />
-        <Button title="Forgot Password" onPress={()=>this.props.navigation.navigate('ForgotPassword')}/>
-
-        <Text style={Styles.errorStyle}>
-          {this.state.error}
-        </Text>
-        {this.renderButton()}
-      </View>
-    );
-  }
-
   renderButton() {
     if (this.state.loading) {
       return <ActivityIndicator size={'small'}/>
 
     }
-    return (
-      <Button title={'Sign in'} style={Styles.buttonStyle} onPress={this.signIn.bind(this)}/>
-    );
   }
 
   async signIn() {
@@ -85,6 +56,90 @@ export default class LoginForm extends React.Component {
       error: error.message,
     })
   }
+
+  render() {
+    return (
+
+      <ImageBackground
+        style={Styles.backgroundImage}
+        resizeMode='cover'
+        source={require('../assets/images/baggrund.jpg')}>
+
+
+
+            <Input
+              leftIcon={
+                <Icon
+                  name='verified-user'
+                  color='rgba(171, 189, 219, 1)'
+                  size={25}
+                />
+              }
+              style={Styles.loginInput}
+              containerStyle={{marginVertical: 250}}
+            onChangeText={email => this.setState({email})}
+            value={this.state.email}
+            inputStyle={{marginLeft: 10, color: 'white'}}
+            keyboardAppearance="light"
+            placeholder="E-mail"
+            autoFocus={false}
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
+            placeholderTextColor="white"
+
+          />
+        <Input
+          leftIcon={
+            <Icon
+              name='verified-user'
+              color='rgba(171, 189, 219, 1)'
+              size={25}
+            />
+          }
+          style={Styles.loginInput}
+          containerStyle={{marginVertical: -225}}
+          onChangeText={password => this.setState({password})}
+          value={this.state.password}
+          inputStyle={{marginLeft: 10, color: 'white'}}
+          keyboardAppearance="light"
+          placeholder="Password"
+          secureTextEntry={true}
+          autoFocus={false}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="default"
+          placeholderTextColor="white"
+
+        />
+
+
+          <TextInput
+            style={Styles.loginInput}
+            label={'Password'}
+            placeholder={'password'}
+            value={this.state.password}
+            secureTextEntry={true}
+            pointerEvents="none"
+          />
+          <Button title={'Sign in'} clear style={Styles.buttonStyleLogin} onPress={this.signIn.bind(this)}/>
+
+          <Button title="Create Account" clear style={Styles.buttonStyleText1}
+                  onPress={() => this.props.navigation.navigate('Register')}/>
+        <Button title="Forgot Password" clear style={Styles.buttonStyleText2}
+                onPress={() => this.props.navigation.navigate('ForgotPassword')}/>
+
+          <Text style={Styles.errorStyle}>
+            {this.state.error}
+          </Text>
+          {this.renderButton()}
+
+      </ImageBackground>
+
+
+    );
+  }
+
 
 
 

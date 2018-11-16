@@ -17,35 +17,15 @@ import BarListScreen from "./screens/BarListScreen";
 import BarDetailsScreen from "./screens/BarDetailsScreen";
 import {Icon} from 'expo';
 import ForgotPassword from "./screens/ForgotPassword";
+import ChangePassword from "./screens/ChangePassword";
+import ChangeEmail from "./screens/ChangeEmail";
 
 const LoginStack = createStackNavigator({
   Login: LoginForm,
   ForgotPassword: ForgotPassword,
+  Register: RegisterScreen,
 });
 
-const AuthStack = createBottomTabNavigator({
-    Login: LoginStack,
-    Register: RegisterScreen,
-  },
-  {
-    navigationOptions: ({navigation}) => ({
-      tabBarIcon: ({focused, horizontal, tintColor}) => {
-        const {routeName} = navigation.state;
-        let iconName;
-        if (routeName === 'Login') {
-          iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-        } else {
-          iconName = `ios-link${focused ? '' : '-outline'}`
-        }
-        return <Icon.Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor}/>;
-      },
-    }),
-    tabBarOptions: {
-      activeTintColor: 'blue',
-      inactiveTintColor: 'gray',
-    },
-    initialRouteName: 'Login',
-  });
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -56,11 +36,17 @@ const HomeStack = createStackNavigator({
   Checkin: CheckinScreen,
 });
 
+const SettingsStack = createStackNavigator({
+  Settings: SettingsScreen,
+  ChangePassword: ChangePassword,
+  ChangeEmail: ChangeEmail,
+});
+
 const MainAppStack = createBottomTabNavigator({
     Home: HomeStack,
     Maps: MapScreen,
     Offers: OffersScreen,
-    Settings: SettingsScreen,
+    Settings: SettingsStack,
   },
   {
     navigationOptions: ({navigation}) => ({
@@ -138,7 +124,7 @@ export default class App extends React.Component {
           );
         case false:
           return (
-            <AuthStack/>
+            <LoginStack/>
           );
         default:
           return <ActivityIndicator size="large"/>;
