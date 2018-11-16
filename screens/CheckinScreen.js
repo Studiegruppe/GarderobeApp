@@ -18,87 +18,98 @@ export default class CheckinScreen extends React.Component {
       ticketColor: "",
       currentNum: 0,
       venueName: '',
-
+      timeoutDone: false,
+      initialData: 0,
     };
   }
 
-  checkBool = false;
+  alreadyCheckedIn = false;
+  barId = 'BarID';
+  dt = new Date();
+  currentDate = this.dt.toUTCString();
+  barPATH = `/Barer/${this.barId}`;
+  userPATH = `/Brugere/${globals.uid}`;
+  userId = globals.uid;
+  checkinTimestamp = this.currentDate;
+  checkOut = false;
 
-  componentWillMount() {
-  }
-
-
-  checkin() {
-    const that = this;
-    let dt = new Date();
-    let currentDate = dt.toUTCString();
-    let barId = 'BarID';
-    let barPATH = `/Barer/${barId}`;
-    let userPATH = `/Brugere/${globals.uid}`;
-    let amount = this.state.selectedValue;
-    let userId = globals.uid;
-    //let userName = '';
-    let checkinTimestamp = currentDate;
-    let checkOut = false;
-
-
-
-    firebase.database().ref(barPATH).once('value', function (snapshot) {
+  async getBarInfo() {
+    let that = this;
+    await firebase.database().ref(that.barPATH).once('value', function (snapshot) {
       let obj = snapshot.val();
       that.state.venueName = obj.Navn;
       that.state.ticketId = obj.ticketsInfo.ticketidCounter;
       that.state.ticketColor = obj.ticketsInfo.colour;
       that.state.currentNum = obj.ticketsInfo.currentNumber;
-
-
     });
+    this.checkin();
+  }
 
-    firebase.database().ref(`/Brugere/${globals.uid}/billetter/Aktive`).once('value', function (snapshot) {
-      let active = snapshot.val();
 
-      Object.keys(active).forEach(function (key) {
-        if (active[key].barNavn === venueName) {
-          console.log("hej");
-          that.checkBool = true;
-        }
-      });
-      if (that.checkBool) {
-        error("you have already checked in");
-      } else {
-        firebase.database().ref(`${barPATH}/ticketsInfo`).update({
-          currentNumber: that.state.currentNum + 1,
-          ticketidCounter: that.state.ticketId + 1,
-        });
+  componentWillMount() {
+    let that = this;
+    firebase.database().ref(`/Brugere/${globals.uid}/Billetter/Aktive`).on('value', function (snapshot) {
+      that.setState({initialData: snapshot.val()});
+    });
+  }
+
+  async checkin() {
+    let that = this;
+    const active = this.state.initialData;
+
+    console.log(active, "whatup");
+    if (active === null || !active) {
+      return;
+    }
+    Object.keys(active).forEach(function (key) {
+      if (active[key].barNavn === that.state.venueName) {
+        that.alreadyCheckedIn = true;
       }
+    });
+    console.log(this.alreadyCheckedIn);
+    if (this.alreadyCheckedIn) {
+      alert("you have already checked in");
+    } else {
+      this.generateTickets();
+      this.incrementCounter();
+    }
+  }
 
+
+  async incrementCounter() {
+    let that = this;
+    await firebase.database().ref(`${that.barPATH}/ticketsInfo`).update({
+      currentNumber: that.state.currentNum,
+      ticketidCounter: that.state.ticketId,
     });
 
+  }
 
-    console.log(that.state.ticketColor);
-    firebase.database().ref(`/Barer/${barId}/AktiveBilletter`).child(that.state.ticketId.toString()).update({
+  async generateTickets() {
+    let that = this;
+    await firebase.database().ref(`/Barer/${this.barId}/AktiveBilletter`).child(this.state.ticketId.toString()).update({
 
-      antal: amount,
-      [userId]: {
+      antal: that.state.selectedValue,
+      [that.userId]: {
         Navn: "Jens",
       },
-      checkind: checkinTimestamp,
-      checkud: checkOut,
+      checkind: that.checkinTimestamp,
+      checkud: that.checkOut,
       farve: that.state.ticketColor,
       nummer: that.state.currentNum,
     });
 
 
-    firebase.database().ref(`/Brugere/${globals.uid}/Aktive`).child(that.state.ticketId.toString()).update({
+    await firebase.database().ref(`/Brugere/${globals.uid}/Billetter/Aktive`).child(this.state.ticketId.toString()).update({
 
-      antal: amount,
+      antal: that.state.selectedValue,
       barNavn: that.state.venueName,
-      checkind: checkinTimestamp,
-      checkud: checkOut,
+      checkind: that.checkinTimestamp,
+      checkud: that.checkOut,
       farve: that.state.ticketColor,
       nummer: that.state.currentNum,
     });
   }
-
 
   renderPickerItems() {
 
@@ -125,7 +136,7 @@ export default class CheckinScreen extends React.Component {
         </Text>
         <Timestamp time="1450663457" component={Text}/>
         {this.renderPickerItems()}
-        <Button title="Checkin" onPress={() => this.checkin()}/>
+        <Button title="Checkin" onPress={() => this.getBarInfo()}/>
 
       </View>
     );
