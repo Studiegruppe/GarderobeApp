@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import {ActivityIndicator, Image, StyleSheet, View} from 'react-native';
 
-export default class App extends Component {
+export default class SplashScreen extends Component {
   render() {
     return (
       <View style={styles.container}>

@@ -2,11 +2,15 @@ import React from 'react';
 
 import {Location, MapView, Permissions} from 'expo';
 import firebase from 'firebase';
+import {Text, View} from "react-native";
+import {Button} from "react-native-elements";
 
 const debugBarer = false;
 const debug = false;
 
-export default class App extends React.Component {
+export default class MapScreen extends React.Component {
+
+  weekday;
 
   constructor(props) {
     super(props);
@@ -16,8 +20,21 @@ export default class App extends React.Component {
       barLat: 0,
       barLong: 0,
       flex: 0
-    }
+    };
+    this.weekday = new Array(7);
+    this.weekday[0] = "sunday";
+    this.weekday[1] = "monday";
+    this.weekday[2] = "tuesday";
+    this.weekday[3] = "wednesday";
+    this.weekday[4] = "thursday";
+    this.weekday[5] = "friday";
+    this.weekday[6] = "saturday";
   }
+
+
+  static navigationOptions = {
+    header: null,
+  };
 
   componentWillMount() {
     this._getLocationAsync();
@@ -41,10 +58,8 @@ export default class App extends React.Component {
     let that = this;
 
     firebase.database().ref('Barer').once('value', function (snapshot) {
-
       let barer = snapshot.val();
       debugBarer && console.log(barer);
-
       for (let key in barer) {
         if (barer.hasOwnProperty(key)) {
           debug && console.log(key);
@@ -56,9 +71,27 @@ export default class App extends React.Component {
                 longitude: bar.Longitude
               }}
               title={bar.Navn}
-              description={"description"}
+              description={`description`}
               key={key}
-            />
+              onCalloutPress={() => that.props.navigation.navigate('BarDetails', bar)}
+            >
+              <MapView.Callout>
+                <View>
+                  {
+                    bar.Navn ? <Text>{bar.Navn}</Text> : <Text style={{color: 'red'}}>Missing name</Text>
+                  }
+                  {
+                    bar.Adresse ? <Text>{bar.Adresse}</Text> : <Text style={{color: 'red'}}>Missing address</Text>
+                  }
+                  <View>
+                    <Text style={{color: 'red'}}>Indsæt Billede</Text>
+                    <Button
+                      title="Details >"
+                    />
+                  </View>
+                </View>
+              </MapView.Callout>
+            </MapView.Marker>
           )
         }
       }

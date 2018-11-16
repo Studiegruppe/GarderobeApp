@@ -3,7 +3,7 @@ import {ActivityIndicator, Button, Text, TextInput, View} from 'react-native';
 import firebase from 'firebase';
 import Styles from '../assets/Styles';
 
-export default class LoginForm extends React.Component {
+export default class ForgotPassword extends React.Component {
 
   constructor(props) {
     super(props);
