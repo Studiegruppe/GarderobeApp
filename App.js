@@ -16,9 +16,15 @@ import CheckinScreen from "./screens/CheckinScreen";
 import BarListScreen from "./screens/BarListScreen";
 import BarDetailsScreen from "./screens/BarDetailsScreen";
 import {Icon} from 'expo';
+import ForgotPassword from "./screens/ForgotPassword";
+
+const LoginStack = createStackNavigator({
+  Login: LoginForm,
+  ForgotPassword: ForgotPassword,
+});
 
 const AuthStack = createBottomTabNavigator({
-    Login: LoginForm,
+    Login: LoginStack,
     Register: RegisterScreen,
   },
   {
