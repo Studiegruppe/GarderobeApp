@@ -4,7 +4,7 @@ import {Button} from "react-native-elements";
 
 const debug = false;
 
-export default class BarListScreen extends React.Component {
+export default class BarDetailsScreen extends React.Component {
 
   barObjekt = null;
 
@@ -19,12 +19,32 @@ export default class BarListScreen extends React.Component {
     )
   }
 
+  renderOpeningHours(openingHoursObject) {
+    if (!openingHoursObject) {
+      return;
+    }
+    let returnObject = [];
+    const daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    for (let i = 0; i < daysOfTheWeek.length; i++) {
+      Object.keys(openingHoursObject).forEach(function (key) {
+        if (daysOfTheWeek[i] === key) {
+          returnObject.push(`${key}: ${openingHoursObject[key].open} to ${openingHoursObject[key].close}\n`);
+        }
+      });
+    }
+
+    return (
+      <Text>
+        Åbningstider: {'\n'}
+        {returnObject}
+      </Text>
+    )
+  }
 
   render() {
     debug && console.log(Object.keys(this.barObjekt));
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        {/* other code from before here */}
         <Button
           title="Go back"
           onPress={() => this.props.navigation.goBack()}
@@ -33,7 +53,9 @@ export default class BarListScreen extends React.Component {
           Navn: {this.barObjekt.Navn + '\n'}
           Adresse: {this.barObjekt.Adresse + '\n'}
           ID: {this.barObjekt.Adresse + '\n'}
+          {console.log(this.barObjekt.openingHours)}
         </Text>
+        {this.renderOpeningHours(this.barObjekt.openingHours)}
         {this.renderCheckinButton()}
       </View>
 

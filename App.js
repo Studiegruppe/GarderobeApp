@@ -56,9 +56,14 @@ const HomeStack = createStackNavigator({
   Checkin: CheckinScreen,
 });
 
+const MapsStack = createStackNavigator({
+  Maps: MapScreen,
+  BarDetails: BarDetailsScreen,
+});
+
 const MainAppStack = createBottomTabNavigator({
     Home: HomeStack,
-    Maps: MapScreen,
+    Maps: MapsStack,
     Offers: OffersScreen,
     Settings: SettingsScreen,
   },
@@ -83,7 +88,7 @@ const MainAppStack = createBottomTabNavigator({
       activeTintColor: 'blue',
       inactiveTintColor: 'gray',
     },
-    initialRouteName: 'Home',
+    initialRouteName: 'Maps',
   }
 );
 
