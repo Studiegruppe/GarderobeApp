@@ -22,7 +22,8 @@
     "react-native-scrollable-tab-view": "^0.10.0",
     "react-native-underline-tabbar": "^1.3.6",
     "react-navigation": "^2.18.2",
-    "top-bar-nav": "^1.2.2"
+    "top-bar-nav": "^1.2.2",
+    "react-native-vector-icons": "latest"
   },
   "devDependencies": {
     "eslint": "^5.8.0",

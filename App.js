@@ -1,11 +1,65 @@
 import React from 'react';
 import {ActivityIndicator} from 'react-native';
-import AppNavigator from './navigation/MainTabSwitchNavigator';
 import firebase from 'firebase';
 import SplashScreen from './screens/SplashScreen';
-import LoginNavigator from "./navigation/AuthStackSwitchNavigator";
 import globals from "./assets/Globals";
+import {createBottomTabNavigator, createStackNavigator} from "react-navigation";
+import LoginForm from "./screens/LoginForm";
+import RegisterScreen from "./screens/RegisterScreen";
+import HomeScreen from "./screens/HomeScreen";
+import MapScreen from "./screens/MapScreen";
+import OffersScreen from "./screens/OffersScreen";
+import SettingsScreen from "./screens/SettingsScreen";
+import AktivScreen from "./screens/AktivScreen";
+import HistoryScreen from "./screens/HistoryScreen";
+import CheckinScreen from "./screens/CheckinScreen";
+import BarListScreen from "./screens/BarListScreen";
+import BarDetailsScreen from "./screens/BarDetailsScreen";
+import Ionicons from 'react-native-vector-icons';
 
+
+const AuthStack = createBottomTabNavigator({
+    Login: LoginForm,
+    Register: RegisterScreen,
+  },
+  {
+    initialRouteName: 'Login',
+  });
+
+const HomeStack = createStackNavigator({
+  Home: HomeScreen,
+  BarList: BarListScreen,
+  BarDetails: BarDetailsScreen,
+  TicketsActive: AktivScreen,
+  TicketsHistory: HistoryScreen,
+  Checkin: CheckinScreen,
+});
+
+const MainAppStack = createBottomTabNavigator({
+    Home: HomeStack,
+    Maps: MapScreen,
+    Links: OffersScreen,
+    Settings: SettingsScreen,
+  },
+  {
+    navigationOptions: ({navigation}) => ({
+      tabBarIcon: ({focused, horizontal, tintColor}) => {
+        const {routeName} = navigation.state;
+        let iconName;
+        if (routeName === 'Home') {
+          iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Settings') {
+          iconName = `ios-options${focused ? '' : '-outline'}`;
+        }
+
+        // You can return any component that you like here! We usually use an
+        // icon component from react-native-vector-icons
+        return <Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor}/>;
+      },
+    }),
+    initialRouteName: 'Home',
+  }
+);
 
 export default class App extends React.Component {
 
@@ -20,7 +74,6 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({view: <SplashScreen/>});
     firebase.initializeApp({
       apiKey: "AIzaSyCxecGEtoqgPPDWftVQpXVKIZLdsQNDPAs",
       authDomain: "garderobeapp-49283.firebaseapp.com",
@@ -45,24 +98,23 @@ export default class App extends React.Component {
       })
     }, 2000);
 
-    return this.currentUser;
+    //return this.currentUser;
   }
-
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
-        this.state.view
+        <SplashScreen/>
       );
     } else {
       switch (this.state.loggedIn) {
         case true:
           return (
-            <AppNavigator/>
+            <MainAppStack/>
           );
         case false:
           return (
-            <LoginNavigator/>
+            <AuthStack/>
           );
         default:
           return <ActivityIndicator size="large"/>;

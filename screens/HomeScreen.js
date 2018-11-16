@@ -9,7 +9,8 @@ import AktivScreen from '../screens/AktivScreen';
 import HistoryScreen from '../screens/HistoryScreen';
 import CheckinScreen from '../screens/CheckinScreen';
 import BarListScreen from "./BarListScreen";
-import {View} from "react-native";
+import {Platform, View} from "react-native";
+import TabBarIcon from "../common/TabBarIcon";
 
 
 const debug = true;
@@ -18,7 +19,17 @@ const hasActiveTicket = false;
 export default class HomeScreen extends React.Component {
 
   static navigationOptions = {
-    header: null,
+    tabBarLabel: 'Home',
+    tabBarIcon: ({focused}) => (
+      <TabBarIcon
+        focused={focused}
+        name={
+          Platform.OS === 'ios'
+            ? `ios-information-circle${focused ? '' : '-outline'}`
+            : 'md-information-circle'
+        }
+      />
+    ),
   };
 
   signOutUser = async () => {
@@ -36,18 +47,29 @@ export default class HomeScreen extends React.Component {
     )
   }
 
+  renderGoToButton() {
+    return (
+      <Button
+        title="Go to Settings"
+        onPress={() => this.props.navigation.navigate('Settings')}
+      />
+    )
+  }
+
   render() {
     return (
       <View
-        style={Styles.scrollableTab}>
+        style={Styles.scrollableTab}
+      >
         <ScrollableTabView
           /*tabBarActiveTextColor="#5887F9"*/
-          renderTabBar={() => <TabBar underlineColor="#5887F9"/>}>
-          <BarListScreen tabLabel={{label: "BARS"}} label="BARS"/>
-          <AktivScreen tabLabel={{label: "ACTIVE"}} label="ACTIVE"/>
-          <HistoryScreen tabLabel={{label: "HISTORY"}} label="HISTORY"/>
-          <CheckinScreen tabLabel={{label: "CHECKIN"}} label="CHECKIN"/>
+          renderTabBar={() => <TabBar underlineColor="#5887F9" navigation={this.props.navigation}/>}>
+          <BarListScreen navigation={this.props.navigation} tabLabel={{label: "BARS"}} label="BARS"/>
+          <AktivScreen navigation={this.props.navigation} tabLabel={{label: "ACTIVE"}} label="ACTIVE"/>
+          <HistoryScreen navigation={this.props.navigation} tabLabel={{label: "HISTORY"}} label="HISTORY"/>
+          <CheckinScreen navigation={this.props.navigation} tabLabel={{label: "CHECKIN"}} label="CHECKIN"/>
         </ScrollableTabView>
+        {this.renderGoToButton()}
         {this.renderLogOutButton()}
       </View>
 
