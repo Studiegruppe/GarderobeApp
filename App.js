@@ -87,6 +87,7 @@ const MainAppStack = createBottomTabNavigator({
   }
 );
 
+const timeoutTime = 1;
 export default class App extends React.Component {
 
   constructor(props) {
@@ -122,7 +123,7 @@ export default class App extends React.Component {
       this.setState({
         isLoadingComplete: true
       })
-    }, 2000);
+    }, timeoutTime);
   }
 
   render() {
