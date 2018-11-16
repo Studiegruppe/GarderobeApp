@@ -88,7 +88,7 @@ const MainAppStack = createBottomTabNavigator({
       activeTintColor: 'blue',
       inactiveTintColor: 'gray',
     },
-    initialRouteName: 'Maps',
+    initialRouteName: 'Home',
   }
 );
 
