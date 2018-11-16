@@ -8,7 +8,7 @@ export default class BarListScreen extends React.Component {
   }
 
   componentDidMount() {
-    console.log(globals);
+
   }
 
   render() {
