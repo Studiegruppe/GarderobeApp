@@ -15,14 +15,29 @@ import HistoryScreen from "./screens/HistoryScreen";
 import CheckinScreen from "./screens/CheckinScreen";
 import BarListScreen from "./screens/BarListScreen";
 import BarDetailsScreen from "./screens/BarDetailsScreen";
-import Ionicons from 'react-native-vector-icons';
-
+import {Icon} from 'expo';
 
 const AuthStack = createBottomTabNavigator({
     Login: LoginForm,
     Register: RegisterScreen,
   },
   {
+    navigationOptions: ({navigation}) => ({
+      tabBarIcon: ({focused, horizontal, tintColor}) => {
+        const {routeName} = navigation.state;
+        let iconName;
+        if (routeName === 'Login') {
+          iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+        } else {
+          iconName = `ios-link${focused ? '' : '-outline'}`
+        }
+        return <Icon.Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor}/>;
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'blue',
+      inactiveTintColor: 'gray',
+    },
     initialRouteName: 'Login',
   });
 
@@ -38,7 +53,7 @@ const HomeStack = createStackNavigator({
 const MainAppStack = createBottomTabNavigator({
     Home: HomeStack,
     Maps: MapScreen,
-    Links: OffersScreen,
+    Offers: OffersScreen,
     Settings: SettingsScreen,
   },
   {
@@ -48,15 +63,20 @@ const MainAppStack = createBottomTabNavigator({
         let iconName;
         if (routeName === 'Home') {
           iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-        } else if (routeName === 'Settings') {
-          iconName = `ios-options${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Maps') {
+          iconName = `ios-map${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Offers') {
+          iconName = `ios-link${focused ? '' : '-outline'}`;
+        } else {
+          iconName = `ios-options${focused ? '' : '-outline'}`
         }
-
-        // You can return any component that you like here! We usually use an
-        // icon component from react-native-vector-icons
-        return <Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor}/>;
+        return <Icon.Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor}/>;
       },
     }),
+    tabBarOptions: {
+      activeTintColor: 'blue',
+      inactiveTintColor: 'gray',
+    },
     initialRouteName: 'Home',
   }
 );
@@ -97,8 +117,6 @@ export default class App extends React.Component {
         isLoadingComplete: true
       })
     }, 2000);
-
-    //return this.currentUser;
   }
 
   render() {

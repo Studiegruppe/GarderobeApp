@@ -1,7 +1,5 @@
 import React from 'react';
 import Styles from "../assets/Styles";
-import {Button} from "react-native-elements";
-import firebase from 'firebase';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import TabBar from "react-native-underline-tabbar";
@@ -9,70 +7,24 @@ import AktivScreen from '../screens/AktivScreen';
 import HistoryScreen from '../screens/HistoryScreen';
 import CheckinScreen from '../screens/CheckinScreen';
 import BarListScreen from "./BarListScreen";
-import {Platform, View} from "react-native";
-import TabBarIcon from "../common/TabBarIcon";
-
-
-const debug = true;
-const hasActiveTicket = false;
 
 export default class HomeScreen extends React.Component {
 
   static navigationOptions = {
-    tabBarLabel: 'Home',
-    tabBarIcon: ({focused}) => (
-      <TabBarIcon
-        focused={focused}
-        name={
-          Platform.OS === 'ios'
-            ? `ios-information-circle${focused ? '' : '-outline'}`
-            : 'md-information-circle'
-        }
-      />
-    ),
+    header: null,
   };
-
-  signOutUser = async () => {
-    try {
-      await firebase.auth().signOut();
-      debug && console.log("LOGGED OUT");
-    } catch (e) {
-      debug && console.log(e);
-    }
-  };
-
-  renderLogOutButton() {
-    return (
-      <Button title="logout" onPress={() => this.signOutUser()}/>
-    )
-  }
-
-  renderGoToButton() {
-    return (
-      <Button
-        title="Go to Settings"
-        onPress={() => this.props.navigation.navigate('Settings')}
-      />
-    )
-  }
 
   render() {
     return (
-      <View
+      <ScrollableTabView
         style={Styles.scrollableTab}
-      >
-        <ScrollableTabView
-          /*tabBarActiveTextColor="#5887F9"*/
-          renderTabBar={() => <TabBar underlineColor="#5887F9" navigation={this.props.navigation}/>}>
-          <BarListScreen navigation={this.props.navigation} tabLabel={{label: "BARS"}} label="BARS"/>
-          <AktivScreen navigation={this.props.navigation} tabLabel={{label: "ACTIVE"}} label="ACTIVE"/>
-          <HistoryScreen navigation={this.props.navigation} tabLabel={{label: "HISTORY"}} label="HISTORY"/>
-          <CheckinScreen navigation={this.props.navigation} tabLabel={{label: "CHECKIN"}} label="CHECKIN"/>
-        </ScrollableTabView>
-        {this.renderGoToButton()}
-        {this.renderLogOutButton()}
-      </View>
-
+        /*tabBarActiveTextColor="#5887F9"*/
+        renderTabBar={() => <TabBar underlineColor="#5887F9" navigation={this.props.navigation}/>}>
+        <BarListScreen navigation={this.props.navigation} tabLabel={{label: "BARS"}} label="BARS"/>
+        <AktivScreen navigation={this.props.navigation} tabLabel={{label: "ACTIVE"}} label="ACTIVE"/>
+        <HistoryScreen navigation={this.props.navigation} tabLabel={{label: "HISTORY"}} label="HISTORY"/>
+        <CheckinScreen navigation={this.props.navigation} tabLabel={{label: "CHECKIN"}} label="CHECKIN"/>
+      </ScrollableTabView>
     );
   }
 }
