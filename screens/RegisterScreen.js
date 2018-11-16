@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, TextInput, StyleSheet, View, ActivityIndicator, Button} from 'react-native';
 import Styles from '../assets/Styles';
 import firebase from 'firebase';
+import globals from "../assets/Globals";
 
 export default class RegisterScreen extends React.Component {
 
@@ -50,7 +51,7 @@ export default class RegisterScreen extends React.Component {
   }
 
   setProfile = () => {
-    const ref = firebase.database().ref(`/Brugere/${firebase.auth().currentUser.uid}`);
+    const ref = firebase.database().ref(`/Brugere/${globals.uid}`);
     const obj = {
       name: this.state.name,
       Billetter: {
