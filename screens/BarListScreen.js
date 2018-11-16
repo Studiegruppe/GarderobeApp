@@ -50,7 +50,7 @@ export default class BarListScreen extends React.Component {
       return (
         <FlatList
           style={{flex: 1}}
-          data={this.barArray} 
+          data={this.barArray}
           renderItem={({item}) =>
             <ListItem
               leftAvatar={

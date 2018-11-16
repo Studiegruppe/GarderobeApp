@@ -87,7 +87,7 @@ const MainAppStack = createBottomTabNavigator({
   }
 );
 
-const timeoutTime = 1;
+const timeoutTime = 2000;
 export default class App extends React.Component {
 
   constructor(props) {
