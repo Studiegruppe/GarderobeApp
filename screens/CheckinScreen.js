@@ -9,7 +9,6 @@ import * as firebase from "firebase";
 
 export default class CheckinScreen extends React.Component {
 
-
   constructor(props) {
     super(props);
     this.state = {
@@ -45,7 +44,9 @@ export default class CheckinScreen extends React.Component {
     this.checkin();
   }
 
-
+  /**
+   * ComponentWillMont er brugt som "delay" til at sørge for vores data er klar
+   */
   componentWillMount() {
     let that = this;
     firebase.database().ref(`/Brugere/${globals.uid}/Billetter/Aktive`).on('value', function (snapshot) {
@@ -53,6 +54,10 @@ export default class CheckinScreen extends React.Component {
     });
   }
 
+  /**
+   * Checkin henter data fra initialData som bliver sat i component will mount,
+   * det gøres her for ellers var der problemer med den kørte videre uden at have fået dataen
+   */
   async checkin() {
     let that = this;
     const active = this.state.initialData;
@@ -75,24 +80,29 @@ export default class CheckinScreen extends React.Component {
     }
   }
 
-
+  /**
+   * IncrementCounter bruges til at incrementere 2 values i firebase
+   * 1. currentNum --> nummeret på billetten
+   * 2. ticketID --> ID på billetten i firebase
+   */
   async incrementCounter() {
     let that = this;
     await firebase.database().ref(`${that.barPATH}/ticketsInfo`).update({
       currentNumber: that.state.currentNum,
       ticketidCounter: that.state.ticketId,
     });
-
   }
+
+  /**
+   * Bruges til at oprette tickets i databasen for både barer og brugere.
+   * Der er anvent .child for mulighed for selv at angive push_key (id) i firebase
+   */
 
   async generateTickets() {
     let that = this;
     await firebase.database().ref(`/Barer/${this.barId}/AktiveBilletter`).child(this.state.ticketId.toString()).update({
-
       antal: that.state.selectedValue,
-      [that.userId]: {
-        Navn: "Jens",
-      },
+      [that.userId]: {Navn: "Jens"},
       checkind: that.checkinTimestamp,
       checkud: that.checkOut,
       farve: that.state.ticketColor,
@@ -100,8 +110,7 @@ export default class CheckinScreen extends React.Component {
     });
 
 
-    await firebase.database().ref(`/Brugere/${globals.uid}/Billetter/Aktive`).child(this.state.ticketId.toString()).update({
-
+    await firebase.database().ref(`${this.userPATH}/Billetter/Aktive`).child(this.state.ticketId.toString()).update({
       antal: that.state.selectedValue,
       barNavn: that.state.venueName,
       checkind: that.checkinTimestamp,
@@ -127,17 +136,17 @@ export default class CheckinScreen extends React.Component {
     );
   }
 
-
   render() {
     return (
       <View style={Styles.scrollableTab}>
         <Text style={Styles.welcomeTab}>
           CHECK IN
         </Text>
-        <Timestamp time="1450663457" component={Text}/>
+        <Text>
+          {this.currentDate}
+        </Text>
         {this.renderPickerItems()}
         <Button title="Checkin" onPress={() => this.getBarInfo()}/>
-
       </View>
     );
   }
