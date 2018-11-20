@@ -15,7 +15,7 @@ import HistoryScreen from "./screens/HistoryScreen";
 import CheckinScreen from "./screens/CheckinScreen";
 import BarListScreen from "./screens/BarListScreen";
 import BarDetailsScreen from "./screens/BarDetailsScreen";
-import {Icon} from 'expo';
+import {AppLoading, Icon} from 'expo';
 import ForgotPassword from "./screens/ForgotPassword";
 import ChangePassword from "./screens/ChangePassword";
 import ChangeEmail from "./screens/ChangeEmail";
@@ -82,6 +82,7 @@ export default class App extends React.Component {
       currentUser: null,
       isLoadingComplete: false,
       skipLoadingScreen: false,
+      appIsReady: false,
     }
   }
 
@@ -104,31 +105,35 @@ export default class App extends React.Component {
       }
     });
 
-    setTimeout(() => {
-      this.setState({
-        isLoadingComplete: true
-      })
-    }, 2000);
+
+  }
+
+  _cacheResourcesAsync() {
+    return true;
   }
 
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+    if (!this.state.appIsReady) {
       return (
-        <SplashScreen/>
-      );
-    } else {
-      switch (this.state.loggedIn) {
-        case true:
-          return (
-            <MainAppStack/>
-          );
-        case false:
-          return (
-            <LoginStack/>
-          );
-        default:
-          return <ActivityIndicator size="large"/>;
-      }
+        <AppLoading
+          startAsync={this._cacheResourcesAsync}
+          onFinish={() => this.setState({appIsReady: true})}
+          onError={console.warn}
+        />
+      )
+    }
+    switch (this.state.loggedIn) {
+      case true:
+        return (
+          <MainAppStack/>
+        );
+      case false:
+        return (
+          <AuthStack/>
+        );
+      default:
+        return <ActivityIndicator size="large"/>;
     }
   }
+
 }
