@@ -67,7 +67,6 @@ export default class App extends React.Component {
         markers: markerArray
       });
     });
-
   }
 
   render() {
