@@ -63,14 +63,12 @@ export default class LoginForm extends React.Component {
       <ImageBackground
         style={Styles.backgroundImage}
         resizeMode='cover'
-        source={require('../assets/images/baggrund.jpg')}>
+       source={require('../assets/images/grad-670x376.jpg')}>
 
-
-
-            <Input
+        <Input
               leftIcon={
                 <Icon
-                  name='verified-user'
+                  name='email'
                   color='rgba(171, 189, 219, 1)'
                   size={25}
                 />
@@ -92,7 +90,7 @@ export default class LoginForm extends React.Component {
         <Input
           leftIcon={
             <Icon
-              name='verified-user'
+              name='lock'
               color='rgba(171, 189, 219, 1)'
               size={25}
             />
@@ -116,23 +114,20 @@ export default class LoginForm extends React.Component {
 
           <TextInput
             style={Styles.loginInput}
-            label={'Password'}
-            placeholder={'password'}
+            label={''}
+            placeholder={''}
             value={this.state.password}
             secureTextEntry={true}
             pointerEvents="none"
           />
-          <Button title={'Sign in'} clear style={Styles.buttonStyleLogin} onPress={this.signIn.bind(this)}/>
+          <Button title={'Sign in'} buttonStyle={Styles.buttonStyleLogin} titleStyle={{fontWeight: 'bold', fontSize: 23}} onPress={this.signIn.bind(this)}/>
 
-          <Button title="Create Account" clear style={Styles.buttonStyleText1}
-                  onPress={() => this.props.navigation.navigate('Register')}/>
-        <Button title="Forgot Password" clear style={Styles.buttonStyleText2}
-                onPress={() => this.props.navigation.navigate('ForgotPassword')}/>
+          <Button title="Create Account" clear buttonStyle={Styles.buttonStyleText1}
+                 titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('Register')}/>
+        <Button title="Forgot Password" clear buttonStyle={Styles.buttonStyleText2}
+                titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('ForgotPassword')}/>
 
-          <Text style={Styles.errorStyle}>
-            {this.state.error}
-          </Text>
-          {this.renderButton()}
+
 
       </ImageBackground>
 
