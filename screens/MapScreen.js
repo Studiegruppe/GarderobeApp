@@ -21,14 +21,6 @@ export default class MapScreen extends React.Component {
       barLong: 0,
       flex: 0
     };
-    this.weekday = new Array(7);
-    this.weekday[0] = "sunday";
-    this.weekday[1] = "monday";
-    this.weekday[2] = "tuesday";
-    this.weekday[3] = "wednesday";
-    this.weekday[4] = "thursday";
-    this.weekday[5] = "friday";
-    this.weekday[6] = "saturday";
   }
 
 
