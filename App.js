@@ -129,7 +129,7 @@ export default class App extends React.Component {
         );
       case false:
         return (
-          <AuthStack/>
+          <LoginStack/>
         );
       default:
         return <ActivityIndicator size="large"/>;

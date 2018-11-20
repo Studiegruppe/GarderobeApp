@@ -13,14 +13,14 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   loginInput: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginBottom: '0'
+
   },
   loginInputPassword:{
-    flex: 1,
+
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100'
   },
   buttonStyleLogin: {
     borderWidth: 2,
@@ -29,13 +29,50 @@ export default StyleSheet.create({
     backgroundColor: 'transparent',
     borderColor: 'white',
     borderRadius: 30,
-    marginTop: -275,
+    marginBottom: 0,
+  },
+  buttonStyleForgot: {
+    borderWidth: 2,
+    height: 50,
+    width: 250,
+    backgroundColor: 'transparent',
+    borderColor: 'white',
+    borderRadius: 30,
+    marginBottom: 220,
+   },
+    travelTextReg: {
+      color: 'white',
+      fontSize: 40,
+      marginBottom: 20,
+      alignItems: 'center',
+      justifyContent: 'center',
+      left: 0,
+
+    },
+      travelText: {
+        color: 'white',
+        fontSize: 25,
+        marginBottom: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+
+
+    },
+
+  buttonStyleReg: {
+    borderWidth: 2,
+    height: 50,
+    width: 250,
+    backgroundColor: 'transparent',
+    borderColor: 'white',
+    borderRadius: 30,
+    marginBottom: 250,
   },
   buttonStyleText1: {
     height: 50,
     width: 250,
     backgroundColor: 'transparent',
-    marginTop: -225,
+    marginBottom: 160,
 
   },
   buttonStyleText2:{
@@ -77,14 +114,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  backgroundImage: {
-    flex: 1,
-    top: 0,
-    left: 0,
-    justifyContent: 'center',
-    alignItems: 'center'
 
-  },
+
   loginView: {
     marginTop: 150,
     backgroundColor: 'transparent',
@@ -96,15 +127,21 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  travelText: {
+
+
+  forgotEmailText: {
     color: 'white',
-    fontSize: 30,
-    fontFamily: 'bold'
+    fontSize: 15,
+    marginBottom: 10,
+
+
+
+
   },
-  plusText: {
+
+  forgotEmailHeader: {
     color: 'white',
-    fontSize: 30,
-    fontFamily: 'regular'
+
   },
 
   footerView: {
@@ -112,7 +149,15 @@ export default StyleSheet.create({
     flex: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
+
+  backgroundImage: {
+    height: '100%',
+    flexDirection: 'column',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end'
+  },
 
 });
 

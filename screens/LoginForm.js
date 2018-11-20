@@ -74,7 +74,7 @@ export default class LoginForm extends React.Component {
                 />
               }
               style={Styles.loginInput}
-              containerStyle={{marginVertical: 250}}
+              containerStyle={{marginVertical: 10}}
             onChangeText={email => this.setState({email})}
             value={this.state.email}
             inputStyle={{marginLeft: 10, color: 'white'}}
@@ -96,7 +96,7 @@ export default class LoginForm extends React.Component {
             />
           }
           style={Styles.loginInput}
-          containerStyle={{marginVertical: -225}}
+          containerStyle={{marginVertical: 15}}
           onChangeText={password => this.setState({password})}
           value={this.state.password}
           inputStyle={{marginLeft: 10, color: 'white'}}
@@ -112,14 +112,8 @@ export default class LoginForm extends React.Component {
         />
 
 
-          <TextInput
-            style={Styles.loginInput}
-            label={''}
-            placeholder={''}
-            value={this.state.password}
-            secureTextEntry={true}
-            pointerEvents="none"
-          />
+
+
           <Button title={'Sign in'} buttonStyle={Styles.buttonStyleLogin} titleStyle={{fontWeight: 'bold', fontSize: 23}} onPress={this.signIn.bind(this)}/>
 
           <Button title="Create Account" clear buttonStyle={Styles.buttonStyleText1}
