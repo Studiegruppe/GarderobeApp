@@ -6,7 +6,7 @@ import globals from "./assets/Globals";
 import {createBottomTabNavigator, createStackNavigator} from "react-navigation";
 import LoginForm from "./screens/LoginForm";
 import RegisterScreen from "./screens/RegisterScreen";
-import HomeScreen from "./screens/HomeScreen";
+import HomeScreen from "./screens/Home/HomeScreen";
 import MapScreen from "./screens/MapScreen";
 import OffersScreen from "./screens/OffersScreen";
 import SettingsScreen from "./screens/SettingsScreen";
@@ -21,10 +21,18 @@ import ChangePassword from "./screens/ChangePassword";
 import ChangeEmail from "./screens/ChangeEmail";
 
 const LoginStack = createStackNavigator({
-  Login: LoginForm,
-  ForgotPassword: ForgotPassword,
-  Register: RegisterScreen,
-});
+    Login: LoginForm,
+    ForgotPassword: ForgotPassword,
+    Register: RegisterScreen,
+  },
+  {
+    navigationOptions: () => ({
+      headerTransparent: true,
+      headerBackTitle: 'Back',
+      headerTintColor: 'white'
+    }),
+  }
+);
 
 
 const HomeStack = createStackNavigator({
