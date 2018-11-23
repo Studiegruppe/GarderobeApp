@@ -1,56 +1,28 @@
-# OSX
-#
+# dependencies
+/node_modules
+/browser-extensions/node_modules
+node_modules/**/*
+.expo/**/*
+
+# misc
 .DS_Store
 
-# Xcode
-#
-build/
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-xcuserdata
-*.xccheckout
-*.moved-aside
-DerivedData
-*.hmap
-*.ipa
-*.xcuserstate
-project.xcworkspace
+temp
+.tmp
 
-# Android/IntelliJ
-#
-build/
-.idea
-.gradle
-local.properties
-*.iml
+# Regularly changing or system specific IDE files
+/.idea/vcs.xml
+/.idea/workspace.xml
+/.idea/codeStyles/*
+/.vscode
+.idea/
+/.idea/
 
-# node.js
-#
-node_modules/
-npm-debug.log
-yarn-error.log
-
-# BUCK
-buck-out/
-\.buckd/
-*.keystore
-
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/
-
-*/fastlane/report.xml
-*/fastlane/Preview.html
-*/fastlane/screenshots
-
-# Bundle artifact
-*.jsbundle
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+.vs/slnx.sqlite-journal
+.vs/VSWorkspaceState.json
+.vs/WoWAnalyzer/v15/.suo
+/.idea/markdown-navigator.xml
+/.idea/markdown-navigator/profiles_settings.xml
+.eslintrc.js
