@@ -26,6 +26,7 @@ export default class LoginForm extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
   renderButton() {
     if (this.state.loading) {
       return <ActivityIndicator size={'small'}/>
