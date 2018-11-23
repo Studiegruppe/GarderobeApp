@@ -1,8 +1,8 @@
 import {Text, View, Picker} from "react-native";
 import React from "react";
-import Styles from "../assets/Styles";
+import Styles from "../../assets/Styles";
 import {Button} from "react-native-elements";
-import globals from "../assets/Globals";
+import globals from "../../assets/Globals";
 import * as firebase from "firebase";
 
 
@@ -95,8 +95,10 @@ export default class CheckinScreen extends React.Component {
   /**
    * Bruges til at oprette tickets i databasen for både barer og brugere.
    * Der er anvent .child for mulighed for selv at angive push_key (id) i firebase
+   *
+   *
+   * Oprettelse af billetter for en bruger
    */
-
   async generateTickets() {
     let that = this;
     await firebase.database().ref(`/Barer/${this.barId}/AktiveBilletter`).child(this.state.ticketId.toString()).update({
@@ -108,8 +110,10 @@ export default class CheckinScreen extends React.Component {
       nummer: that.state.currentNum,
     });
 
-
-    await firebase.database().ref(`${this.userPATH}/Billetter/Aktive`).child(this.state.ticketId.toString()).update({
+    /**
+     * Oprettelse af billetter for en bruger
+     */
+    await firebase.database().ref(`${this.userPATH}/Billetter/Aktive/`).child(this.state.ticketId.toString()).update({
       antal: that.state.selectedValue,
       barNavn: that.state.venueName,
       checkind: that.checkinTimestamp,

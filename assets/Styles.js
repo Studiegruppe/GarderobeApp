@@ -1,5 +1,11 @@
 import {StyleSheet} from 'react-native';
 
+export const defaultStyles = {
+	text: {
+		fontFamily: 'Avenir',
+	}
+};
+
 export default StyleSheet.create({
 	backgroundStyle: {},
 	containerForLogin: {
@@ -174,7 +180,6 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'flex-end'
 	},
-
 });
 
 

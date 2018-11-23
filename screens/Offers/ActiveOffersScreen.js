@@ -1,18 +1,15 @@
 import {Text, View} from "react-native";
 import React from "react";
-import Styles from "../assets/Styles";
+import Styles from "../../assets/Styles";
 
 
-export default class HistoryScreen extends React.Component {
-  static navigationOptions = {
-    title: 'app.json',
-  };
+export default class ActiveOffersScreen extends React.Component {
 
   render() {
     return (
       <View style={Styles.scrollableTab}>
         <Text style={Styles.welcomeTab}>
-          HISTORY
+          ACTIVE OFFERS
         </Text>
       </View>
 

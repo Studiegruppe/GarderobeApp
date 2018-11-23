@@ -1,18 +1,10 @@
 import React from 'react';
-import Styles from "../../assets/Styles";
-import ScrollableTabView from 'react-native-scrollable-tab-view';
-import { LinearGradient } from 'expo';
-import TabBar from "react-native-underline-tabbar";
-import AktivScreen from '../AktivScreen';
-import HistoryScreen from '../HistoryScreen';
-import CheckinScreen from '../CheckinScreen';
-import BarListScreen from "../BarListScreen";
 import Tabs from './Tabs';
-import {Text, View, StyleSheet} from "react-native";
-
-
-
-
+import {StyleSheet, View} from "react-native";
+import BarListScreen from "../Bars/BarListScreen";
+import AktivScreen from "../Tickets/AktivScreen";
+import HistoryScreen from "../Tickets/HistoryScreen";
+import CheckinScreen from "../Tickets/CheckinScreen";
 
 export default class HomeScreen extends React.Component {
 
@@ -24,13 +16,9 @@ export default class HomeScreen extends React.Component {
     return (
 
       <View style={styles.container}>
-
         <Tabs>
-
           <View title="BAR" style={styles.content}>
-
             <BarListScreen navigation={this.props.navigation}/>
-
           </View>
           <View title="ACTIVE" styles={styles.content}>
             <AktivScreen navigation={this.props.navigation}/>
@@ -40,15 +28,9 @@ export default class HomeScreen extends React.Component {
           </View>
           <View title="CHECKIN" style={styles.content}>
             <CheckinScreen navigation={this.props.navigation}/>
-
           </View>
-
         </Tabs>
-
       </View>
-
-
-
     );
   }
 }

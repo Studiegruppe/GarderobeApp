@@ -1,7 +1,7 @@
 import React from 'react';
 import {ActivityIndicator, Image, ImageBackground, Text, TextInput, View} from 'react-native';
 import firebase from 'firebase';
-import Styles from '../assets/Styles';
+import Styles from '../../assets/Styles';
 import {Button, Icon, Input} from "react-native-elements";
 import {LinearGradient} from "expo";
 
@@ -32,7 +32,6 @@ export default class ForgotPassword extends React.Component {
 
   render() {
     return (
-
       <LinearGradient  style={{
         position: 'absolute',
         left: 0,
@@ -44,7 +43,7 @@ export default class ForgotPassword extends React.Component {
           <View>
             <Image
               style={{width: 150, height: 150, left: 6, right: 6, marginTop: 110, alignSelf:'center'}}
-              source={require('../assets/images/send_reset_password.png')}
+              source={require('../../assets/images/send_reset_password.png')}
             />
 
           </View>

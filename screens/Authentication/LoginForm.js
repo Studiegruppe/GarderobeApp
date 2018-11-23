@@ -5,8 +5,8 @@ import {
 } from 'react-native';
 import Orientation from "react-native-orientation";
 import firebase from 'firebase';
-import Styles from '../assets/Styles';
-import globals from "../assets/Globals";
+import Styles from '../../assets/Styles';
+import globals from "../../assets/Globals";
 import Avatar from "react-native-elements/src/avatar/Avatar";
 import {Button, Icon, Input} from "react-native-elements";
 import {LinearGradient} from "expo";
@@ -69,8 +69,6 @@ export default class LoginForm extends React.Component {
     return (
       //nedenstående function gør at når man trykker på skærmen så forsvinder keyboardet.
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-
-
         <LinearGradient  style={{
           position: 'absolute',
           left: 0,

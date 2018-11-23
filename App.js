@@ -1,24 +1,25 @@
 import React from 'react';
 import {ActivityIndicator} from 'react-native';
 import firebase from 'firebase';
-import SplashScreen from './screens/SplashScreen';
 import globals from "./assets/Globals";
 import {createBottomTabNavigator, createStackNavigator} from "react-navigation";
-import LoginForm from "./screens/LoginForm";
-import RegisterScreen from "./screens/RegisterScreen";
-import HomeScreen from "./screens/Home/HomeScreen";
-import MapScreen from "./screens/MapScreen";
-import OffersScreen from "./screens/OffersScreen";
-import SettingsScreen from "./screens/SettingsScreen";
-import AktivScreen from "./screens/AktivScreen";
-import HistoryScreen from "./screens/HistoryScreen";
-import CheckinScreen from "./screens/CheckinScreen";
-import BarListScreen from "./screens/BarListScreen";
-import BarDetailsScreen from "./screens/BarDetailsScreen";
+import LoginForm from "./screens/Authentication/LoginForm";
+import RegisterScreen from "./screens/Authentication/RegisterScreen";
+import MapScreen from "./screens/Map/MapScreen";
+import OffersScreen from "./screens/Offers/OffersScreen";
+import SettingsScreen from "./screens/Authentication/SettingsScreen";
+import AktivScreen from "./screens/Tickets/AktivScreen";
+import HistoryScreen from "./screens/Tickets/HistoryScreen";
+import CheckinScreen from "./screens/Tickets/CheckinScreen";
+import BarListScreen from "./screens/Bars/BarListScreen";
+import BarDetailsScreen from "./screens/Bars/BarDetailsScreen";
 import {AppLoading, Icon} from 'expo';
-import ForgotPassword from "./screens/ForgotPassword";
-import ChangePassword from "./screens/ChangePassword";
-import ChangeEmail from "./screens/ChangeEmail";
+import ForgotPassword from "./screens/Authentication/ForgotPassword";
+import ChangePassword from "./screens/Authentication/ChangePassword";
+import ChangeEmail from "./screens/Authentication/ChangeEmail";
+import TicketConfirmation from "./screens/Tickets/TicketConfirmation";
+import BarPopup from "./screens/Bars/BarPopup";
+import HomeScreen from "./screens/Home/HomeScreen";
 
 const LoginStack = createStackNavigator({
     Login: LoginForm,
@@ -38,6 +39,8 @@ const LoginStack = createStackNavigator({
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   BarList: BarListScreen,
+  BarPopUp: BarPopup,
+  ConfirmTicket: TicketConfirmation,
   BarDetails: BarDetailsScreen,
   TicketsActive: AktivScreen,
   TicketsHistory: HistoryScreen,
