@@ -11,20 +11,17 @@
       "resizeMode": "contain"
     }
   },
-
-    "platforms": [
-      "ios",
-      "android"
-    ],
-
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    }
+  "platforms": [
+    "ios",
+    "android"
+  ],
+  "updates": {
+    "fallbackToCacheTimeout": 0
+  },
+  "assetBundlePatterns": [
+    "**/*"
+  ],
+  "ios": {
+    "supportsTablet": true
   }
-
+}
