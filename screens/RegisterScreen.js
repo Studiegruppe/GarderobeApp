@@ -5,7 +5,6 @@ import firebase from 'firebase';
 import {Button, Input} from "react-native-elements";
 import Icon from "react-native-elements/src/icons/Icon";
 
-
 export default class RegisterScreen extends React.Component {
 
 
@@ -54,7 +53,7 @@ export default class RegisterScreen extends React.Component {
   }
 
   setProfile = () => {
-    const ref = firebase.database().ref(`/Brugere/${firebase.auth().currentUser.uid}`);
+    const ref = firebase.database().ref(`/Brugere/${globals.uid}`);
     const obj = {
 
       Billetter: {

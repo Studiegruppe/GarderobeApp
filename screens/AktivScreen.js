@@ -68,10 +68,6 @@ export default class AktivScreen extends React.Component {
   }
 
 
-  /*SKAL SLETTES*/
-
-
-
   renderCheckOutButton(key) {
     return (
       <Button title="logout" key={key} onPress={() => this.checkoutTicket(key)}/>

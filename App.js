@@ -42,9 +42,14 @@ const SettingsStack = createStackNavigator({
   ChangeEmail: ChangeEmail,
 });
 
+const MapsStack = createStackNavigator({
+  Maps: MapScreen,
+  BarDetails: BarDetailsScreen,
+});
+
 const MainAppStack = createBottomTabNavigator({
     Home: HomeStack,
-    Maps: MapScreen,
+    Maps: MapsStack,
     Offers: OffersScreen,
     Settings: SettingsStack,
   },
@@ -104,8 +109,6 @@ export default class App extends React.Component {
         this.setState({loggedIn: false, currentUser: null});
       }
     });
-
-
   }
 
   _cacheResourcesAsync() {
@@ -135,5 +138,4 @@ export default class App extends React.Component {
         return <ActivityIndicator size="large"/>;
     }
   }
-
 }

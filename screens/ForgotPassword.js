@@ -4,7 +4,7 @@ import firebase from 'firebase';
 import Styles from '../assets/Styles';
 import {Button, Icon, Input} from "react-native-elements";
 
-export default class LoginForm extends React.Component {
+export default class ForgotPassword extends React.Component {
 
 
 
