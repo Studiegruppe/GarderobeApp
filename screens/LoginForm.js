@@ -1,8 +1,15 @@
 import React from 'react';
-import {ActivityIndicator, Button, Text, TextInput, View} from 'react-native';
+import {
+  ActivityIndicator, ImageBackground, StatusBar, Text, TextInput, TouchableWithoutFeedback,
+  View,Keyboard
+} from 'react-native';
 import firebase from 'firebase';
 import Styles from '../assets/Styles';
 import globals from "../assets/Globals";
+import Avatar from "react-native-elements/src/avatar/Avatar";
+import {Button, Icon, Input} from "react-native-elements";
+
+
 
 export default class LoginForm extends React.Component {
 
@@ -17,44 +24,13 @@ export default class LoginForm extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Log in',
+    header: null,
   };
-
-  render() {
-    return (
-      <View style={Styles.containerStyle}>
-        <TextInput
-          style={Styles.inputStyle}
-          label={'Username'}
-          placeholder={'User@mail.com'}
-          value={this.state.email}
-          onChangeText={email => this.setState({email})}
-        />
-        <TextInput
-          label={'Password'}
-          placeholder={'password'}
-          value={this.state.password}
-          secureTextEntry={true}
-          onChangeText={password => this.setState({password})}
-        />
-        <Button title="Forgot Password" onPress={()=>this.props.navigation.navigate('ForgotPassword')}/>
-
-        <Text style={Styles.errorStyle}>
-          {this.state.error}
-        </Text>
-        {this.renderButton()}
-      </View>
-    );
-  }
-
   renderButton() {
     if (this.state.loading) {
       return <ActivityIndicator size={'small'}/>
 
     }
-    return (
-      <Button title={'Sign in'} style={Styles.buttonStyle} onPress={this.signIn.bind(this)}/>
-    );
   }
 
   async signIn() {
@@ -85,6 +61,83 @@ export default class LoginForm extends React.Component {
       error: error.message,
     })
   }
+
+  render() {
+    return (
+      //nedenstående function gør at når man trykker på skærmen så forsvinder keyboardet.
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+
+
+
+      <ImageBackground
+        style={Styles.backgroundImage}
+        resizeMode='cover'
+       source={require('../assets/images/grad-670x376.jpg')}>
+
+        <Input
+              leftIcon={
+                <Icon
+                  name='email'
+                  color='rgba(171, 189, 219, 1)'
+                  size={25}
+                />
+              }
+              style={Styles.loginInput}
+              containerStyle={{marginVertical: 10}}
+            onChangeText={email => this.setState({email})}
+            value={this.state.email}
+            inputStyle={{marginLeft: 10, color: 'white'}}
+            keyboardAppearance="light"
+            placeholder="E-mail"
+            autoFocus={false}
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
+            placeholderTextColor="white"
+
+          />
+        <Input
+          leftIcon={
+            <Icon
+              name='lock'
+              color='rgba(171, 189, 219, 1)'
+              size={25}
+            />
+          }
+          style={Styles.loginInput}
+          containerStyle={{marginVertical: 15}}
+          onChangeText={password => this.setState({password})}
+          value={this.state.password}
+          inputStyle={{marginLeft: 10, color: 'white'}}
+          keyboardAppearance="light"
+          placeholder="Password"
+          secureTextEntry={true}
+          autoFocus={false}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="default"
+          placeholderTextColor="white"
+
+        />
+
+
+
+
+          <Button title={'Sign in'} buttonStyle={Styles.buttonStyleLogin} titleStyle={{fontWeight: 'bold', fontSize: 23}} onPress={this.signIn.bind(this)}/>
+
+          <Button title="Create Account" clear buttonStyle={Styles.buttonStyleText1}
+                 titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('Register')}/>
+        <Button title="Forgot Password" clear buttonStyle={Styles.buttonStyleText2}
+                titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('ForgotPassword')}/>
+
+
+
+      </ImageBackground>
+      </TouchableWithoutFeedback>
+
+    );
+  }
+
 
 
 

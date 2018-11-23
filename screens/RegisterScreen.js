@@ -1,10 +1,12 @@
 import React from 'react';
-import {Text, TextInput, StyleSheet, View, ActivityIndicator, Button} from 'react-native';
+import {Text, TextInput, StyleSheet, View, ActivityIndicator, ImageBackground} from 'react-native';
 import Styles from '../assets/Styles';
 import firebase from 'firebase';
-import globals from "../assets/Globals";
+import {Button, Input} from "react-native-elements";
+import Icon from "react-native-elements/src/icons/Icon";
 
 export default class RegisterScreen extends React.Component {
+
 
   constructor(props) {
     super(props);
@@ -53,7 +55,7 @@ export default class RegisterScreen extends React.Component {
   setProfile = () => {
     const ref = firebase.database().ref(`/Brugere/${globals.uid}`);
     const obj = {
-      name: this.state.name,
+
       Billetter: {
         Inaktive: {
           ignore: 'ignore'
@@ -69,53 +71,71 @@ export default class RegisterScreen extends React.Component {
 
   render() {
     return (
-      <View style={Styles.containerStyle}>
-        <TextInput
-          label='Username'
+      <ImageBackground
+        style={Styles.backgroundImage}
+        resizeMode='cover'
+        source={require('../assets/images/grad-670x376.jpg')}>
+
+        <View style={{flexDirection: 'row'}}>
+          <Text style={Styles.travelTextReg}  titleStyle={{fontWeight: 800, fontSize: 40}}>SIGN UP</Text>
+
+        </View>
+
+        <Input
+          leftIcon={
+            <Icon
+              name='email'
+              color='rgba(171, 189, 219, 1)'
+              size={25}
+            />
+          }
+          style={Styles.loginInput}
           placeholder='Email'
           value={this.state.email}
+          containerStyle={{marginBottom: 30}}
           onChangeText={email => this.setState({email})}
+          inputStyle={{marginLeft: 10, color: 'white'}}
+          keyboardAppearance="light"
+          autoFocus={false}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="email-address"
+          placeholderTextColor="white"
+
         />
-        <TextInput
+
+        <Input
+          leftIcon={
+            <Icon
+              name='lock'
+              color='rgba(171, 189, 219, 1)'
+              size={25}
+            />
+          }
+          style={Styles.loginInput}
           placeholder='Password'
+          containerStyle={{marginBottom: 100}}
           value={this.state.password}
           secureTextEntry={true}
           onChangeText={password => this.setState({password})}
+          inputStyle={{marginLeft: 10, color: 'white'}}
+          keyboardAppearance="light"
+          autoFocus={false}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="default"
+          placeholderTextColor="white"
         />
 
-        <TextInput
-          placeholder='Name'
-          value={this.state.name}
-          onChangeText={name => this.setState({name})}
-        />
-        <Text style={styles.errorTextStyle}>
-          {this.state.error}
-        </Text>
+        <Button title={'Sign Up'} clear buttonStyle={Styles.buttonStyleReg}
+                titleStyle={{fontWeight: 'bold', fontSize: 23}}
+                onPress={this.onButtonPress.bind(this)}/>
 
-        {this.renderButton()}
 
-      </View>
-    );
-  }
-
-  renderButton() {
-    if (this.state.loading) {
-      return <ActivityIndicator size='small'/>
-    }
-    return (
-      <Button title="Sign up" onPress={this.onButtonPress.bind(this)}>
-      </Button>
+      </ImageBackground>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  errorTextStyle: {
-    fontSize: 20,
-    alignSelf: 'center',
-    color: 'red'
-  }
-});
 
 
 

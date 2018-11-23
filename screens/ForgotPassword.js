@@ -1,9 +1,12 @@
 import React from 'react';
-import {ActivityIndicator, Button, Text, TextInput, View} from 'react-native';
+import {ActivityIndicator, Image, ImageBackground, Text, TextInput, View} from 'react-native';
 import firebase from 'firebase';
 import Styles from '../assets/Styles';
+import {Button, Icon, Input} from "react-native-elements";
 
 export default class ForgotPassword extends React.Component {
+
+
 
   constructor(props) {
     super(props);
@@ -28,22 +31,53 @@ export default class ForgotPassword extends React.Component {
 
   render() {
     return (
-      <View style={Styles.containerStyle}>
-        <Text> FORGOT PASSWORD YOU IDIOT? </Text>
 
-        <TextInput style={{width: 200, height: 40, borderWidth: 1}}
-                   value={this.state.email}
-                   onChangeText={(text) => {
-                     this.setState({email: text})
-                   }}
-                   placeholder="Email"
+        <ImageBackground
+          style={Styles.backgroundImage}
+          resizeMode='cover'
+          source={require('../assets/images/grad-670x376.jpg')}>
+
+          <View>
+            <Image
+              style={{width: 150, height: 150, left: 6, right: 6, marginBottom: 0}}
+              source={require('../assets/images/send_reset_password.png')}
+            />
+
+          </View>
+
+            <Text style={Styles.travelText}  titleStyle={{fontWeight: 'bold', letterSpacing: 50, }}>Forgot your password? </Text>
+
+
+
+          <Input
+          leftIcon={
+            <Icon
+              name='email'
+              color='rgba(171, 189, 219, 1)'
+              size={25}
+            />
+          }
+          style={Styles.loginInput}
+          value={this.state.email}
+          onChangeText={(text) => {this.setState({email: text})}}
+                   placeholder="E-mail"
                    keyboardType="email-address"
                    autoCapitalize="none"
                    autoCorrect={false}
+          containerStyle={{marginBottom: 35}}
+          inputStyle={{marginLeft: 10, color: 'white'}}
+          placeholderTextColor="white"
+
+
         />
 
-        <Button title="Reset Password" onPress={this.onResetPasswordPress}/>
-        <Button title="Back to Login..." onPress={()=>this.props.navigation.goBack()}/>
-      </View>
-    )}
-    }
+          <Button title={'Send Password'} buttonStyle={Styles.buttonStyleForgot} titleStyle={{fontWeight: 'bold', fontSize: 23}}
+                  onPress={this.onResetPasswordPress.bind(this)}/>
+
+
+
+        </ImageBackground>
+
+    )
+  }
+}

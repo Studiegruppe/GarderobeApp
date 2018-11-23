@@ -15,37 +15,17 @@ import HistoryScreen from "./screens/HistoryScreen";
 import CheckinScreen from "./screens/CheckinScreen";
 import BarListScreen from "./screens/BarListScreen";
 import BarDetailsScreen from "./screens/BarDetailsScreen";
-import {Icon} from 'expo';
+import {AppLoading, Icon} from 'expo';
 import ForgotPassword from "./screens/ForgotPassword";
+import ChangePassword from "./screens/ChangePassword";
+import ChangeEmail from "./screens/ChangeEmail";
 
 const LoginStack = createStackNavigator({
   Login: LoginForm,
   ForgotPassword: ForgotPassword,
+  Register: RegisterScreen,
 });
 
-const AuthStack = createBottomTabNavigator({
-    Login: LoginStack,
-    Register: RegisterScreen,
-  },
-  {
-    navigationOptions: ({navigation}) => ({
-      tabBarIcon: ({focused, horizontal, tintColor}) => {
-        const {routeName} = navigation.state;
-        let iconName;
-        if (routeName === 'Login') {
-          iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-        } else {
-          iconName = `ios-link${focused ? '' : '-outline'}`
-        }
-        return <Icon.Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor}/>;
-      },
-    }),
-    tabBarOptions: {
-      activeTintColor: 'blue',
-      inactiveTintColor: 'gray',
-    },
-    initialRouteName: 'Login',
-  });
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -54,6 +34,12 @@ const HomeStack = createStackNavigator({
   TicketsActive: AktivScreen,
   TicketsHistory: HistoryScreen,
   Checkin: CheckinScreen,
+});
+
+const SettingsStack = createStackNavigator({
+  Settings: SettingsScreen,
+  ChangePassword: ChangePassword,
+  ChangeEmail: ChangeEmail,
 });
 
 const MapsStack = createStackNavigator({
@@ -65,7 +51,7 @@ const MainAppStack = createBottomTabNavigator({
     Home: HomeStack,
     Maps: MapsStack,
     Offers: OffersScreen,
-    Settings: SettingsScreen,
+    Settings: SettingsStack,
   },
   {
     navigationOptions: ({navigation}) => ({
@@ -92,7 +78,6 @@ const MainAppStack = createBottomTabNavigator({
   }
 );
 
-const timeoutTime = 2000;
 export default class App extends React.Component {
 
   constructor(props) {
@@ -102,6 +87,7 @@ export default class App extends React.Component {
       currentUser: null,
       isLoadingComplete: false,
       skipLoadingScreen: false,
+      appIsReady: false,
     }
   }
 
@@ -123,32 +109,33 @@ export default class App extends React.Component {
         this.setState({loggedIn: false, currentUser: null});
       }
     });
+  }
 
-    setTimeout(() => {
-      this.setState({
-        isLoadingComplete: true
-      })
-    }, timeoutTime);
+  _cacheResourcesAsync() {
+    return true;
   }
 
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+    if (!this.state.appIsReady) {
       return (
-        <SplashScreen/>
-      );
-    } else {
-      switch (this.state.loggedIn) {
-        case true:
-          return (
-            <MainAppStack/>
-          );
-        case false:
-          return (
-            <AuthStack/>
-          );
-        default:
-          return <ActivityIndicator size="large"/>;
-      }
+        <AppLoading
+          startAsync={this._cacheResourcesAsync}
+          onFinish={() => this.setState({appIsReady: true})}
+          onError={console.warn}
+        />
+      )
+    }
+    switch (this.state.loggedIn) {
+      case true:
+        return (
+          <MainAppStack/>
+        );
+      case false:
+        return (
+          <LoginStack/>
+        );
+      default:
+        return <ActivityIndicator size="large"/>;
     }
   }
 }
