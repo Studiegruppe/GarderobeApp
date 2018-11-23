@@ -8,15 +8,17 @@ import globals from "../../assets/Globals";
 
 export default class AktivScreen extends React.Component {
 
+
   constructor(props) {
     super(props);
     this.state = {
       currentUser: null,
-      loggedinUserId: 123,
       checkintime: "",
       color: "",
       number: 123,
       chosenAmount: 0,
+      amount: 0,
+      activeTicketArray: [],
     }
   }
 
@@ -32,45 +34,68 @@ export default class AktivScreen extends React.Component {
   }
 
 
-  /*METODEN SKAL RETTES NÅR OPRET BRUGER ER FÆRDIG MED DE RIGTIGE UID'S*/
   getActiveTicketAsync() {
     let ticketArray = [];
+    let tempArray = [];
     let that = this;
-    firebase.database().ref('Brugere/123/'/*`Brugere/${globals.uid}`*/).once('value', function (snapshot) {
+    firebase.database().ref(`Brugere/${globals.uid}/Billetter/Aktive`).once('value', function (snapshot) {
       let user = snapshot.val();
-      console.log(`Brugere/${globals.uid}`);
-
-      for (let i = 0; i < 3; i++) {
-        ticketArray.push(
-          <Text key={i}>
-            Checkin time : {user.Billetter.Aktive.TicketID.checkind + "\n"}
-            Color of ticket : {user.Billetter.Aktive.TicketID.farve + "\n"}
-            Your number {user.Billetter.Aktive.TicketID.nummer + "\n"}
-            The amount : {user.Billetter.Aktive.TicketID.antal + "\n"}
-            TICKET ID : {user.Billetter.Aktive.TicketID.ticketid + "\n" + "\n"}
-            {that.renderCheckOutButton(user.Billetter.Aktive.TicketID.ticketid)}
-          </Text>
-        )
+      for (let key in user) {
+        if (user.hasOwnProperty(key)) {
+          let usr = user[key];
+          ticketArray.push(
+            <Text key={key}>
+              Your number {usr.nummer + "\n"}
+              Checkin time : {usr.checkind + "\n"}
+              Location : {usr.barNavn + "\n"}
+              Color : {usr.farve + "\n"}
+              Amount of items : {usr.antal + "\n"}
+              {that.renderCheckOutButton(key)}
+            </Text>
+          ),
+            tempArray.push(
+              {
+                number: usr.nummer,
+                checkinTime: usr.checkind,
+                location: usr.barNavn,
+                color: usr.farve,
+                amount: usr.antal
+              }
+            )
+        }
       }
       that.setState({
-        array: ticketArray
+        array: ticketArray,
+        activeTicketArray: tempArray,
       });
     });
   }
 
-  checkoutTicket(array, id) {
-    array = this.state.array;
-    const deleteItem = array[id];
-    console.log(deleteItem);
-    array.splice(deleteItem, 1);
-    //firebase.database().ref('Brugere/123'/*`Brugere/${globals.uid}`*/).remove(id);
 
+  async checkoutTicket(array, key) {
+    const items = this.state.activeTicketArray[key];
+    array.splice(items, 1);
+    let result = await firebase.database().ref(`Brugere/${globals.uid}/Billetter/Inaktive/`).child(key).update({
+      antal: items.amount,
+      barNavn: items.location,
+      checkind: items.checkinTime,
+      checkud: true,
+      farve: items.color,
+      nummer: items.number,
+    });
+    await firebase.database().ref(`Brugere/${globals.uid}/Billetter/Aktive/${key}`).remove();
+    await firebase.database().ref(`/Barer/BarID/AktiveBilletter/${key}/${globals.uid}`).
+    console.log(result);
   }
 
 
+  /**
+   *
+   */
+
   renderCheckOutButton(key) {
     return (
-      <Button title="logout" key={key} onPress={() => this.checkoutTicket(key)}/>
+      <Button title="Checkout" key={key} onPress={() => this.checkoutTicket(this.state.array, key)}/>
     )
   }
 
