@@ -4,6 +4,7 @@
     "description": "A very interesting project.",
     "slug": "GarderobeApp",
     "privacy": "public",
+    "orientation": "portrait",
     "sdkVersion": "30.0.0",
     "splash": {
       "image": "./assets/images/send_reset_password.png",

@@ -1,5 +1,8 @@
 import React from 'react';
-import {Text, TextInput, StyleSheet, View, ActivityIndicator, ImageBackground} from 'react-native';
+import {
+  Text, TextInput, StyleSheet, View, ActivityIndicator, ImageBackground,
+  TouchableWithoutFeedback, Keyboard
+} from 'react-native';
 import Styles from '../assets/Styles';
 import firebase from 'firebase';
 import {Button, Input} from "react-native-elements";
@@ -71,6 +74,7 @@ export default class RegisterScreen extends React.Component {
 
   render() {
     return (
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <LinearGradient  style={{
         position: 'absolute',
         left: 0,
@@ -135,6 +139,7 @@ export default class RegisterScreen extends React.Component {
 
 </View>
       </LinearGradient>
+      </TouchableWithoutFeedback>
     );
   }
 }

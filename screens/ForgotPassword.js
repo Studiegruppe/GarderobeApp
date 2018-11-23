@@ -3,6 +3,7 @@ import {ActivityIndicator, Image, ImageBackground, Text, TextInput, View} from '
 import firebase from 'firebase';
 import Styles from '../assets/Styles';
 import {Button, Icon, Input} from "react-native-elements";
+import {LinearGradient} from "expo";
 
 export default class ForgotPassword extends React.Component {
 
@@ -32,14 +33,17 @@ export default class ForgotPassword extends React.Component {
   render() {
     return (
 
-        <ImageBackground
-          style={Styles.backgroundImage}
-          resizeMode='cover'
-          source={require('../assets/images/grad-670x376.jpg')}>
+      <LinearGradient  style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0,
+      }} colors={['#2980b9', '#2c3e50'] }>
 
           <View>
             <Image
-              style={{width: 150, height: 150, left: 6, right: 6, marginBottom: 0}}
+              style={{width: 150, height: 150, left: 6, right: 6, marginTop: 110, alignSelf:'center'}}
               source={require('../assets/images/send_reset_password.png')}
             />
 
@@ -64,19 +68,19 @@ export default class ForgotPassword extends React.Component {
                    keyboardType="email-address"
                    autoCapitalize="none"
                    autoCorrect={false}
-          containerStyle={{marginBottom: 35}}
+          containerStyle={{alignSelf: 'center', marginBottom: 35}}
           inputStyle={{marginLeft: 10, color: 'white'}}
           placeholderTextColor="white"
 
 
         />
-
+      <View>
           <Button title={'Send Password'} buttonStyle={Styles.buttonStyleForgot} titleStyle={{fontWeight: 'bold', fontSize: 23}}
                   onPress={this.onResetPasswordPress.bind(this)}/>
+      </View>
+      </LinearGradient>
 
 
-
-        </ImageBackground>
 
     )
   }
