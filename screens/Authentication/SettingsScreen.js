@@ -1,7 +1,7 @@
 import React from 'react';
 import {ExpoConfigView} from '@expo/samples';
 import firebase from 'firebase';
-import Styles from '../assets/Styles';
+import Styles from '../../assets/Styles';
 import { ListItem } from 'react-native-elements';
 import {Text, TextInput, StyleSheet, View, ActivityIndicator, Button, ScrollView} from 'react-native';
 

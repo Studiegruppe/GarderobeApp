@@ -1,5 +1,5 @@
 import React from 'react';
-import Styles from "../assets/Styles";
+import Styles from "../../assets/Styles";
 import ScrollableTabView from "react-native-scrollable-tab-view";
 import TabBar from "react-native-underline-tabbar";
 import ActiveOffersScreen from "./ActiveOffersScreen";

@@ -1,7 +1,7 @@
 import React from 'react';
 import {ActivityIndicator, Image, ImageBackground, Text, TextInput, View} from 'react-native';
 import firebase from 'firebase';
-import Styles from '../assets/Styles';
+import Styles from '../../assets/Styles';
 import {Button, Icon, Input} from "react-native-elements";
 
 export default class ForgotPassword extends React.Component {
@@ -35,12 +35,12 @@ export default class ForgotPassword extends React.Component {
         <ImageBackground
           style={Styles.backgroundImage}
           resizeMode='cover'
-          source={require('../assets/images/grad-670x376.jpg')}>
+          source={require('../../assets/images/grad-670x376.jpg')}>
 
           <View>
             <Image
               style={{width: 150, height: 150, left: 6, right: 6, marginBottom: 0}}
-              source={require('../assets/images/send_reset_password.png')}
+              source={require('../../assets/images/send_reset_password.png')}
             />
 
           </View>

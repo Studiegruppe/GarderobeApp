@@ -1,9 +1,9 @@
 import {Text, View} from "react-native";
 import React from "react";
-import Styles from "../assets/Styles";
+import Styles from "../../assets/Styles";
 import firebase from 'firebase';
 import {Button} from "react-native-elements";
-import globals from "../assets/Globals";
+import globals from "../../assets/Globals";
 
 
 export default class AktivScreen extends React.Component {
@@ -16,7 +16,7 @@ export default class AktivScreen extends React.Component {
       checkintime: "",
       color: "",
       number: 123,
-      amount: 0,
+      chosenAmount: 0,
     }
   }
 

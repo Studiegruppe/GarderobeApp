@@ -4,8 +4,8 @@ import {
   View,Keyboard
 } from 'react-native';
 import firebase from 'firebase';
-import Styles from '../assets/Styles';
-import globals from "../assets/Globals";
+import Styles from '../../assets/Styles';
+import globals from "../../assets/Globals";
 import Avatar from "react-native-elements/src/avatar/Avatar";
 import {Button, Icon, Input} from "react-native-elements";
 
@@ -72,7 +72,7 @@ export default class LoginForm extends React.Component {
       <ImageBackground
         style={Styles.backgroundImage}
         resizeMode='cover'
-       source={require('../assets/images/grad-670x376.jpg')}>
+       source={require('../../assets/images/grad-670x376.jpg')}>
 
         <Input
               leftIcon={

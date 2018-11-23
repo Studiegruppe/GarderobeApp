@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TextInput, StyleSheet, View, ActivityIndicator, ImageBackground} from 'react-native';
-import Styles from '../assets/Styles';
+import Styles from '../../assets/Styles';
 import firebase from 'firebase';
 import {Button, Input} from "react-native-elements";
 import Icon from "react-native-elements/src/icons/Icon";
@@ -74,7 +74,7 @@ export default class RegisterScreen extends React.Component {
       <ImageBackground
         style={Styles.backgroundImage}
         resizeMode='cover'
-        source={require('../assets/images/grad-670x376.jpg')}>
+        source={require('../../assets/images/grad-670x376.jpg')}>
 
         <View style={{flexDirection: 'row'}}>
           <Text style={Styles.travelTextReg}  titleStyle={{fontWeight: 800, fontSize: 40}}>SIGN UP</Text>

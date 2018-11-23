@@ -8,7 +8,7 @@ export default class SplashScreen extends Component {
       <View style={styles.container}>
         <Image
           source={
-            require('../assets/images/b72fb7e3-cbb6-40c8-af35-4d74eccfb82c.png')
+            require('../../assets/images/b72fb7e3-cbb6-40c8-af35-4d74eccfb82c.png')
           }
           style={styles.welcomeImage}
         />

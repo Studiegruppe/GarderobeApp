@@ -3,10 +3,10 @@ import Styles from "../assets/Styles";
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import TabBar from "react-native-underline-tabbar";
-import AktivScreen from '../screens/AktivScreen';
-import HistoryScreen from '../screens/HistoryScreen';
-import CheckinScreen from '../screens/CheckinScreen';
-import BarListScreen from "./BarListScreen";
+import AktivScreen from './Tickets/AktivScreen';
+import HistoryScreen from './Tickets/HistoryScreen';
+import CheckinScreen from './Tickets/CheckinScreen';
+import BarListScreen from "./Bars/BarListScreen";
 
 export default class HomeScreen extends React.Component {
 

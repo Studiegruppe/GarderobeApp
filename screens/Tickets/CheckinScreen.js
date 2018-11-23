@@ -1,8 +1,8 @@
 import {Text, View, Picker} from "react-native";
 import React from "react";
-import Styles from "../assets/Styles";
+import Styles from "../../assets/Styles";
 import {Button} from "react-native-elements";
-import globals from "../assets/Globals";
+import globals from "../../assets/Globals";
 import * as firebase from "firebase";
 
 

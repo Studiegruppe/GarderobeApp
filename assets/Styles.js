@@ -1,6 +1,13 @@
 import {StyleSheet} from 'react-native';
 
+export const defaultStyles = {
+  text: {
+    fontFamily: 'Avenir',
+  }
+};
+
 export default StyleSheet.create({
+  /** Transform into default styles*/
   backgroundStyle: {},
   containerForLogin: {
     flex: 1,
@@ -16,7 +23,7 @@ export default StyleSheet.create({
     marginBottom: '0'
 
   },
-  loginInputPassword:{
+  loginInputPassword: {
 
     justifyContent: 'center',
     alignItems: 'center',
@@ -39,25 +46,25 @@ export default StyleSheet.create({
     borderColor: 'white',
     borderRadius: 30,
     marginBottom: 220,
-   },
-    travelTextReg: {
-      color: 'white',
-      fontSize: 40,
-      marginBottom: 20,
-      alignItems: 'center',
-      justifyContent: 'center',
-      left: 0,
+  },
+  travelTextReg: {
+    color: 'white',
+    fontSize: 40,
+    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    left: 0,
 
-    },
-      travelText: {
-        color: 'white',
-        fontSize: 25,
-        marginBottom: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
+  },
+  travelText: {
+    color: 'white',
+    fontSize: 25,
+    marginBottom: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
 
 
-    },
+  },
 
   buttonStyleReg: {
     borderWidth: 2,
@@ -75,7 +82,7 @@ export default StyleSheet.create({
     marginBottom: 160,
 
   },
-  buttonStyleText2:{
+  buttonStyleText2: {
     height: 50,
     width: 250,
     backgroundColor: 'transparent',
@@ -133,8 +140,6 @@ export default StyleSheet.create({
     color: 'white',
     fontSize: 15,
     marginBottom: 10,
-
-
 
 
   },
