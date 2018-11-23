@@ -1,10 +1,15 @@
 import React from 'react';
-import {ActivityIndicator, ImageBackground, Text, TextInput, View} from 'react-native';
+import {
+  ActivityIndicator, ImageBackground, StatusBar, Text, TextInput, TouchableWithoutFeedback,
+  View,Keyboard
+} from 'react-native';
 import firebase from 'firebase';
 import Styles from '../assets/Styles';
 import globals from "../assets/Globals";
 import Avatar from "react-native-elements/src/avatar/Avatar";
 import {Button, Icon, Input} from "react-native-elements";
+
+
 
 export default class LoginForm extends React.Component {
 
@@ -59,6 +64,10 @@ export default class LoginForm extends React.Component {
 
   render() {
     return (
+      //nedenstående function gør at når man trykker på skærmen så forsvinder keyboardet.
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+
+
 
       <ImageBackground
         style={Styles.backgroundImage}
@@ -124,7 +133,7 @@ export default class LoginForm extends React.Component {
 
 
       </ImageBackground>
-
+      </TouchableWithoutFeedback>
 
     );
   }
