@@ -57,7 +57,7 @@ export default class ForgotPassword extends React.Component {
               size={25}
             />
           }
-          style={Styles.loginInput}
+
           value={this.state.email}
           onChangeText={(text) => {this.setState({email: text})}}
                    placeholder="E-mail"

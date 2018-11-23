@@ -20,8 +20,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   loginInput: {
-    marginBottom: '0'
-
+    marginBottom: '0',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
   loginInputPassword: {
 
@@ -48,24 +50,27 @@ export default StyleSheet.create({
     marginBottom: 220,
   },
   travelTextReg: {
+    flex: 1,
     color: 'white',
-    fontSize: 40,
-    marginBottom: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    left: 0,
+    fontSize: 25,
+    marginBottom: 0,
+    marginVertical: 120,
+    textAlign: 'center',
+    justifyContent: 'flex-start',
 
   },
   travelText: {
+    flex: 1,
     color: 'white',
     fontSize: 25,
     marginBottom: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-
+    textAlign: 'center',
+    justifyContent: 'flex-start',
 
   },
-
+  regInput: {
+    marginBottom: 400,
+  },
   buttonStyleReg: {
     borderWidth: 2,
     height: 50,
@@ -73,7 +78,10 @@ export default StyleSheet.create({
     backgroundColor: 'transparent',
     borderColor: 'white',
     borderRadius: 30,
-    marginBottom: 250,
+    marginTop: -230,
+    alignItems: 'center',
+    alignSelf: 'center',
+
   },
   buttonStyleText1: {
     height: 50,
@@ -104,6 +112,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
     paddingTop: 40,
+    width: '100%',
+
   },
   welcomeTab: {
     fontSize: 20,
@@ -140,13 +150,9 @@ export default StyleSheet.create({
     color: 'white',
     fontSize: 15,
     marginBottom: 10,
-
-
   },
-
   forgotEmailHeader: {
     color: 'white',
-
   },
 
   footerView: {
@@ -163,7 +169,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end'
   },
-
 });
 
 

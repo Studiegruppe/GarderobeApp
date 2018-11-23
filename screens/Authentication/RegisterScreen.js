@@ -1,12 +1,12 @@
 import React from 'react';
-import {Text, TextInput, StyleSheet, View, ActivityIndicator, ImageBackground} from 'react-native';
+import {Text, View} from 'react-native';
 import Styles from '../../assets/Styles';
 import firebase from 'firebase';
 import {Button, Input} from "react-native-elements";
 import Icon from "react-native-elements/src/icons/Icon";
+import {LinearGradient} from "expo";
 
 export default class RegisterScreen extends React.Component {
-
 
   constructor(props) {
     super(props);
@@ -71,13 +71,15 @@ export default class RegisterScreen extends React.Component {
 
   render() {
     return (
-      <ImageBackground
-        style={Styles.backgroundImage}
-        resizeMode='cover'
-        source={require('../../assets/images/grad-670x376.jpg')}>
-
+      <LinearGradient style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0,
+      }} colors={['#61045f', '#20011f']}>
         <View style={{flexDirection: 'row'}}>
-          <Text style={Styles.travelTextReg}  titleStyle={{fontWeight: 800, fontSize: 40}}>SIGN UP</Text>
+          <Text style={Styles.travelTextReg} titleStyle={{fontWeight: 800, fontSize: 40}}>SIGN UP</Text>
 
         </View>
 
@@ -89,10 +91,10 @@ export default class RegisterScreen extends React.Component {
               size={25}
             />
           }
-          style={Styles.loginInput}
+
           placeholder='Email'
           value={this.state.email}
-          containerStyle={{marginBottom: 30}}
+          containerStyle={{marginTop: 100, alignSelf: 'center'}}
           onChangeText={email => this.setState({email})}
           inputStyle={{marginLeft: 10, color: 'white'}}
           keyboardAppearance="light"
@@ -112,9 +114,9 @@ export default class RegisterScreen extends React.Component {
               size={25}
             />
           }
-          style={Styles.loginInput}
+
           placeholder='Password'
-          containerStyle={{marginBottom: 100}}
+          containerStyle={{marginBottom: 270, alignSelf: 'center'}}
           value={this.state.password}
           secureTextEntry={true}
           onChangeText={password => this.setState({password})}
@@ -125,14 +127,14 @@ export default class RegisterScreen extends React.Component {
           autoCorrect={false}
           keyboardType="default"
           placeholderTextColor="white"
+
         />
+        <View>
+          <Button style={Styles.buttonStyleReg} title={"Sign Up"} titleStyle={{fontWeight: 'bold', fontSize: 23}} clear
+                  onPress={this.onButtonPress.bind(this)}/>
 
-        <Button title={'Sign Up'} clear buttonStyle={Styles.buttonStyleReg}
-                titleStyle={{fontWeight: 'bold', fontSize: 23}}
-                onPress={this.onButtonPress.bind(this)}/>
-
-
-      </ImageBackground>
+        </View>
+      </LinearGradient>
     );
   }
 }
