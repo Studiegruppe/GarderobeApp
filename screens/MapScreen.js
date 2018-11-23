@@ -92,7 +92,6 @@ export default class MapScreen extends React.Component {
         markers: markerArray
       });
     });
-
   }
 
   render() {
