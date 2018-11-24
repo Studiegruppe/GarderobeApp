@@ -55,7 +55,7 @@ export default class LoginForm extends React.Component {
       error: '',
     });
     globals.uid = firebase.auth().currentUser.uid;
-    alert("User signed in successfully");
+
   }
 
   onSignInFailed(error) {

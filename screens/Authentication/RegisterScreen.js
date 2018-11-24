@@ -78,7 +78,7 @@ export default class RegisterScreen extends React.Component {
 					right: 0,
 					bottom: 0,
 					top: 0,
-				}} colors={['#61045f', '#20011f']}>
+				}} colors={['#e53935', '#e35d5b']}>
 					<View style={{flexDirection: 'row'}}>
 						<Text style={Styles.travelTextReg} titleStyle={{fontWeight: 800, fontSize: 40}}>SIGN UP</Text>
 
@@ -88,7 +88,7 @@ export default class RegisterScreen extends React.Component {
 						leftIcon={
 							<Icon
 								name='email'
-								color='rgba(171, 189, 219, 1)'
+								color='white'
 								size={25}
 							/>
 						}
@@ -111,7 +111,7 @@ export default class RegisterScreen extends React.Component {
 						leftIcon={
 							<Icon
 								name='lock'
-								color='rgba(171, 189, 219, 1)'
+								color='white'
 								size={25}
 							/>
 						}
@@ -131,8 +131,7 @@ export default class RegisterScreen extends React.Component {
 
 					/>
 					<View>
-						<Button style={Styles.buttonStyleReg} title={"Sign Up"} titleStyle={{fontWeight: 'bold', fontSize: 23}}
-										clear
+						<Button style={Styles.buttonStyleReg} clear title={"Sign Up"} titleStyle={{fontWeight: 'bold', fontSize: 23}}
 										onPress={this.onButtonPress.bind(this)}/>
 
 					</View>

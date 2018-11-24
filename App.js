@@ -82,8 +82,9 @@ const MainAppStack = createBottomTabNavigator({
       },
     }),
     tabBarOptions: {
-      activeTintColor: 'orange',
-      inactiveTintColor: 'gray',
+      activeTintColor: '#e53935',
+      inactiveTintColor: 'grey',
+
     },
     initialRouteName: 'Home',
   }

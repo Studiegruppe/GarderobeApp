@@ -42,6 +42,28 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		alignSelf: 'center',
 	},
+
+	ButtonChangePassword: {
+		borderWidth: 2,
+		height: 50,
+		width: 250,
+		borderColor: 'grey',
+		borderRadius: 30,
+		marginVertical: -150,
+		alignItems: 'center',
+		alignSelf: 'center',
+
+	},
+	ButtonChangeEmail: {
+		borderWidth: 2,
+		height: 50,
+		width: 250,
+		borderColor: 'grey',
+		borderRadius: 30,
+		marginVertical:10,
+		alignItems: 'center',
+		alignSelf: 'center',
+	},
 	buttonStyleForgot: {
 		borderWidth: 2,
 		height: 50,

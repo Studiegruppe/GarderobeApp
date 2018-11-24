@@ -38,7 +38,7 @@ export default class ForgotPassword extends React.Component {
         right: 0,
         bottom: 0,
         top: 0,
-      }} colors={['#2980b9', '#2c3e50'] }>
+      }} colors={['#e53935', '#e35d5b'] }>
 
           <View>
             <Image
@@ -56,7 +56,7 @@ export default class ForgotPassword extends React.Component {
           leftIcon={
             <Icon
               name='email'
-              color='rgba(171, 189, 219, 1)'
+              color='white'
               size={25}
             />
           }

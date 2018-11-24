@@ -49,7 +49,7 @@ export default class MapScreen extends React.Component {
     let markerArray = [];
     let that = this;
 
-    firebase.database().ref('Barer').once('value', function (snapshot) {
+    firebase.database().ref('Barer/').once('value', function (snapshot) {
       let barer = snapshot.val();
       debugBarer && console.log(barer);
       for (let key in barer) {
@@ -60,7 +60,7 @@ export default class MapScreen extends React.Component {
             <MapView.Marker
               coordinate={{
                 latitude: bar.Latitude,
-                longitude: bar.Longitude
+                longitude: bar.Longtitude
               }}
               title={bar.Navn}
               description={`description`}
@@ -85,6 +85,7 @@ export default class MapScreen extends React.Component {
               </MapView.Callout>
             </MapView.Marker>
           )
+          console.log(markerArray);
         }
       }
 
