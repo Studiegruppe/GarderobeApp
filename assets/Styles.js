@@ -6,8 +6,8 @@ export const defaultStyles = {
 	}
 };
 
+/* Transform into defaultStyles or use StyleSheet.create in the specific modules */
 export default StyleSheet.create({
-	/** Transform into default styles*/
 	backgroundStyle: {},
 	containerForLogin: {
 		flex: 1,
@@ -24,6 +24,8 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',
+
+
 	},
 	loginInputPassword: {
 
@@ -35,10 +37,33 @@ export default StyleSheet.create({
 		borderWidth: 2,
 		height: 50,
 		width: 250,
-		backgroundColor: 'transparent',
 		borderColor: 'white',
 		borderRadius: 30,
-		marginBottom: 0,
+		marginVertical: -110,
+		alignItems: 'center',
+		alignSelf: 'center',
+	},
+
+	ButtonChangePassword: {
+		borderWidth: 2,
+		height: 50,
+		width: 250,
+		borderColor: 'grey',
+		borderRadius: 30,
+		marginVertical: -150,
+		alignItems: 'center',
+		alignSelf: 'center',
+
+	},
+	ButtonChangeEmail: {
+		borderWidth: 2,
+		height: 50,
+		width: 250,
+		borderColor: 'grey',
+		borderRadius: 30,
+		marginVertical:10,
+		alignItems: 'center',
+		alignSelf: 'center',
 	},
 	buttonStyleForgot: {
 		borderWidth: 2,
@@ -48,6 +73,7 @@ export default StyleSheet.create({
 		borderColor: 'white',
 		borderRadius: 30,
 		marginBottom: 220,
+		alignSelf: 'center',
 	},
 	travelTextReg: {
 		flex: 1,
@@ -70,7 +96,10 @@ export default StyleSheet.create({
 	},
 	regInput: {
 		marginBottom: 400,
+
+
 	},
+
 	buttonStyleReg: {
 		borderWidth: 2,
 		height: 50,
@@ -87,14 +116,17 @@ export default StyleSheet.create({
 		height: 50,
 		width: 250,
 		backgroundColor: 'transparent',
-		marginBottom: 160,
+		marginTop: -50,
+		alignSelf: 'center'
+
 
 	},
 	buttonStyleText2: {
 		height: 50,
 		width: 250,
 		backgroundColor: 'transparent',
-		marginTop: -175,
+		marginBottom: 200,
+		alignSelf: 'center',
 
 	},
 	textField: {
@@ -151,8 +183,10 @@ export default StyleSheet.create({
 		fontSize: 15,
 		marginBottom: 10,
 	},
+
 	forgotEmailHeader: {
 		color: 'white',
+
 	},
 
 	footerView: {

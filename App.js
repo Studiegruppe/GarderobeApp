@@ -70,20 +70,21 @@ const MainAppStack = createBottomTabNavigator({
         const {routeName} = navigation.state;
         let iconName;
         if (routeName === 'Home') {
-          iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+          iconName = `ios-home${focused ? '' : '-outline'}`;
         } else if (routeName === 'Maps') {
           iconName = `ios-map${focused ? '' : '-outline'}`;
         } else if (routeName === 'Offers') {
           iconName = `ios-link${focused ? '' : '-outline'}`;
         } else {
-          iconName = `ios-options${focused ? '' : '-outline'}`
+          iconName = `ios-settings${focused ? '' : '-outline'}`
         }
         return <Icon.Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor}/>;
       },
     }),
     tabBarOptions: {
-      activeTintColor: 'blue',
-      inactiveTintColor: 'gray',
+      activeTintColor: '#e53935',
+      inactiveTintColor: 'grey',
+
     },
     initialRouteName: 'Home',
   }
