@@ -6,11 +6,9 @@ import {Text, View} from "react-native";
 import {Button} from "react-native-elements";
 
 const debugBarer = false;
-const debug = false;
+const debug = true;
 
 export default class MapScreen extends React.Component {
-
-  weekday;
 
   constructor(props) {
     super(props);
@@ -38,6 +36,9 @@ export default class MapScreen extends React.Component {
     let {status} = await Permissions.askAsync(Permissions.LOCATION);
     if (status === 'granted') {
       let location = await Location.getCurrentPositionAsync({});
+      if(!location.coords.latitude) {
+
+      }
       this.setState({latitude: location.coords.latitude, longitude: location.coords.longitude});
       this.setState({flex: 1});
     } else {
@@ -54,13 +55,14 @@ export default class MapScreen extends React.Component {
       debugBarer && console.log(barer);
       for (let key in barer) {
         if (barer.hasOwnProperty(key)) {
-          debug && console.log(key);
           let bar = barer[key];
-          markerArray.push(
+					debug && !bar.Longitude && console.log(`${bar.Navn}: mangler longitude i databasen`);
+					debug && !bar.Latitude && console.log(`${bar.Navn}: mangler latitude i databasen`);
+					markerArray.push(
             <MapView.Marker
               coordinate={{
                 latitude: bar.Latitude,
-                longitude: bar.Longtitude
+                longitude: bar.Longitude,
               }}
               title={bar.Navn}
               description={`description`}
@@ -84,8 +86,7 @@ export default class MapScreen extends React.Component {
                 </View>
               </MapView.Callout>
             </MapView.Marker>
-          )
-          console.log(markerArray);
+          );
         }
       }
 
