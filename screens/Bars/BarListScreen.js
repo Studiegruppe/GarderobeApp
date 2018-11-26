@@ -27,7 +27,7 @@ export default class BarListScreen extends React.Component {
       this.setState({
         isLoadingComplete: true
       })
-    }, 1000);
+    }, 2000);
   }
 
   get barsFromApiAsync() {
@@ -89,7 +89,7 @@ export default class BarListScreen extends React.Component {
     if (!this.state.isLoadingComplete) {
       return (
         <View style={{flex: 1, padding: 20, justifyContent: 'center', alignItems: 'stretch'}}>
-          <ActivityIndicator/>
+          <ActivityIndicator size="large"/>
         </View>
       )
     } else

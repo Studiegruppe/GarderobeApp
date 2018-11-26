@@ -36,9 +36,6 @@ export default class MapScreen extends React.Component {
     let {status} = await Permissions.askAsync(Permissions.LOCATION);
     if (status === 'granted') {
       let location = await Location.getCurrentPositionAsync({});
-      if(!location.coords.latitude) {
-
-      }
       this.setState({latitude: location.coords.latitude, longitude: location.coords.longitude});
       this.setState({flex: 1});
     } else {
