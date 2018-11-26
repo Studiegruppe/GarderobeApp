@@ -6,7 +6,7 @@ import {Text, View} from "react-native";
 import {Button} from "react-native-elements";
 
 const debugBarer = false;
-const debug = true;
+const debug = false;
 
 export default class MapScreen extends React.Component {
 
