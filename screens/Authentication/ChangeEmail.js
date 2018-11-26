@@ -2,7 +2,13 @@ import React from 'react';
 import {ExpoConfigView} from '@expo/samples';
 import firebase from 'firebase';
 import Styles from '../../assets/Styles';
-import {Text, TextInput, StyleSheet, View, ActivityIndicator, Button, ScrollView} from 'react-native';
+import {
+	Text, TextInput, StyleSheet, View, ActivityIndicator, ScrollView,
+	TouchableWithoutFeedback, Keyboard
+} from 'react-native';
+import {Input, Icon,Button} from "react-native-elements";
+import {LinearGradient} from "expo";
+
 
 
 
@@ -38,16 +44,48 @@ export default class SettingsScreen extends React.Component {
   }
   render() {
     return (
-      <ScrollView>
-        <TextInput style={styles.textInput} value={this.state.newEmail}
-                   placeholder="New Email" autoCapitalize="none" keyboardType="email-address"
-                   onChangeText={(text) => { this.setState({newEmail: text}) }}
-        />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <LinearGradient  style={{
+					position: 'absolute',
+					left: 0,
+					right: 0,
+					bottom: 0,
+					top: 0,
+				}} colors={[ '#F2F2F2', '#F2F2F2'] }>
 
-        <Button title="Change Email" onPress={this.onChangeEmailPress} />
-      </ScrollView>
-    );
-  }
+          <Input
+            leftIcon={
+              <Icon
+                name='email'
+                color='grey'
+                size={25}
+              />
+						}
+
+            containerStyle={{marginTop: 220, alignSelf: 'center', justifyContent: 'space-between'}}
+            onChangeText={newEmail => this.setState({newEmail})}
+            value={this.state.newEmail}
+            inputStyle={{marginLeft: 10, color: 'grey'}}
+            keyboardAppearance="light"
+            placeholder="Ny email"
+            autoFocus={false}
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
+            placeholderTextColor="grey"
+
+          />
+
+          <View>
+            <Button title="Change Email" clear buttonStyle={Styles.ButtonChangeEmail}  titleStyle={{fontWeight: 'bold', fontSize: 23, color: 'grey'}} onPress={this.onChangeEmailPress()} />
+          </View>
+
+        </LinearGradient>
+      </TouchableWithoutFeedback>
+
+		);
+	}
+
 }
 
 

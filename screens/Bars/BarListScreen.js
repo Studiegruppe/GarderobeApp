@@ -27,7 +27,7 @@ export default class BarListScreen extends React.Component {
       this.setState({
         isLoadingComplete: true
       })
-    }, 1000);
+    }, 2000);
   }
 
   get barsFromApiAsync() {
@@ -41,8 +41,8 @@ export default class BarListScreen extends React.Component {
         }
         const specifikBar = barer[key];
         //Add possible amounts to each individual bar
-        Object.assign(specifikBar, {possibleAmounts: possibleAmounts});
-        that.barArray.push(specifikBar);
+        Object.assign(specifikBar, {possibleAmounts: possibleAmounts, barID: key});
+				that.barArray.push(specifikBar);
       }
     });
   }
@@ -58,7 +58,7 @@ export default class BarListScreen extends React.Component {
     this.setState({
       popupIsOpen: false,
       // Reset values to default ones
-      chosenAmount: 0,
+      chosenAmount: null,
     });
   };
 
@@ -80,6 +80,7 @@ export default class BarListScreen extends React.Component {
         code: Math.random().toString(36).substring(6).toUpperCase() + Math.random().toString(36).substring(6).toUpperCase(),
         bar: this.state.bar.Navn,
         amount: this.state.chosenAmount,
+        barID: this.state.bar.barID,
       })
     }
   };
@@ -88,7 +89,7 @@ export default class BarListScreen extends React.Component {
     if (!this.state.isLoadingComplete) {
       return (
         <View style={{flex: 1, padding: 20, justifyContent: 'center', alignItems: 'stretch'}}>
-          <ActivityIndicator/>
+          <ActivityIndicator size="large"/>
         </View>
       )
     } else

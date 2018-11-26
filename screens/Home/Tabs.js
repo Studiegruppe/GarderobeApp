@@ -14,7 +14,7 @@ export default class Tabs extends Component {
   render({ children } = this.props) {
     return (
       <View style={styles.container}>
-        <LinearGradient colors={['#61045f', '#20011f']}>
+        <LinearGradient colors={['#e53935', '#e35d5b']}>
         {/* Tabs row */}
         <View style={styles.tabsContainer}>
           {/* Pull props out of children, and pull title out of props */}

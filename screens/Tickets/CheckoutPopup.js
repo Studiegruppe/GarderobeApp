@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import {
 	Animated,
 	Dimensions,
-	Image,
-	LayoutAnimation,
-	PanResponder,
+	ImageBackground,
 	StyleSheet,
 	Text,
 	TouchableHighlight,
@@ -13,25 +11,21 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {defaultStyles} from "../../assets/Styles";
-import BarOptions from "./BarOptions";
+import {TicketImageGenerator} from "./TicketImageGenerator";
 
 // Get screen dimensions
 const {width, height} = Dimensions.get('window');
 // Set default popup height to 50% of screen height
 const defaultHeight = height * 0.5;
 
-export default class BarPopup extends Component {
+export default class CheckoutPopup extends Component {
 
 	static propTypes = {
 		isOpen: PropTypes.bool.isRequired,
-		// Bar object that has NOTHING YET
-		bar: PropTypes.object,
-		// Index of chosen amount
-		chosenAmount: PropTypes.number,
-		// Gets called when user chooses amount
-		onChooseAmount: PropTypes.func,
-		// Gets called when user books their ticket
-		onBuyWardrobeTicket: PropTypes.func,
+		// Ticket object that has NOTHING YET
+		ticket: PropTypes.object,
+		// Gets called when user checks their ticket out
+		onCheckout: PropTypes.func,
 		// Gets called when popup is closed
 		onClose: PropTypes.func,
 	};
@@ -50,86 +44,6 @@ export default class BarPopup extends Component {
 			// Visibility flag
 			visible: this.props.isOpen,
 		};
-	}
-
-	// When user starts pulling popup previous height gets stored here
-	// to help us calculate new height value during and after pulling
-	_previousHeight = 0;
-
-	componentWillMount() {
-		// Initialize PanResponder to handle move gestures
-		this._panResponder = PanResponder.create({
-			onStartShouldSetPanResponder: (evt, gestureState) => true,
-			onMoveShouldSetPanResponder: (evt, gestureState) => {
-				const {dx, dy} = gestureState;
-				// Ignore taps
-				if (dx !== 0 && dy === 0) {
-					return true;
-				}
-				return false;
-			},
-			onPanResponderGrant: (evt, gestureState) => {
-				// Store previous height before user changed it
-				this._previousHeight = this.state.height;
-			},
-			onPanResponderMove: (evt, gestureState) => {
-				// Pull delta and velocity values for y axis from gestureState
-				const {dy, vy} = gestureState;
-				// Subtract delta y from previous height to get new height
-				let newHeight = this._previousHeight - dy;
-
-				// Animate heigh change so it looks smooth
-				LayoutAnimation.easeInEaseOut();
-
-				// Switch to expanded mode if popup pulled up above 80% mark
-				if (newHeight > height - height / 5) {
-					this.setState({expanded: true});
-				} else {
-					this.setState({expanded: false});
-				}
-
-				// Expand to full height if pulled up rapidly
-				if (vy < -0.75) {
-					this.setState({
-						expanded: true,
-						height: height
-					});
-				}
-
-				// Close if pulled down rapidly
-				else if (vy > 0.75) {
-					this.props.onClose();
-				}
-				// Close if pulled below 75% mark of default height
-				else if (newHeight < defaultHeight * 0.75) {
-					this.props.onClose();
-				}
-				// Limit max height to screen height
-				else if (newHeight > height) {
-					this.setState({height: height});
-				} else {
-					this.setState({height: newHeight});
-				}
-			},
-			onPanResponderTerminationRequest: (evt, gestureState) => true,
-			onPanResponderRelease: (evt, gestureState) => {
-				const {dy} = gestureState;
-				const newHeight = this._previousHeight - dy;
-
-				// Close if pulled below default height
-				if (newHeight < defaultHeight) {
-					this.props.onClose();
-				}
-
-				// Update previous height
-				this._previousHeight = this.state.height;
-			},
-			onShouldBlockNativeResponder: (evt, gestureState) => {
-				// Returns whether this component should block native components from becoming the JS
-				// responder. Returns true by default. Is currently only supported on android.
-				return true;
-			},
-		});
 	}
 
 	// Handle isOpen changes to either open or close popup
@@ -164,19 +78,16 @@ export default class BarPopup extends Component {
 	// Dynamic styles that depend on state
 	getStyles = () => {
 		return {
-			imageContainer: this.state.expanded ? {
-				width: width / 2,         // half of screen width
-			} : {
-				maxWidth: 110,            // limit width
-				marginRight: 10,
+			imageContainer: {
+				width: width,         // 100% of screen width
 			},
-			barContainer: this.state.expanded ? {
-				flexDirection: 'column',  // arrange image and bar info in a column
+			ticketContainer: this.state.expanded ? {
+				flexDirection: 'column',  // arrange image and ticket info in a column
 				alignItems: 'center',     // and center them
 			} : {
-				flexDirection: 'row',     // arrange image and bar info in a row
+				flexDirection: 'row',     // arrange image and ticket info in a row
 			},
-			barInfo: this.state.expanded ? {
+			ticketInfo: this.state.expanded ? {
 				flex: 0,
 				alignItems: 'center',     // center horizontally
 				paddingTop: 20,
@@ -200,17 +111,16 @@ export default class BarPopup extends Component {
 
 	render() {
 		const {
-			bar,
-			chosenAmount,
-			onChooseAmount,
-			onBuyWardrobeTicket
+			ticket,
+			onCheckout,
 		} = this.props;
-		// Pull out bar data
-		const {Navn, type, image, postalCode, possibleAmounts} = bar || {};
+		// Pull out ticket data
+		const {barNavn, antal, farve, checkind, nummer} = ticket || {};
 		// Render nothing if not visible
 		if (!this.state.visible) {
 			return null;
 		}
+		console.log(this.props);
 		return (
 			<View style={styles.container}>
 				{/* Closes popup if user taps on semi-transparent backdrop */}
@@ -228,29 +138,22 @@ export default class BarPopup extends Component {
 
 					{/* Content */}
 					<View style={styles.content}>
-						{/* Bar poster, title and type + postal area */}
+						{/* Ticket poster, title and type + postal area */}
 						<View
-							style={[styles.barContainer, this.getStyles().barContainer]}
-							{...this._panResponder.panHandlers}
-						>
+							style={[styles.ticketContainer, this.getStyles().ticketContainer]}>
 							{/* Poster */}
 							<View style={[styles.imageContainer, this.getStyles().imageContainer]}>
-								<Image source={{uri: image}} style={styles.image}/>
+								<ImageBackground
+									source={TicketImageGenerator(farve)}
+									style={styles.image}>
+
+									<Text style={[styles.imageText, styles.firstTextOnTicket]} numberOfLines={1}>antal: {antal}</Text>
+									<Text style={styles.imageText} numberOfLines={1}>Billet nr: {nummer}</Text>
+									<Text style={styles.imageText} numberOfLines={1}>{barNavn}</Text>
+									<Text style={styles.imageText}
+												numberOfLines={1}>{checkind}</Text>
+								</ImageBackground>
 							</View>
-							{/* Name, type and postal area */}
-							<View style={[styles.barInfo, this.getStyles().barInfo]}>
-								<Text style={[styles.title, this.getStyles().title]}>{Navn}</Text>
-								<Text style={styles.genre}>{type + ', ' + postalCode}</Text>
-							</View>
-						</View>
-						<View>
-							{/* Amount */}
-							<Text style={styles.sectionHeader}>Amount of items</Text>
-							<BarOptions
-								values={possibleAmounts}
-								chosen={chosenAmount}
-								onChoose={onChooseAmount}
-							/>
 						</View>
 					</View>
 
@@ -259,9 +162,9 @@ export default class BarPopup extends Component {
 						<TouchableHighlight
 							underlayColor="#9575CD"
 							style={styles.buttonContainer}
-							onPress={onBuyWardrobeTicket}
+							onPress={onCheckout}
 						>
-							<Text style={styles.button}>Book My Tickets</Text>
+							<Text style={styles.button}>Checkout</Text>
 						</TouchableHighlight>
 					</View>
 
@@ -293,8 +196,8 @@ const styles = StyleSheet.create({
 		margin: 20,
 		marginBottom: 0,
 	},
-	// Bar container
-	barContainer: {
+	// Ticket container
+	ticketContainer: {
 		flex: 1,                            // take up all available space
 		marginBottom: 20,
 	},
@@ -305,7 +208,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,                   // rounded corners
 		...StyleSheet.absoluteFillObject,   // fill up all space in a container
 	},
-	barInfo: {
+	ticketInfo: {
 		backgroundColor: 'transparent',     // looks nicer when switching to/from expanded mode
 	},
 	title: {

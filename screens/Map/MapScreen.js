@@ -10,8 +10,6 @@ const debug = false;
 
 export default class MapScreen extends React.Component {
 
-  weekday;
-
   constructor(props) {
     super(props);
     this.state = {
@@ -49,18 +47,19 @@ export default class MapScreen extends React.Component {
     let markerArray = [];
     let that = this;
 
-    firebase.database().ref('Barer').once('value', function (snapshot) {
+    firebase.database().ref('Barer/').once('value', function (snapshot) {
       let barer = snapshot.val();
       debugBarer && console.log(barer);
       for (let key in barer) {
         if (barer.hasOwnProperty(key)) {
-          debug && console.log(key);
           let bar = barer[key];
-          markerArray.push(
+					debug && !bar.Longitude && console.log(`${bar.Navn}: mangler longitude i databasen`);
+					debug && !bar.Latitude && console.log(`${bar.Navn}: mangler latitude i databasen`);
+					markerArray.push(
             <MapView.Marker
               coordinate={{
                 latitude: bar.Latitude,
-                longitude: bar.Longitude
+                longitude: bar.Longitude,
               }}
               title={bar.Navn}
               description={`description`}
@@ -84,7 +83,7 @@ export default class MapScreen extends React.Component {
                 </View>
               </MapView.Callout>
             </MapView.Marker>
-          )
+          );
         }
       }
 

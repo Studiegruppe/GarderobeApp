@@ -3,11 +3,13 @@ import {
   ActivityIndicator, ImageBackground, StatusBar, Text, TextInput, TouchableWithoutFeedback,
   View,Keyboard
 } from 'react-native';
+import Orientation from "react-native-orientation";
 import firebase from 'firebase';
 import Styles from '../../assets/Styles';
 import globals from "../../assets/Globals";
 import Avatar from "react-native-elements/src/avatar/Avatar";
 import {Button, Icon, Input} from "react-native-elements";
+import {LinearGradient} from "expo";
 
 
 
@@ -16,13 +18,13 @@ export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
 
+
     this.state = {
       email: '',
       password: '',
       loading: false,
     }
   }
-
   static navigationOptions = {
     header: null,
   };
@@ -53,7 +55,7 @@ export default class LoginForm extends React.Component {
       error: '',
     });
     globals.uid = firebase.auth().currentUser.uid;
-    alert("User signed in successfully");
+
   }
 
   onSignInFailed(error) {
@@ -67,24 +69,24 @@ export default class LoginForm extends React.Component {
     return (
       //nedenstående function gør at når man trykker på skærmen så forsvinder keyboardet.
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-
-
-
-      <ImageBackground
-        style={Styles.backgroundImage}
-        resizeMode='cover'
-       source={require('../../assets/images/grad-670x376.jpg')}>
+        <LinearGradient  style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          top: 0,
+        }} colors={['#e53935', '#e35d5b'] }>
 
         <Input
               leftIcon={
                 <Icon
                   name='email'
-                  color='rgba(171, 189, 219, 1)'
+                  color='white'
                   size={25}
                 />
               }
-              style={Styles.loginInput}
-              containerStyle={{marginVertical: 10}}
+
+              containerStyle={{marginTop: 320, alignSelf: 'center', justifyContent: 'space-between'}}
             onChangeText={email => this.setState({email})}
             value={this.state.email}
             inputStyle={{marginLeft: 10, color: 'white'}}
@@ -101,12 +103,12 @@ export default class LoginForm extends React.Component {
           leftIcon={
             <Icon
               name='lock'
-              color='rgba(171, 189, 219, 1)'
+              color='white'
               size={25}
             />
           }
-          style={Styles.loginInput}
-          containerStyle={{marginVertical: 15}}
+
+          containerStyle={{marginBottom: 150, alignSelf: 'center', justifyContent: 'space-between'}}
           onChangeText={password => this.setState({password})}
           value={this.state.password}
           inputStyle={{marginLeft: 10, color: 'white'}}
@@ -123,17 +125,18 @@ export default class LoginForm extends React.Component {
 
 
 
+<View>
 
-          <Button title={'Sign in'} buttonStyle={Styles.buttonStyleLogin} titleStyle={{fontWeight: 'bold', fontSize: 23}} onPress={this.signIn.bind(this)}/>
+          <Button title={'Sign in'} clear  buttonStyle={Styles.buttonStyleLogin} titleStyle={{fontWeight: 'bold', fontSize: 23}} onPress={this.signIn.bind(this)}/>
 
           <Button title="Create Account" clear buttonStyle={Styles.buttonStyleText1}
                  titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('Register')}/>
-        <Button title="Forgot Password" clear buttonStyle={Styles.buttonStyleText2}
+        <Button title="Forgot Password?" clear buttonStyle={Styles.buttonStyleText2}
                 titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('ForgotPassword')}/>
+</View>
 
 
-
-      </ImageBackground>
+        </LinearGradient>
       </TouchableWithoutFeedback>
 
     );

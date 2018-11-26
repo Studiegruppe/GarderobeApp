@@ -3,7 +3,9 @@ import {ExpoConfigView} from '@expo/samples';
 import firebase from 'firebase';
 import Styles from '../../assets/Styles';
 import { ListItem } from 'react-native-elements';
-import {Text, TextInput, StyleSheet, View, ActivityIndicator, Button, ScrollView} from 'react-native';
+import {Text, TextInput, StyleSheet, View, ActivityIndicator, Button, ScrollView, FlatList} from 'react-native';
+
+
 
 
 export default class SettingsScreen extends React.Component {
@@ -27,21 +29,21 @@ export default class SettingsScreen extends React.Component {
   }
 
 
-  render() {
-    return (
-      <ScrollView style={{flex: 1, flexDirection: "column", paddingVertical: 50, paddingHorizontal: 10,}}>
+	render() {
+		return (
+			<ScrollView style={{flex: 1, flexDirection: "column", paddingVertical: 50, paddingHorizontal: 10,}}>
 
 
-        <Button title="Change Password" onPress={() => this.props.navigation.navigate('ChangePassword')}/>
+				<Button title="Change Password" onPress={() => this.props.navigation.navigate('ChangePassword')}/>
 
 
-        <Button title="Change Email" onPress={() => this.props.navigation.navigate('ChangePassword')}/>
+				<Button title="Change Email" onPress={() => this.props.navigation.navigate('ChangeEmail')}/>
 
-        <Button title="Sign out" onPress={this.onSignoutPress}/>
+				<Button title="Sign out" onPress={this.onSignoutPress}/>
 
-      </ScrollView>
-    );
-  }
+			</ScrollView>
+		);
+	}
 
 }
 
