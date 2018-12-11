@@ -2,14 +2,26 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {defaultStyles} from "../../assets/Styles";
 import globals from "../../assets/Globals";
-import * as firebase from "firebase";
+import firebase from "firebase";
 
-export default class Confirmation extends Component {
+export default class TicketCheckinConfirmation extends Component {
+
+	params = this.props.navigation.state.params;
+	alreadyCheckedIn = false;
+	barID = this.params.barID || 0;
+	currentDate = new Date().toUTCString();
+	barPATH = `/Barer/${this.barID}`;
+	userId = globals.uid;
+	userPATH = `/Brugere/${this.userId}`;
+	userEmail = globals.email;
+	checkinTimestamp = this.currentDate;
+	checkOut = false;
+	barImage = this.params.barImage;
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedValue: this.props.navigation.state.params.amount,
+			selectedValue: this.params.amount,
 			ticketId: 0,
 			ticketColor: "",
 			currentNum: 0,
@@ -18,16 +30,6 @@ export default class Confirmation extends Component {
 			initialData: 0,
 		};
 	}
-
-	alreadyCheckedIn = false;
-	barId = this.props.navigation.state.params.barID || 0;
-	dt = new Date();
-	currentDate = this.dt.toUTCString()	;
-	barPATH = `/Barer/${this.barId}`;
-	userPATH = `/Brugere/${globals.uid}`;
-	userId = globals.uid;
-	checkinTimestamp = this.currentDate;
-	checkOut = false;
 
 	async getBarInfo() {
 		let that = this;
@@ -46,7 +48,7 @@ export default class Confirmation extends Component {
 	 */
 	componentWillMount() {
 		let that = this;
-		firebase.database().ref(`/Brugere/${globals.uid}/Billetter/Aktive`).on('value', function (snapshot) {
+		firebase.database().ref(`${this.userPATH}/Billetter/Aktive`).on('value', function (snapshot) {
 			that.setState({initialData: snapshot.val()});
 		});
 	}
@@ -58,20 +60,21 @@ export default class Confirmation extends Component {
 	async checkin() {
 		let that = this;
 		const active = this.state.initialData;
-		if (active === null || !active) {
-			return;
+		if (active !== null && active) {
+			Object.keys(active).forEach(function (key) {
+				if (active[key].barNavn === that.state.venueName) {
+					that.alreadyCheckedIn = true;
+				}
+			});
 		}
-		Object.keys(active).forEach(function (key) {
-			if (active[key].barNavn === that.state.venueName) {
-				that.alreadyCheckedIn = true;
-			}
-		});
 		if (this.alreadyCheckedIn) {
 			alert("you have already checked in");
 		} else {
 			this.generateTickets();
 			this.incrementCounter();
+			alert("You've checked in to the bar");
 		}
+		this.props.navigation.pop();
 	}
 
 	/**
@@ -89,37 +92,49 @@ export default class Confirmation extends Component {
 
 	/**
 	 * Bruges til at oprette tickets i databasen for både barer og brugere.
-	 * Der er anvent .child for mulighed for selv at angive push_key (id) i firebase
+	 * Der er anvendt .child for mulighed for selv at angive push_key (id) i firebase
 	 *
 	 *
-	 * Oprettelse af billetter for en bruger
+	 * Oprettelse af billetter af en brugers billet for baren
 	 */
 	async generateTickets() {
+		console.log(this.params);
 		let that = this;
-		await firebase.database().ref(`/Barer/${this.barId}/AktiveBilletter`).child(this.state.ticketId.toString()).set({
+		const ticketId = this.state.ticketId;
+		await firebase.database().ref(`${that.barPATH}/AktiveBilletter`).child(that.barID.toString() + ':' + ticketId.toString()).set({
 			antal: that.state.selectedValue,
-			[that.userId]: {Navn: "Jens"},
+			userID: that.userId,
+			userEmail: that.userEmail,
 			checkind: that.checkinTimestamp,
 			checkud: that.checkOut,
 			farve: that.state.ticketColor,
 			nummer: that.state.currentNum,
+			ticketId: ticketId,
+			barNavn: that.state.venueName,
+			barID: that.barID,
+			barImage: that.barImage,
 		});
 
 		/**
 		 * Oprettelse af billetter for en bruger
 		 */
-		await firebase.database().ref(`${this.userPATH}/Billetter/Aktive/`).child(this.state.venueName.toString()).update({
+		await firebase.database().ref(`${this.userPATH}/Billetter/Aktive/`).child(that.barID.toString() + ':' + ticketId.toString()).update({
 			antal: that.state.selectedValue,
-			barNavn: that.state.venueName,
+			userID: that.userId,
+			userEmail: that.userEmail,
 			checkind: that.checkinTimestamp,
 			checkud: that.checkOut,
 			farve: that.state.ticketColor,
 			nummer: that.state.currentNum,
+			ticketId: ticketId,
+			barNavn: that.state.venueName,
+			barID: that.barID,
+			barImage: that.barImage,
 		});
 	}
 
 	render() {
-		const {code, bar, amount, barID} = this.props.navigation.state.params;
+		const {code, bar, amount, barID} = this.params;
 		return (
 			<View style={styles.container}>
 				<TouchableOpacity
@@ -135,7 +150,7 @@ export default class Confirmation extends Component {
 				<Text style={styles.code}>{code}</Text>
 				<TouchableOpacity
 					style={styles.buttonContainer}
-					// Go back when pressed
+					// Gets bar info and then checks you in
 					onPress={() => this.getBarInfo()}>
 					<Text style={styles.button}>Check In</Text>
 				</TouchableOpacity>
@@ -143,6 +158,7 @@ export default class Confirmation extends Component {
 		);
 	}
 }
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,

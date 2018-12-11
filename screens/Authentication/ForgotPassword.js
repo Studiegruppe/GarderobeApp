@@ -1,13 +1,11 @@
 import React from 'react';
-import {ActivityIndicator, Image, ImageBackground, Text, TextInput, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import firebase from 'firebase';
 import Styles from '../../assets/Styles';
 import {Button, Icon, Input} from "react-native-elements";
 import {LinearGradient} from "expo";
 
 export default class ForgotPassword extends React.Component {
-
-
 
   constructor(props) {
     super(props);

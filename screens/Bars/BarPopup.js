@@ -35,6 +35,10 @@ export default class BarPopup extends Component {
 		// Gets called when popup is closed
 		onClose: PropTypes.func,
 	};
+	// to help us calculate new height value during and after pulling
+	_previousHeight = 0;
+
+	// When user starts pulling popup previous height gets stored here
 
 	constructor(props) {
 		super(props);
@@ -51,10 +55,6 @@ export default class BarPopup extends Component {
 			visible: this.props.isOpen,
 		};
 	}
-
-	// When user starts pulling popup previous height gets stored here
-	// to help us calculate new height value during and after pulling
-	_previousHeight = 0;
 
 	componentWillMount() {
 		// Initialize PanResponder to handle move gestures

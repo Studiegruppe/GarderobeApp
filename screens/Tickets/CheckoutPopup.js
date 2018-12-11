@@ -109,34 +109,31 @@ export default class CheckoutPopup extends Component {
     ).start(() => this.setState({visible: false}));
   }
 
-  render() {
-    const {
-      ticket,
-      onCheckout,
-    } = this.props;
-    // Pull out ticket data
-    const {barNavn, antal, farve, checkind, nummer} = ticket || {};
-    // Render nothing if not visible
-    if (!this.state.visible) {
-      return null;
-    }
-    console.log(this.props);
-    console.log(onCheckout);
-    return (
-      <View style={styles.container}>
-        {/* Closes popup if user taps on semi-transparent backdrop */}
-        <TouchableWithoutFeedback onPress={this.props.onClose}>
-          <Animated.View style={[styles.backdrop, {opacity: this.state.opacity}]}/>
-        </TouchableWithoutFeedback>
-        <Animated.View
-          style={[styles.modal, {
-            // Animates height
-            height: this.state.height,
-            // Animates position on the screen
-            transform: [{translateY: this.state.position}, {translateX: 0}]
-          }]}
-        >
-
+	render() {
+		const {
+			ticket,
+			onCheckout,
+		} = this.props;
+		// Pull out ticket data
+		const {barNavn, antal, farve, checkind, nummer} = ticket || {};
+		// Render nothing if not visible
+		if (!this.state.visible) {
+			return null;
+		}
+		return (
+			<View style={styles.container}>
+				{/* Closes popup if user taps on semi-transparent backdrop */}
+				<TouchableWithoutFeedback onPress={this.props.onClose}>
+					<Animated.View style={[styles.backdrop, {opacity: this.state.opacity}]}/>
+				</TouchableWithoutFeedback>
+				<Animated.View
+					style={[styles.modal, {
+						// Animates height
+						height: this.state.height,
+						// Animates position on the screen
+						transform: [{translateY: this.state.position}, {translateX: 0}]
+					}]}
+				>
           {/* Content */}
           <View style={styles.content}>
             {/* Ticket poster, title and type + postal area */}
