@@ -4,9 +4,6 @@ import Styles from "../../assets/Styles";
 
 
 export default class HistoryScreen extends React.Component {
-	static navigationOptions = {
-		title: 'app.json',
-	};
 
 	render() {
 		return (

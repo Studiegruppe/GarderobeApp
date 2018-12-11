@@ -2,17 +2,17 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {defaultStyles} from "../../assets/Styles";
 import globals from "../../assets/Globals";
-import * as firebase from "firebase";
+import firebase from "firebase";
 
 export default class TicketCheckinConfirmation extends Component {
 
+	params = this.props.navigation.state.params;
 	alreadyCheckedIn = false;
-	barId = this.props.navigation.state.params.barID || 0;
-	dt = new Date();
-	currentDate = this.dt.toUTCString();
-	barPATH = `/Barer/${this.barId}`;
-	userPATH = `/Brugere/${globals.uid}`;
+	barID = this.params.barID || 0;
+	currentDate = new Date().toUTCString();
+	barPATH = `/Barer/${this.barID}`;
 	userId = globals.uid;
+	userPATH = `/Brugere/${this.userId}`;
 	userEmail = globals.email;
 	checkinTimestamp = this.currentDate;
 	checkOut = false;
@@ -20,7 +20,7 @@ export default class TicketCheckinConfirmation extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedValue: this.props.navigation.state.params.amount,
+			selectedValue: this.params.amount,
 			ticketId: 0,
 			ticketColor: "",
 			currentNum: 0,
@@ -47,7 +47,7 @@ export default class TicketCheckinConfirmation extends Component {
 	 */
 	componentWillMount() {
 		let that = this;
-		firebase.database().ref(`/Brugere/${globals.uid}/Billetter/Aktive`).on('value', function (snapshot) {
+		firebase.database().ref(`${this.userPATH}/Billetter/Aktive`).on('value', function (snapshot) {
 			that.setState({initialData: snapshot.val()});
 		});
 	}
@@ -71,7 +71,9 @@ export default class TicketCheckinConfirmation extends Component {
 		} else {
 			this.generateTickets();
 			this.incrementCounter();
+			alert("You've checked in to the bar");
 		}
+		this.props.navigation.pop();
 	}
 
 	/**
@@ -92,11 +94,12 @@ export default class TicketCheckinConfirmation extends Component {
 	 * Der er anvendt .child for mulighed for selv at angive push_key (id) i firebase
 	 *
 	 *
-	 * Oprettelse af billetter for baren for en bruger
+	 * Oprettelse af billetter af en brugers billet for baren
 	 */
 	async generateTickets() {
 		let that = this;
-		await firebase.database().ref(`/Barer/${this.barId}/AktiveBilletter`).child(this.state.ticketId.toString()).set({
+		const ticketId = this.state.ticketId;
+		await firebase.database().ref(`${that.barPATH}/AktiveBilletter`).child(that.barID.toString() + ':' + ticketId.toString()).set({
 			antal: that.state.selectedValue,
 			userID: that.userId,
 			userEmail: that.userEmail,
@@ -104,23 +107,30 @@ export default class TicketCheckinConfirmation extends Component {
 			checkud: that.checkOut,
 			farve: that.state.ticketColor,
 			nummer: that.state.currentNum,
+			ticketId: ticketId,
+			barNavn: that.state.venueName,
+			barID: that.barID,
 		});
 
 		/**
 		 * Oprettelse af billetter for en bruger
 		 */
-		await firebase.database().ref(`${this.userPATH}/Billetter/Aktive/`).child(this.state.venueName.toString()).update({
+		await firebase.database().ref(`${this.userPATH}/Billetter/Aktive/`).child(that.barID.toString() + ':' + ticketId.toString()).update({
 			antal: that.state.selectedValue,
-			barNavn: that.state.venueName,
+			userID: that.userId,
+			userEmail: that.userEmail,
 			checkind: that.checkinTimestamp,
 			checkud: that.checkOut,
 			farve: that.state.ticketColor,
 			nummer: that.state.currentNum,
+			ticketId: ticketId,
+			barNavn: that.state.venueName,
+			barID: that.barID,
 		});
 	}
 
 	render() {
-		const {code, bar, amount, barID} = this.props.navigation.state.params;
+		const {code, bar, amount, barID} = this.params;
 		return (
 			<View style={styles.container}>
 				<TouchableOpacity
@@ -136,7 +146,7 @@ export default class TicketCheckinConfirmation extends Component {
 				<Text style={styles.code}>{code}</Text>
 				<TouchableOpacity
 					style={styles.buttonContainer}
-					// Go back when pressed
+					// Gets bar info and then checks you in
 					onPress={() => this.getBarInfo()}>
 					<Text style={styles.button}>Check In</Text>
 				</TouchableOpacity>
@@ -144,6 +154,7 @@ export default class TicketCheckinConfirmation extends Component {
 		);
 	}
 }
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
