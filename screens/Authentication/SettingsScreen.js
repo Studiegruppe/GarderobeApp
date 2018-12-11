@@ -1,32 +1,27 @@
 import React from 'react';
-import {ExpoConfigView} from '@expo/samples';
 import firebase from 'firebase';
-import Styles from '../../assets/Styles';
-import { ListItem } from 'react-native-elements';
-import {Text, TextInput, StyleSheet, View, ActivityIndicator, Button, ScrollView, FlatList} from 'react-native';
-
-
+import {Button, ScrollView} from 'react-native';
 
 
 export default class SettingsScreen extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentPassword: "",
-      newPassword: "",
-      newEmail: "",
-    };
-  }
+	static navigationOptions = {
+		title: 'Settings',
+	};
 
-  static navigationOptions = {
-    title: 'Settings',
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			currentPassword: "",
+			newPassword: "",
+			newEmail: "",
+		};
+	}
 
-  // Occurs when signout is pressed...
-  onSignoutPress = () => {
-    firebase.auth().signOut();
-  }
+	// Occurs when signout is pressed...
+	onSignoutPress = () => {
+		firebase.auth().signOut();
+	};
 
 
 	render() {

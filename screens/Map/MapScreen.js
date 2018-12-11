@@ -9,6 +9,10 @@ const debug = false;
 
 export default class MapScreen extends React.Component {
 
+	static navigationOptions = {
+		header: null,
+	};
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,11 +23,6 @@ export default class MapScreen extends React.Component {
 			flex: 0
 		};
 	}
-
-
-	static navigationOptions = {
-		header: null,
-	};
 
 	componentWillMount() {
 		this._getLocationAsync();
@@ -52,8 +51,8 @@ export default class MapScreen extends React.Component {
 			for (let key in barer) {
 				if (barer.hasOwnProperty(key)) {
 					let bar = barer[key];
-					debug && !bar.longitude && console.log(`${bar.name}: is missing longitude in the database`);
-					debug && !bar.latitude && console.log(`${bar.name}: is missing latitude in the database`);
+					debug && !bar.longitude && console.log(`${bar.email}: is missing longitude in the database`);
+					debug && !bar.latitude && console.log(`${bar.email}: is missing latitude in the database`);
 					markerArray.push(
 						<MapView.Marker
 							coordinate={{
@@ -65,7 +64,7 @@ export default class MapScreen extends React.Component {
 							<MapView.Callout>
 								<View>
 									{
-										bar.name ? <Text>{bar.name}</Text> : <Text style={{color: 'red'}}>Missing name</Text>
+										bar.email ? <Text>{bar.email}</Text> : <Text style={{color: 'red'}}>Missing name</Text>
 									}
 									{
 										bar.address ? <Text>{bar.address}</Text> : <Text style={{color: 'red'}}>Missing address</Text>

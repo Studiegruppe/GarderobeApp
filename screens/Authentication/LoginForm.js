@@ -9,18 +9,19 @@ import {LinearGradient} from "expo";
 
 export default class LoginForm extends React.Component {
 
+	static navigationOptions = {
+		header: null,
+	};
+
 	constructor(props) {
 		super(props);
 		this.state = {
 			email: '',
 			password: '',
 			loading: false,
+			error: '',
 		}
 	}
-
-	static navigationOptions = {
-		header: null,
-	};
 
 	renderButton() {
 		if (this.state.loading) {
@@ -32,7 +33,6 @@ export default class LoginForm extends React.Component {
 	async signIn() {
 		const {email, password} = this.state;
 		this.setState({
-			error: '',
 			loading: true,
 		});
 		firebase.auth().signInWithEmailAndPassword(email, password)
@@ -45,10 +45,12 @@ export default class LoginForm extends React.Component {
 			email: '',
 			password: '',
 			loading: false,
-			error: '',
 		});
-		globals.uid = firebase.auth().currentUser.uid;
-
+		const loggedInUser = firebase.auth().currentUser;
+		if (loggedInUser !== null) {
+			globals.email = firebase.auth().currentUser.email;
+			globals.uid = firebase.auth().currentUser.uid;
+		}
 	}
 
 	onSignInFailed(error) {

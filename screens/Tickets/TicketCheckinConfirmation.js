@@ -4,7 +4,18 @@ import {defaultStyles} from "../../assets/Styles";
 import globals from "../../assets/Globals";
 import * as firebase from "firebase";
 
-export default class Confirmation extends Component {
+export default class TicketCheckinConfirmation extends Component {
+
+	alreadyCheckedIn = false;
+	barId = this.props.navigation.state.params.barID || 0;
+	dt = new Date();
+	currentDate = this.dt.toUTCString();
+	barPATH = `/Barer/${this.barId}`;
+	userPATH = `/Brugere/${globals.uid}`;
+	userId = globals.uid;
+	userEmail = globals.email;
+	checkinTimestamp = this.currentDate;
+	checkOut = false;
 
 	constructor(props) {
 		super(props);
@@ -19,16 +30,6 @@ export default class Confirmation extends Component {
 		};
 	}
 
-	alreadyCheckedIn = false;
-	barId = this.props.navigation.state.params.barID || 0;
-	dt = new Date();
-	currentDate = this.dt.toUTCString()	;
-	barPATH = `/Barer/${this.barId}`;
-	userPATH = `/Brugere/${globals.uid}`;
-	userId = globals.uid;
-	checkinTimestamp = this.currentDate;
-	checkOut = false;
-
 	async getBarInfo() {
 		let that = this;
 		await firebase.database().ref(that.barPATH).once('value', function (snapshot) {
@@ -38,7 +39,6 @@ export default class Confirmation extends Component {
 			that.state.ticketColor = obj.ticketsInfo.colour;
 			that.state.currentNum = obj.ticketsInfo.currentNumber;
 		});
-		console.log(this.state);
 		this.checkin();
 	}
 
@@ -48,7 +48,6 @@ export default class Confirmation extends Component {
 	componentWillMount() {
 		let that = this;
 		firebase.database().ref(`/Brugere/${globals.uid}/Billetter/Aktive`).on('value', function (snapshot) {
-			console.log(globals.uid);
 			that.setState({initialData: snapshot.val()});
 		});
 	}
@@ -90,16 +89,17 @@ export default class Confirmation extends Component {
 
 	/**
 	 * Bruges til at oprette tickets i databasen for både barer og brugere.
-	 * Der er anvent .child for mulighed for selv at angive push_key (id) i firebase
+	 * Der er anvendt .child for mulighed for selv at angive push_key (id) i firebase
 	 *
 	 *
-	 * Oprettelse af billetter for en bruger
+	 * Oprettelse af billetter for baren for en bruger
 	 */
 	async generateTickets() {
 		let that = this;
 		await firebase.database().ref(`/Barer/${this.barId}/AktiveBilletter`).child(this.state.ticketId.toString()).set({
 			antal: that.state.selectedValue,
-			[that.userId]: {Navn: "Jens"},
+			userID: that.userId,
+			userEmail: that.userEmail,
 			checkind: that.checkinTimestamp,
 			checkud: that.checkOut,
 			farve: that.state.ticketColor,

@@ -11,7 +11,6 @@ export default StyleSheet.create({
 	backgroundStyle: {},
 	containerForLogin: {
 		flex: 1,
-
 	},
 	containerStyle: {
 		flex: 1,
@@ -24,11 +23,8 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',
-
-
 	},
 	loginInputPassword: {
-
 		justifyContent: 'center',
 		alignItems: 'center',
 		width: '100'
@@ -61,7 +57,7 @@ export default StyleSheet.create({
 		width: 250,
 		borderColor: 'grey',
 		borderRadius: 30,
-		marginVertical:10,
+		marginVertical: 10,
 		alignItems: 'center',
 		alignSelf: 'center',
 	},

@@ -14,9 +14,10 @@ import {AppLoading, Icon} from 'expo';
 import ForgotPassword from "./screens/Authentication/ForgotPassword";
 import ChangePassword from "./screens/Authentication/ChangePassword";
 import ChangeEmail from "./screens/Authentication/ChangeEmail";
-import TicketConfirmation from "./screens/Tickets/TicketConfirmation";
+import TicketCheckinConfirmation from "./screens/Tickets/TicketCheckinConfirmation";
 import BarPopup from "./screens/Bars/BarPopup";
 import HomeScreen from "./screens/Home/HomeScreen";
+import TicketCheckoutConfirmation from "./screens/Tickets/TicketCheckoutConfirmation";
 
 const LoginStack = createStackNavigator({
 		Login: LoginForm,
@@ -37,7 +38,8 @@ const HomeStack = createStackNavigator({
 	Home: HomeScreen,
 	BarList: BarListScreen,
 	BarPopUp: BarPopup,
-	ConfirmTicket: TicketConfirmation,
+	ConfirmCheckin: TicketCheckinConfirmation,
+	ConfirmCheckout: TicketCheckoutConfirmation,
 	TicketsActive: AktivScreen,
 	TicketsHistory: HistoryScreen,
 });
@@ -55,8 +57,6 @@ const MapsStack = createStackNavigator({
 const MainAppStack = createBottomTabNavigator({
 		Home: HomeStack,
 		Maps: MapsStack,
-		// Set offers back into the code if it is needed in the future
-		//Offers: OffersScreen,
 		Settings: SettingsStack,
 	},
 	{
@@ -91,7 +91,6 @@ export default class App extends React.Component {
 		super(props);
 		this.state = {
 			loggedIn: null,
-			currentUser: null,
 			isLoadingComplete: false,
 			skipLoadingScreen: false,
 			appIsReady: false,
@@ -110,10 +109,11 @@ export default class App extends React.Component {
 
 		firebase.auth().onAuthStateChanged(user => {
 			if (user) {
-				globals.uid = firebase.auth().currentUser.uid;
-				this.setState({loggedIn: true, currentUser: user});
+				globals.email = user.email;
+				globals.uid = user.uid;
+				this.setState({loggedIn: true});
 			} else {
-				this.setState({loggedIn: false, currentUser: null});
+				this.setState({loggedIn: false});
 			}
 		});
 	}

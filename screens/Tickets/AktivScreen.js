@@ -57,7 +57,13 @@ export default class AktivScreen extends React.Component {
 	};
 
 	checkoutTicket = () => {
-		console.log("checking out soonTM");
+		if (!this.state.ticket) {
+			console.log("ingen ticket");
+			return;
+		}
+		// Close popup
+		this.closeTicket();
+		console.log(this.state.ticket);
 	};
 
 	render() {

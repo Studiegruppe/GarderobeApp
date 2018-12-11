@@ -4,18 +4,18 @@ import Styles from "../../assets/Styles";
 
 
 export default class HistoryScreen extends React.Component {
-  static navigationOptions = {
-    title: 'app.json',
-  };
+	static navigationOptions = {
+		title: 'app.json',
+	};
 
-  render() {
-    return (
-      <View style={Styles.scrollableTab}>
-        <Text style={Styles.welcomeTab}>
-          HISTORY
-        </Text>
-      </View>
+	render() {
+		return (
+			<View style={Styles.scrollableTab}>
+				<Text style={Styles.welcomeTab}>
+					HISTORY
+				</Text>
+			</View>
 
-    );
-  }
+		);
+	}
 }
