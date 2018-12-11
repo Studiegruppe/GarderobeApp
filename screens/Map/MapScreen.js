@@ -64,7 +64,7 @@ export default class MapScreen extends React.Component {
 							<MapView.Callout>
 								<View>
 									{
-										bar.email ? <Text>{bar.email}</Text> : <Text style={{color: 'red'}}>Missing name</Text>
+										bar.Navn ? <Text style={{fontWeight: 'bold',}}>{bar.Navn}</Text> : <Text style={{color: 'red'}}>missing name</Text>
 									}
 									{
 										bar.address ? <Text>{bar.address}</Text> : <Text style={{color: 'red'}}>Missing address</Text>
