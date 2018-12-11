@@ -78,7 +78,7 @@ export default class RegisterScreen extends React.Component {
 					right: 0,
 					bottom: 0,
 					top: 0,
-				}} colors={['#e53935', '#e35d5b']}>
+				}} colors={['#80d0c7', '#13547a']}>
 					<View style={{flexDirection: 'row'}}>
 						<Text style={Styles.travelTextReg} titleStyle={{fontWeight: 800, fontSize: 40}}>SIGN UP</Text>
 
