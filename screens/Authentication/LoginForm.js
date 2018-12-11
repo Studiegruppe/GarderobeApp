@@ -79,7 +79,7 @@ export default class LoginForm extends React.Component {
           <View>
             <Image
               style={{width: 150, height: 150, left: 5, right: 5, marginTop: 110, alignSelf: 'center'}}
-              source={require('../../assets/images/icon.png')}
+              source={require('../../assets/images/jckt_logo_300x300.png')}
             />
           </View>
         <Input

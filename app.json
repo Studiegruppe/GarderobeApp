@@ -7,8 +7,8 @@
     "orientation": "portrait",
     "sdkVersion": "30.0.0",
     "splash": {
-      "image": "./assets/images/send_reset_password.png",
-      "backgroundColor": "#ef5656",
+      "image": "./assets/images/jckt_logo_300x300.png",
+      "backgroundColor": "#13547A",
       "resizeMode": "contain"
     }
   },
