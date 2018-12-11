@@ -1,5 +1,5 @@
 import React from 'react';
-import {Keyboard, Text, TouchableWithoutFeedback, View} from 'react-native';
+import {ActivityIndicator, Image, Keyboard, TouchableWithoutFeedback, View} from 'react-native';
 import firebase from 'firebase';
 import Styles from '../../assets/Styles';
 import globals from "../../assets/Globals";
@@ -21,6 +21,13 @@ export default class LoginForm extends React.Component {
 	static navigationOptions = {
 		header: null,
 	};
+
+	renderButton() {
+		if (this.state.loading) {
+			return <ActivityIndicator size={'small'}/>
+
+		}
+	}
 
 	async signIn() {
 		const {email, password} = this.state;
@@ -61,8 +68,13 @@ export default class LoginForm extends React.Component {
 					right: 0,
 					bottom: 0,
 					top: 0,
-				}} colors={['#e53935', '#e35d5b']}>
-
+				}} colors={['#80d0c7', '#13547a']}>
+					<View>
+						<Image
+							style={{width: 150, height: 150, left: 5, right: 5, marginTop: 110, alignSelf: 'center'}}
+							source={require('../../assets/images/jckt_logo_300x300.png')}
+						/>
+					</View>
 					<Input
 						leftIcon={
 							<Icon
@@ -72,7 +84,7 @@ export default class LoginForm extends React.Component {
 							/>
 						}
 
-						containerStyle={{marginTop: 320, alignSelf: 'center', justifyContent: 'space-between'}}
+						containerStyle={{marginTop: 50, alignSelf: 'center', justifyContent: 'space-between'}}
 						onChangeText={email => this.setState({email})}
 						value={this.state.email}
 						inputStyle={{marginLeft: 10, color: 'white'}}
@@ -83,6 +95,7 @@ export default class LoginForm extends React.Component {
 						autoCorrect={false}
 						keyboardType="email-address"
 						placeholderTextColor="white"
+
 					/>
 					<Input
 						leftIcon={
@@ -108,25 +121,22 @@ export default class LoginForm extends React.Component {
 
 					/>
 
+
 					<View>
 
-						<Button title='Sign in' clear buttonStyle={Styles.buttonStyleLogin}
+						<Button title={'Sign in'} clear buttonStyle={Styles.buttonStyleLogin}
 										titleStyle={{fontWeight: 'bold', fontSize: 23}} onPress={this.signIn.bind(this)}/>
+
 						<Button title="Create Account" clear buttonStyle={Styles.buttonStyleText1}
 										titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('Register')}/>
 						<Button title="Forgot Password?" clear buttonStyle={Styles.buttonStyleText2}
 										titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('ForgotPassword')}/>
-
-						<Text>
-							{this.state.error}
-						</Text>
 					</View>
+
 
 				</LinearGradient>
 			</TouchableWithoutFeedback>
 
 		);
 	}
-
-
 }

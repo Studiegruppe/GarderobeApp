@@ -207,6 +207,5 @@ export default StyleSheet.create({
 
 
 /*
-farve top : #60C3FF
-farve bot : #5887F9
+#80D0C7', '#13547A
 */
