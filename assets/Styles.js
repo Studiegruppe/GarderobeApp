@@ -39,7 +39,26 @@ export default StyleSheet.create({
 		width: 250,
 		borderColor: 'white',
 		borderRadius: 30,
-		marginVertical: -110,
+		alignItems: 'center',
+		alignSelf: 'center',
+	},
+
+	SettingsButton: {
+		borderWidth: 2,
+		height: 50,
+		width: 250,
+		borderColor: 'white',
+		borderRadius: 10,
+		alignItems: 'center',
+		alignSelf: 'center',
+	},
+	SignoutButton: {
+		backgroundColor: '#F31431',
+		borderWidth: 2,
+		height: 50,
+		width: 250,
+		borderColor: '#F31431',
+		borderRadius: 10,
 		alignItems: 'center',
 		alignSelf: 'center',
 	},
@@ -48,20 +67,17 @@ export default StyleSheet.create({
 		borderWidth: 2,
 		height: 50,
 		width: 250,
-		borderColor: 'grey',
+		borderColor: 'white',
 		borderRadius: 30,
-		marginVertical: -150,
 		alignItems: 'center',
 		alignSelf: 'center',
-
 	},
 	ButtonChangeEmail: {
 		borderWidth: 2,
 		height: 50,
 		width: 250,
-		borderColor: 'grey',
+		borderColor: 'white',
 		borderRadius: 30,
-		marginVertical:10,
 		alignItems: 'center',
 		alignSelf: 'center',
 	},
@@ -96,8 +112,6 @@ export default StyleSheet.create({
 	},
 	regInput: {
 		marginBottom: 400,
-
-
 	},
 
 	buttonStyleReg: {
@@ -116,7 +130,7 @@ export default StyleSheet.create({
 		height: 50,
 		width: 250,
 		backgroundColor: 'transparent',
-		marginTop: -50,
+		marginTop: 0,
 		alignSelf: 'center'
 
 
@@ -142,7 +156,7 @@ export default StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#F5FCFF',
+		backgroundColor: 'transparent',
 		paddingTop: 40,
 		width: '100%',
 

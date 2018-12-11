@@ -51,33 +51,33 @@ export default class SettingsScreen extends React.Component {
 					right: 0,
 					bottom: 0,
 					top: 0,
-				}} colors={[ '#F2F2F2', '#F2F2F2'] }>
+        }} colors={['#80d0c7', '#13547a']}>
 
           <Input
             leftIcon={
               <Icon
                 name='email'
-                color='grey'
+                color='white'
                 size={25}
               />
 						}
 
-            containerStyle={{marginTop: 220, alignSelf: 'center', justifyContent: 'space-between'}}
+            containerStyle={{marginTop: 220,marginBottom: 240, alignSelf: 'center', justifyContent: 'space-between'}}
             onChangeText={newEmail => this.setState({newEmail})}
             value={this.state.newEmail}
-            inputStyle={{marginLeft: 10, color: 'grey'}}
+            inputStyle={{marginLeft: 10, color: 'white'}}
             keyboardAppearance="light"
             placeholder="Ny email"
             autoFocus={false}
             autoCapitalize="none"
             autoCorrect={false}
             keyboardType="email-address"
-            placeholderTextColor="grey"
+            placeholderTextColor="white"
 
           />
 
           <View>
-            <Button title="Change Email" clear buttonStyle={Styles.ButtonChangeEmail}  titleStyle={{fontWeight: 'bold', fontSize: 23, color: 'grey'}} onPress={this.onChangeEmailPress()} />
+            <Button title="Change Email" clear buttonStyle={Styles.ButtonChangeEmail}  titleStyle={{fontWeight: 'bold', fontSize: 23, color: 'white'}} onPress={this.onChangeEmailPress()} />
           </View>
 
         </LinearGradient>

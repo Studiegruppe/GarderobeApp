@@ -14,7 +14,7 @@ export default class Tabs extends Component {
   render({ children } = this.props) {
     return (
       <View style={styles.container}>
-        <LinearGradient colors={['#13547A', '#186c9e']}>
+        <LinearGradient colors={['rgba(52, 52, 52, 1.0)', 'rgba(255, 255, 255, 0.01)']}>
         {/* Tabs row */}
         <View style={styles.tabsContainer}>
           {/* Pull props out of children, and pull title out of props */}
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   // Individual tab container
   tabContainer: {
     flex: 1,                            // Take up equal amount of space for each tab
-    paddingVertical: 15,                // Vertical padding
+    paddingVertical: 5,                // Vertical padding
     borderBottomWidth: 3,               // Add thick border at the bottom
     borderBottomColor: 'transparent',   // Transparent border for inactive tabs
   },

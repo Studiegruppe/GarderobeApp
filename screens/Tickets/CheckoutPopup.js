@@ -121,6 +121,7 @@ export default class CheckoutPopup extends Component {
 			return null;
 		}
 		console.log(this.props);
+		console.log(onCheckout);
 		return (
 			<View style={styles.container}>
 				{/* Closes popup if user taps on semi-transparent backdrop */}

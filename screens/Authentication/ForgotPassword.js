@@ -38,7 +38,7 @@ export default class ForgotPassword extends React.Component {
         right: 0,
         bottom: 0,
         top: 0,
-      }} colors={['#e53935', '#e35d5b'] }>
+      }} colors={['#80d0c7', '#13547a']}>
 
           <View>
             <Image

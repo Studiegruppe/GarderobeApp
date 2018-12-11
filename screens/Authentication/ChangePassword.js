@@ -13,6 +13,7 @@ import { LinearGradient} from "expo";
 
 export default class SettingsScreen extends React.Component {
 
+
   constructor(props) {
     super(props);
     this.state = {
@@ -21,6 +22,7 @@ export default class SettingsScreen extends React.Component {
       newEmail: "",
     };
   }
+
   // Reauthenticates the current user and returns a promise.
   reauthenticate = (currentPassword) => {
     var user = firebase.auth().currentUser;
@@ -46,13 +48,13 @@ export default class SettingsScreen extends React.Component {
 						right: 0,
 						bottom: 0,
 						top: 0,
-					}} colors={['#F2F2F2', '#F2F2F2'] }>
+          }} colors={['#80d0c7', '#13547a']}>
 
             <Input
               leftIcon={
                 <Icon
                   name='lock'
-                  color='grey'
+                  color='white'
                   size={25}
                 />
 							}
@@ -60,7 +62,7 @@ export default class SettingsScreen extends React.Component {
               containerStyle={{marginTop: 230, alignSelf: 'center', justifyContent: 'space-between'}}
               onChangeText={currentPassword => this.setState({currentPassword})}
               value={this.state.currentPassword}
-              inputStyle={{marginLeft: 10, color: 'grey'}}
+              inputStyle={{marginLeft: 10, color: 'white'}}
               keyboardAppearance="light"
               placeholder="Nuværende Password"
               autoFocus={false}
@@ -68,14 +70,14 @@ export default class SettingsScreen extends React.Component {
               autoCorrect={false}
               keyboardType="default"
               secureTextEntry={true}
-              placeholderTextColor="grey"
+              placeholderTextColor="white"
 
             />
             <Input
               leftIcon={
                 <Icon
                   name='lock'
-                  color='grey'
+                  color='white'
                   size={25}
                 />
 							}
@@ -83,7 +85,7 @@ export default class SettingsScreen extends React.Component {
               containerStyle={{marginBottom: 190, alignSelf: 'center', justifyContent: 'space-between'}}
               onChangeText={newPassword => this.setState({newPassword})}
               value={this.state.newPassword}
-              inputStyle={{marginLeft: 10, color: 'grey'}}
+              inputStyle={{marginLeft: 10, color: 'white'}}
               keyboardAppearance="light"
               placeholder="Nyt Password"
               secureTextEntry={true}
@@ -91,14 +93,14 @@ export default class SettingsScreen extends React.Component {
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="default"
-              placeholderTextColor="grey"
+              placeholderTextColor="white"
 
             />
 
 
 
           <View>
-              <Button title="Change Password" clear buttonStyle={Styles.ButtonChangePassword} titleStyle={{fontWeight: 'bold', fontSize: 23, color: 'grey'}} onPress={this.onChangePasswordPress} />
+              <Button title="Change Password" clear buttonStyle={Styles.ButtonChangePassword} titleStyle={{fontWeight: 'bold', fontSize: 23, color: 'white'}} onPress={this.onChangePasswordPress} />
             </View>
 
           </LinearGradient>

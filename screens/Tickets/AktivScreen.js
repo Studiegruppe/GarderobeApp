@@ -1,4 +1,4 @@
-import {ActivityIndicator, ScrollView, StyleSheet, View} from "react-native";
+import {ActivityIndicator, ScrollView, StyleSheet, Text, View} from "react-native";
 import React from "react";
 import firebase from 'firebase';
 import globals from "../../assets/Globals";
@@ -56,15 +56,16 @@ export default class AktivScreen extends React.Component {
 		});
 	};
 
+
 	checkoutTicket = () => {
-		console.log("checking out soonTM");
+		console.log("toasdasd");
 	};
 
 	render() {
 		if (!this.state.isLoadingComplete) {
 			return (
 				<View style={{flex: 1, padding: 20, justifyContent: 'center', alignItems: 'stretch'}}>
-					<ActivityIndicator/>
+					<ActivityIndicator size="large" color="#FFFFFF"/>
 				</View>
 			)
 		} else {
@@ -98,6 +99,7 @@ export default class AktivScreen extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		paddingTop: 20,         // start below status bar
+		backgroundColor: 'transparent',         // Background color
 	},
 	scrollContent: {
 		flexDirection: 'row',   // arrange posters in rows
