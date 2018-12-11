@@ -76,7 +76,7 @@ export default class BarListScreen extends React.Component {
 			// Close popup
 			this.closeBar();
 			// Navigate away to ConfirmCheckin route
-			this.props.navigation.navigate('ConfirmCheckin', {
+			this.props.navigation.navigate('Payment', {
 				code: Math.random().toString(36).substring(6).toUpperCase() + Math.random().toString(36).substring(6).toUpperCase(),
 				barName: this.state.bar.Navn,
 				amount: this.state.chosenAmount,

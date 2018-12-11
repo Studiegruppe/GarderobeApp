@@ -9,6 +9,10 @@ import {LinearGradient} from "expo";
 
 export default class TicketCheckinConfirmation extends Component {
 
+  static navigationOptions = {
+    header: null,
+  };
+
   params = this.props.navigation.state.params;
   alreadyCheckedIn = false;
   barID = this.params.barID || 0;
@@ -34,20 +38,6 @@ export default class TicketCheckinConfirmation extends Component {
     };
   }
 
-
-  static navigationOptions = {
-    header: null,
-  };
-
-  alreadyCheckedIn = false;
-  barId = this.props.navigation.state.params.barID || 0;
-  dt = new Date();
-  currentDate = this.dt.toUTCString();
-  barPATH = `/Barer/${this.barId}`;
-  userPATH = `/Brugere/${globals.uid}`;
-  userId = globals.uid;
-  checkinTimestamp = this.currentDate;
-  checkOut = false;
 
   async getBarInfo() {
     let that = this;
@@ -174,7 +164,7 @@ export default class TicketCheckinConfirmation extends Component {
           <TouchableOpacity
             style={styles.buttonContainer}
             // Go back when pressed
-            onPress={() => this.props.navigation.pop()}>
+            onPress={() => this.props.navigation.popToTop()}>
             <Text style={styles.button}>Go Back</Text>
           </TouchableOpacity>
         </View>

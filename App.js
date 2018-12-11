@@ -18,6 +18,7 @@ import TicketCheckinConfirmation from "./screens/Tickets/TicketCheckinConfirmati
 import BarPopup from "./screens/Bars/BarPopup";
 import HomeScreen from "./screens/Home/HomeScreen";
 import TicketCheckoutConfirmation from "./screens/Tickets/TicketCheckoutConfirmation";
+import PaymentScreen from "./screens/Payment/PaymentScreen";
 
 const LoginStack = createStackNavigator({
     Login: LoginForm,
@@ -40,6 +41,7 @@ const HomeStack = createStackNavigator({
 	BarPopUp: BarPopup,
 	ConfirmCheckin: TicketCheckinConfirmation,
 	ConfirmCheckout: TicketCheckoutConfirmation,
+	Payment: PaymentScreen,
 	TicketsActive: AktivScreen,
 	TicketsHistory: HistoryScreen,
 });
