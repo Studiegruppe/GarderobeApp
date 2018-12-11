@@ -60,12 +60,14 @@ const styles = StyleSheet.create({
     flex: 1,                          // take up all available space
   },
   imageText1: {
+    fontWeight: 'bold',
     backgroundColor: 'transparent',
     textAlign: 'center',
     fontSize: 20,
     paddingTop: 20,
   },
   imageText: {
+    fontWeight: 'bold',
     backgroundColor: 'transparent',
     textAlign: 'center',
     fontSize: 20,
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     textAlign: 'center',
     fontSize: 30,
-    marginLeft: -240,
+    marginLeft: -250,
     marginTop: -25,
   },
   amountText: {
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     textAlign: 'center',
     fontSize: 30,
-    marginLeft: 240,
+    marginLeft: 250,
     marginTop: -54,
   },
 

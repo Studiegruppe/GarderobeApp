@@ -214,6 +214,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     textAlign: 'center',
     fontSize: 20,
+    fontWeight: 'bold',
   },
   amountText: {
     transform: [{rotate: '90deg'}],
@@ -236,6 +237,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     paddingTop: 65,
+    fontWeight: 'bold',
   },
   ticketInfo: {
     backgroundColor: 'transparent',
@@ -259,7 +261,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   buttonContainer: {
-    backgroundColor: '#673AB7',
+    backgroundColor: 'rgba(19,84,122, 1)',
     borderRadius: 100,
     paddingVertical: 10,
     paddingHorizontal: 15,
