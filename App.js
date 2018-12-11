@@ -68,8 +68,6 @@ const MainAppStack = createBottomTabNavigator({
 					iconName = `ios-home${focused ? '' : '-outline'}`;
 				} else if (routeName === 'Maps') {
 					iconName = `ios-map${focused ? '' : '-outline'}`;
-				} else if (routeName === 'Offers') {
-					iconName = `ios-link${focused ? '' : '-outline'}`;
 				} else {
 					iconName = `ios-settings${focused ? '' : '-outline'}`
 				}

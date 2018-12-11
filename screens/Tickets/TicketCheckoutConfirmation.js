@@ -15,6 +15,7 @@ export default class TicketCheckoutConfirmation extends Component {
 	userPATH = `/Brugere/${this.userId}`;
 	barPATH = `/Barer/${this.barID}`;
 	ticketID = this.ticket.ticketId;
+	barImage = this.params.image;
 
 	constructor(props) {
 		super(props);
@@ -38,6 +39,7 @@ export default class TicketCheckoutConfirmation extends Component {
 				ticketId: that.ticketID,
 				barNavn: that.ticket.barNavn,
 				barID: that.ticket.barID,
+				barImage: that.barImage,
 			});
 
 		await firebase.database().ref(`${that.barPATH}/InaktiveBilletter/`).child(that.barID.toString() + ':' + that.ticketID.toString()).update(
@@ -52,6 +54,7 @@ export default class TicketCheckoutConfirmation extends Component {
 				ticketId: that.ticketID,
 				barNavn: that.ticket.barNavn,
 				barID: that.ticket.barID,
+				barImage: that.barImage,
 			});
 	}
 

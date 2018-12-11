@@ -78,9 +78,10 @@ export default class BarListScreen extends React.Component {
 			// Navigate away to ConfirmCheckin route
 			this.props.navigation.navigate('ConfirmCheckin', {
 				code: Math.random().toString(36).substring(6).toUpperCase() + Math.random().toString(36).substring(6).toUpperCase(),
-				bar: this.state.bar.Navn,
+				barName: this.state.bar.Navn,
 				amount: this.state.chosenAmount,
 				barID: this.state.bar.barID,
+				barImage: this.state.bar.image,
 			})
 		}
 	};

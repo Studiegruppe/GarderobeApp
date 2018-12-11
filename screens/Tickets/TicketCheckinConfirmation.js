@@ -16,6 +16,7 @@ export default class TicketCheckinConfirmation extends Component {
 	userEmail = globals.email;
 	checkinTimestamp = this.currentDate;
 	checkOut = false;
+	barImage = this.params.barImage;
 
 	constructor(props) {
 		super(props);
@@ -97,6 +98,7 @@ export default class TicketCheckinConfirmation extends Component {
 	 * Oprettelse af billetter af en brugers billet for baren
 	 */
 	async generateTickets() {
+		console.log(this.params);
 		let that = this;
 		const ticketId = this.state.ticketId;
 		await firebase.database().ref(`${that.barPATH}/AktiveBilletter`).child(that.barID.toString() + ':' + ticketId.toString()).set({
@@ -110,6 +112,7 @@ export default class TicketCheckinConfirmation extends Component {
 			ticketId: ticketId,
 			barNavn: that.state.venueName,
 			barID: that.barID,
+			barImage: that.barImage,
 		});
 
 		/**
@@ -126,6 +129,7 @@ export default class TicketCheckinConfirmation extends Component {
 			ticketId: ticketId,
 			barNavn: that.state.venueName,
 			barID: that.barID,
+			barImage: that.barImage,
 		});
 	}
 
