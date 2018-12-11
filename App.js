@@ -10,14 +10,14 @@ import SettingsScreen from "./screens/Authentication/SettingsScreen";
 import AktivScreen from "./screens/Tickets/AktivScreen";
 import HistoryScreen from "./screens/Tickets/HistoryScreen";
 import BarListScreen from "./screens/Bars/BarListScreen";
-import BarDetailsScreen from "./screens/Bars/BarDetailsScreen";
 import {AppLoading, Icon} from 'expo';
 import ForgotPassword from "./screens/Authentication/ForgotPassword";
 import ChangePassword from "./screens/Authentication/ChangePassword";
 import ChangeEmail from "./screens/Authentication/ChangeEmail";
-import TicketConfirmation from "./screens/Tickets/TicketConfirmation";
+import TicketCheckinConfirmation from "./screens/Tickets/TicketCheckinConfirmation";
 import BarPopup from "./screens/Bars/BarPopup";
 import HomeScreen from "./screens/Home/HomeScreen";
+import TicketCheckoutConfirmation from "./screens/Tickets/TicketCheckoutConfirmation";
 
 const LoginStack = createStackNavigator({
     Login: LoginForm,
@@ -35,13 +35,13 @@ const LoginStack = createStackNavigator({
 
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
-  BarList: BarListScreen,
-  BarPopUp: BarPopup,
-  ConfirmTicket: TicketConfirmation,
-  BarDetails: BarDetailsScreen,
-  TicketsActive: AktivScreen,
-  TicketsHistory: HistoryScreen,
+	Home: HomeScreen,
+	BarList: BarListScreen,
+	BarPopUp: BarPopup,
+	ConfirmCheckin: TicketCheckinConfirmation,
+	ConfirmCheckout: TicketCheckoutConfirmation,
+	TicketsActive: AktivScreen,
+	TicketsHistory: HistoryScreen,
 });
 
 const SettingsStack = createStackNavigator({
@@ -51,34 +51,29 @@ const SettingsStack = createStackNavigator({
 });
 
 const MapsStack = createStackNavigator({
-  Maps: MapScreen,
-  BarDetails: BarDetailsScreen,
+	Maps: MapScreen,
 });
 
 const MainAppStack = createBottomTabNavigator({
-    Home: HomeStack,
-    Maps: MapsStack,
-    // Set offers back into the code if it is needed in the future
-    //Offers: OffersScreen,
-    Settings: SettingsStack,
-  },
-  {
-    navigationOptions: ({navigation}) => ({
-      tabBarIcon: ({focused, horizontal, tintColor}) => {
-        const {routeName} = navigation.state;
-        let iconName;
-        if (routeName === 'Home') {
-          iconName = `ios-home${focused ? '' : '-outline'}`;
-        } else if (routeName === 'Maps') {
-          iconName = `ios-map${focused ? '' : '-outline'}`;
-        } else if (routeName === 'Offers') {
-          iconName = `ios-link${focused ? '' : '-outline'}`;
-        } else {
-          iconName = `ios-settings${focused ? '' : '-outline'}`
-        }
-        return <Icon.Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor}/>;
-      },
-    }),
+		Home: HomeStack,
+		Maps: MapsStack,
+		Settings: SettingsStack,
+	},
+	{
+		navigationOptions: ({navigation}) => ({
+			tabBarIcon: ({focused, horizontal, tintColor}) => {
+				const {routeName} = navigation.state;
+				let iconName;
+				if (routeName === 'Home') {
+					iconName = `ios-home${focused ? '' : '-outline'}`;
+				} else if (routeName === 'Maps') {
+					iconName = `ios-map${focused ? '' : '-outline'}`;
+				} else {
+					iconName = `ios-settings${focused ? '' : '-outline'}`
+				}
+				return <Icon.Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor}/>;
+			},
+		}),
     tabBarOptions: {
       activeTintColor: '#80D0C7',
       inactiveTintColor: '#13547A',
@@ -86,23 +81,20 @@ const MainAppStack = createBottomTabNavigator({
         backgroundColor: 'transparent',
       },
     },
-
     initialRouteName: 'Home',
   }
 );
 
 export default class App extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: null,
-      currentUser: null,
-      isLoadingComplete: false,
-      skipLoadingScreen: false,
-      appIsReady: false,
-    }
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			loggedIn: null,
+			isLoadingComplete: false,
+			skipLoadingScreen: false,
+			appIsReady: false,
+		}
+	}
 
   componentWillMount() {
     firebase.initializeApp({
@@ -114,16 +106,17 @@ export default class App extends React.Component {
       messagingSenderId: "271748622389"
     });
 
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        globals.uid = firebase.auth().currentUser.uid;
-        this.setState({loggedIn: true, currentUser: user});
-      } else {
-        this.setState({loggedIn: false, currentUser: null});
-      }
-    });
-  }
-
+		firebase.auth().onAuthStateChanged(user => {
+			if (user) {
+				globals.email = user.email;
+				globals.uid = user.uid;
+				this.setState({loggedIn: true});
+			} else {
+				this.setState({loggedIn: false});
+			}
+		});
+	}
+  
   _cacheResourcesAsync() {
     return true;
   }

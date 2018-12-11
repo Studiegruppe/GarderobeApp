@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import { LinearGradient } from 'expo';
+import {LinearGradient} from 'expo';
 
 export default class Tabs extends Component {
 
-  // Initialize State
-  state = {
-    // First tab is active by default
-    activeTab: 0
-  }
+	// Initialize State
+	state = {
+		// First tab is active by default
+		activeTab: 0
+	};
 
   // Pull children out of props passed from App component
   render({ children } = this.props) {
@@ -43,9 +43,9 @@ export default class Tabs extends Component {
           {children[this.state.activeTab]}
         </View>
 
-      </View>
-    );
-  }
+			</View>
+		);
+	}
 }
 const styles = StyleSheet.create({
   // Component container
@@ -79,5 +79,4 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1                             // Take up all available space
   }
-
 });

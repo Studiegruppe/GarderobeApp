@@ -25,8 +25,12 @@ export default class AktivScreen extends React.Component {
 				isLoadingComplete: true
 			})
 		}, 1000);
-
 	}
+
+	handleOnNavigateBack() {
+		this.activeTicketsArray.splice(0, 1);
+		this.forceUpdate();
+	};
 
 
 	getActiveTicketAsync() {
@@ -58,7 +62,17 @@ export default class AktivScreen extends React.Component {
 
 
 	checkoutTicket = () => {
-		console.log("toasdasd");
+		if (!this.state.ticket) {
+			console.log("ingen ticket");
+			return;
+		}
+		// Close popup
+		this.closeTicket();
+		// Navigate away to ConfirmCheckout route
+		this.props.navigation.navigate('ConfirmCheckout', {
+			ticket: this.state.ticket,
+			onNavigateBack: this.handleOnNavigateBack.bind(this),
+		})
 	};
 
 	render() {
@@ -99,6 +113,7 @@ export default class AktivScreen extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		paddingTop: 20,         // start below status bar
+		flex: 1,
 		backgroundColor: 'transparent',         // Background color
 	},
 	scrollContent: {

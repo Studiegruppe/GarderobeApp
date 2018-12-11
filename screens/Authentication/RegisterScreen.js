@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableWithoutFeedback, View, Keyboard} from 'react-native';
+import {Keyboard, Text, TouchableWithoutFeedback, View} from 'react-native';
 import Styles from '../../assets/Styles';
 import firebase from 'firebase';
 import {Button, Input} from "react-native-elements";
@@ -40,7 +40,7 @@ export default class RegisterScreen extends React.Component {
 			loading: false,
 			error: ''
 		});
-		alert("Bruger er nu oprettet")
+		alert("Bruger er nu oprettet");
 		this.setProfile();
 	}
 
@@ -131,7 +131,8 @@ export default class RegisterScreen extends React.Component {
 
 					/>
 					<View>
-						<Button style={Styles.buttonStyleReg} clear title={"Sign Up"} titleStyle={{fontWeight: 'bold', fontSize: 23}}
+						<Button style={Styles.buttonStyleReg} clear title={"Sign Up"}
+										titleStyle={{fontWeight: 'bold', fontSize: 23}}
 										onPress={this.onButtonPress.bind(this)}/>
 
 					</View>

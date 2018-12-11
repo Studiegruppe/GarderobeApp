@@ -5,15 +5,15 @@ import Styles from "../../assets/Styles";
 
 export default class ClaimedOffersScreen extends React.Component {
 
-  render() {
-    return (
+	render() {
+		return (
 
-      <View style={Styles.scrollableTab}>
-        <Text style={Styles.welcomeTab}>
-          CLAIMED OFFERS
-        </Text>
-      </View>
+			<View style={Styles.scrollableTab}>
+				<Text style={Styles.welcomeTab}>
+					CLAIMED OFFERS
+				</Text>
+			</View>
 
-    );
-  }
+		);
+	}
 }

@@ -1,69 +1,64 @@
 import React from 'react';
-import {
-  ActivityIndicator, ImageBackground, StatusBar, Text, TextInput, TouchableWithoutFeedback,
-  View, Keyboard, Image
-} from 'react-native';
-import Orientation from "react-native-orientation";
+import {ActivityIndicator, Image, Keyboard, TouchableWithoutFeedback, View} from 'react-native';
 import firebase from 'firebase';
 import Styles from '../../assets/Styles';
 import globals from "../../assets/Globals";
-import Avatar from "react-native-elements/src/avatar/Avatar";
 import {Button, Icon, Input} from "react-native-elements";
 import {LinearGradient} from "expo";
 
 
 export default class LoginForm extends React.Component {
 
-  constructor(props) {
-    super(props);
+	static navigationOptions = {
+		header: null,
+	};
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			email: '',
+			password: '',
+			loading: false,
+			error: '',
+		}
+	}
 
-    this.state = {
-      email: '',
-      password: '',
-      loading: false,
-    }
-  }
+	renderButton() {
+		if (this.state.loading) {
+			return <ActivityIndicator size={'small'}/>
 
-  static navigationOptions = {
-    header: null,
-  };
+		}
+	}
 
-  renderButton() {
-    if (this.state.loading) {
-      return <ActivityIndicator size={'small'}/>
+	async signIn() {
+		const {email, password} = this.state;
+		this.setState({
+			loading: true,
+		});
+		firebase.auth().signInWithEmailAndPassword(email, password)
+			.then(this.onSignInSuccess.bind(this))
+			.catch(this.onSignInFailed.bind(this));
+	}
 
-    }
-  }
+	onSignInSuccess() {
+		this.setState({
+			email: '',
+			password: '',
+			loading: false,
+		});
+		const loggedInUser = firebase.auth().currentUser;
+		if (loggedInUser !== null) {
+			globals.email = firebase.auth().currentUser.email;
+			globals.uid = firebase.auth().currentUser.uid;
+		}
+	}
 
-  async signIn() {
-    const {email, password} = this.state;
-    this.setState({
-      error: '',
-      loading: true,
-    });
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(this.onSignInSuccess.bind(this))
-      .catch(this.onSignInFailed.bind(this));
-  }
-
-  onSignInSuccess() {
-    this.setState({
-      email: '',
-      password: '',
-      loading: false,
-      error: '',
-    });
-    globals.uid = firebase.auth().currentUser.uid;
-
-  }
-
-  onSignInFailed(error) {
-    this.setState({
-      loading: false,
-      error: error.message,
-    })
-  }
+	onSignInFailed(error) {
+		this.setState({
+			loading: false,
+			error: error.message,
+		})
+	}
 
   render() {
     return (
@@ -143,6 +138,4 @@ export default class LoginForm extends React.Component {
 
     );
   }
-
-
 }

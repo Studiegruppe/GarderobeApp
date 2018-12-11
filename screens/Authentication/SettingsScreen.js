@@ -1,5 +1,4 @@
 import React from 'react';
-import {ExpoConfigView} from '@expo/samples';
 import firebase from 'firebase';
 import Styles from '../../assets/Styles';
 import {ListItem} from 'react-native-elements';
@@ -9,7 +8,6 @@ import {LinearGradient} from "expo";
 
 
 export default class SettingsScreen extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +25,6 @@ export default class SettingsScreen extends React.Component {
   onSignoutPress = () => {
     firebase.auth().signOut();
   }
-
 
   render() {
     return (
@@ -76,18 +73,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',       // allow multiple rows
   },
 });
-
-/*
-*             <Button
-            onPress={() => this.props.navigation.navigate('ChangePassword')}
-            style={{flex: 1, marginVertical: 0}}
-            title="Learn More"
-            color="#841584"
-            accessibilityLabel="Learn more about this purple button"
-          />
-          clear buttonStyle={Styles.SettingsButton}
-* */
-
 
 
 

@@ -1,18 +1,12 @@
 import React from 'react';
-import {ExpoConfigView} from '@expo/samples';
 import firebase from 'firebase';
 import Styles from '../../assets/Styles';
-import {Input, ListItem,Icon,Button} from 'react-native-elements';
-import {
-	Text, TextInput, StyleSheet, View, ActivityIndicator, ScrollView,
-	TouchableWithoutFeedback, Keyboard
-} from 'react-native';
-import { LinearGradient} from "expo";
-
+import {Button, Icon, Input} from 'react-native-elements';
+import {Keyboard, TouchableWithoutFeedback, View} from 'react-native';
+import {LinearGradient} from "expo";
 
 
 export default class SettingsScreen extends React.Component {
-
 
   constructor(props) {
     super(props);
@@ -108,7 +102,6 @@ export default class SettingsScreen extends React.Component {
 
     );
   }
-
 }
 
 
