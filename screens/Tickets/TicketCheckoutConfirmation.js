@@ -15,7 +15,7 @@ export default class TicketCheckoutConfirmation extends Component {
 	userPATH = `/Brugere/${this.userId}`;
 	barPATH = `/Barer/${this.barID}`;
 	ticketID = this.ticket.ticketId;
-	barImage = this.params.image;
+	barImage = this.ticket.barImage;
 
 	constructor(props) {
 		super(props);
@@ -26,6 +26,7 @@ export default class TicketCheckoutConfirmation extends Component {
 
 	async moveTicketsToInactive() {
 		let that = this;
+		console.log(this.params);
 		this.ticket.checkud = new Date().toUTCString();
 		await firebase.database().ref(`${that.userPATH}/Billetter/Inaktive/`).child(that.barID.toString() + ':' + that.ticketID.toString()).update(
 			{
