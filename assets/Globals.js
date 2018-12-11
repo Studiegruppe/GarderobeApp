@@ -1,5 +1,5 @@
 const globals = {
-  uid: null,
-  navn: '',
+	uid: null,
+	email: '',
 };
 export default globals;

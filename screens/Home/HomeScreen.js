@@ -1,10 +1,10 @@
 import React from 'react';
 import Tabs from './Tabs';
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, TouchableWithoutFeedback, View} from "react-native";
 import BarListScreen from "../Bars/BarListScreen";
 import AktivScreen from "../Tickets/AktivScreen";
 import HistoryScreen from "../Tickets/HistoryScreen";
-import CheckinScreen from "../Tickets/CheckinScreen";
+import {LinearGradient} from "expo";
 
 export default class HomeScreen extends React.Component {
 
@@ -14,23 +14,27 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
-
-      <View style={styles.container}>
-        <Tabs>
-          <View title="BAR" style={styles.content}>
-            <BarListScreen navigation={this.props.navigation}/>
-          </View>
-          <View title="ACTIVE" styles={styles.content}>
-            <AktivScreen navigation={this.props.navigation}/>
-          </View>
-          <View title="HISTORY" style={styles.content}>
-            <HistoryScreen navigation={this.props.navigation}/>
-          </View>
-          <View title="CHECKIN" style={styles.content}>
-            <CheckinScreen navigation={this.props.navigation}/>
-          </View>
-        </Tabs>
-      </View>
+      <LinearGradient style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0,
+      }} colors={['#80d0c7', '#13547a']}>
+        <View style={styles.container}>
+          <Tabs>
+            <View title="BAR" style={styles.content}>
+              <BarListScreen navigation={this.props.navigation}/>
+            </View>
+            <View title="ACTIVE" style={styles.content}>
+              <AktivScreen navigation={this.props.navigation}/>
+            </View>
+            <View title="HISTORY" style={styles.content}>
+              <HistoryScreen navigation={this.props.navigation}/>
+            </View>
+          </Tabs>
+        </View>
+      </LinearGradient>
     );
   }
 }
@@ -39,27 +43,12 @@ const styles = StyleSheet.create({
   // App container
   container: {
     flex: 1,                            // Take up all screen
-    backgroundColor: '#673ab7',         // Background color
+    backgroundColor: 'transparent',         // Background color
   },
   // Tab content container
   content: {
     flex: 1,                            // Take up all available space
     justifyContent: 'center',           // Center vertically
-    backgroundColor: '#FFFFFF',         // Darker background for content area
-  },
-  // Content header
-  header: {
-    margin: 10,                         // Add margin
-    color: '#673ab7',                   // White color
-    fontFamily: 'Avenir',               // Change font family
-    fontSize: 26,                       // Bigger font size
-  },
-  // Content text
-  text: {
-    marginHorizontal: 20,               // Add horizontal margin
-    color: 'rgba(255, 255, 255, 0.75)', // Semi-transparent text
-    textAlign: 'center',                // Center
-    fontFamily: 'Avenir',
-    fontSize: 18,
+    backgroundColor: 'transparent',         // Darker background for content area
   },
 });

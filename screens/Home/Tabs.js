@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import { LinearGradient } from 'expo';
+import {LinearGradient} from 'expo';
 
 export default class Tabs extends Component {
 
-  // Initialize State
-  state = {
-    // First tab is active by default
-    activeTab: 0
-  }
+	// Initialize State
+	state = {
+		// First tab is active by default
+		activeTab: 0
+	};
 
   // Pull children out of props passed from App component
   render({ children } = this.props) {
     return (
       <View style={styles.container}>
-        <LinearGradient colors={['#61045f', '#20011f']}>
+        <LinearGradient colors={['rgba(52, 52, 52, 1.0)', 'rgba(255, 255, 255, 0.01)']}>
         {/* Tabs row */}
         <View style={styles.tabsContainer}>
           {/* Pull props out of children, and pull title out of props */}
@@ -43,9 +43,9 @@ export default class Tabs extends Component {
           {children[this.state.activeTab]}
         </View>
 
-      </View>
-    );
-  }
+			</View>
+		);
+	}
 }
 const styles = StyleSheet.create({
   // Component container
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   // Individual tab container
   tabContainer: {
     flex: 1,                            // Take up equal amount of space for each tab
-    paddingVertical: 15,                // Vertical padding
+    paddingVertical: 5,                // Vertical padding
     borderBottomWidth: 3,               // Add thick border at the bottom
     borderBottomColor: 'transparent',   // Transparent border for inactive tabs
   },
@@ -79,5 +79,4 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1                             // Take up all available space
   }
-
 });

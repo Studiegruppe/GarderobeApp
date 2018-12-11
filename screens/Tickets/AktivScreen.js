@@ -1,121 +1,123 @@
-import {Text, View} from "react-native";
+import {ActivityIndicator, ScrollView, StyleSheet, Text, View} from "react-native";
 import React from "react";
-import Styles from "../../assets/Styles";
 import firebase from 'firebase';
-import {Button} from "react-native-elements";
 import globals from "../../assets/Globals";
+import TicketPoster from "./TicketPoster";
+import CheckoutPopup from "./CheckoutPopup";
 
 
 export default class AktivScreen extends React.Component {
 
+	activeTicketsArray = [];
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentUser: null,
-      checkintime: "",
-      color: "",
-      number: 123,
-      chosenAmount: 0,
-      amount: 0,
-      activeTicketArray: [],
-    }
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			isLoadingComplete: false,
+			popupIsOpen: false,
+		}
+	}
 
-  componentWillMount() {
-    this.getActiveTicketAsync();
+	componentDidMount() {
+		this.getActiveTicketAsync();
+		setTimeout(() => {
+			this.setState({
+				isLoadingComplete: true
+			})
+		}, 1000);
+	}
 
-  }
-
-  componentDidMount() {
-    const {currentUser} = firebase.auth();
-    this.setState({currentUser})
-
-  }
-
-
-  getActiveTicketAsync() {
-    let ticketArray = [];
-    let tempArray = [];
-    let that = this;
-    firebase.database().ref(`Brugere/${globals.uid}/Billetter/Aktive`).once('value', function (snapshot) {
-      let user = snapshot.val();
-      for (let key in user) {
-        if (user.hasOwnProperty(key)) {
-          let usr = user[key];
-          ticketArray.push(
-            <Text key={key}>
-              Your number {usr.nummer + "\n"}
-              Checkin time : {usr.checkind + "\n"}
-              Location : {usr.barNavn + "\n"}
-              Color : {usr.farve + "\n"}
-              Amount of items : {usr.antal + "\n"}
-              {that.renderCheckOutButton(key)}
-            </Text>
-          ),
-            tempArray.push(
-              {
-                number: usr.nummer,
-                checkinTime: usr.checkind,
-                location: usr.barNavn,
-                color: usr.farve,
-                amount: usr.antal
-              }
-            )
-        }
-      }
-      that.setState({
-        array: ticketArray,
-        activeTicketArray: tempArray,
-      });
-    });
-  }
+	handleOnNavigateBack() {
+		this.activeTicketsArray.splice(0, 1);
+		this.forceUpdate();
+	};
 
 
-  async checkoutTicket(array, key) {
-    const items = this.state.activeTicketArray[key];
-    array.splice(items, 1);
-    let result = await firebase.database().ref(`Brugere/${globals.uid}/Billetter/Inaktive/`).child(key).update({
-      antal: items.amount,
-      barNavn: items.location,
-      checkind: items.checkinTime,
-      checkud: true,
-      farve: items.color,
-      nummer: items.number,
-    });
-    await firebase.database().ref(`Brugere/${globals.uid}/Billetter/Aktive/${key}`).remove();
-    await firebase.database().ref(`/Barer/BarID/AktiveBilletter/${key}/${globals.uid}`).
-    console.log(result);
-  }
+	getActiveTicketAsync() {
+		let that = this;
+		firebase.database().ref(`Brugere/${globals.uid}/Billetter/Aktive`).on('value', function (snapshot) {
+			const user = snapshot.val();
+			for (let key in user) {
+				if (!user.hasOwnProperty(key)) {
+					continue;
+				}
+				let specifikBillet = user[key];
+				that.activeTicketsArray.push(specifikBillet);
+			}
+		})
+	};
+
+	openTicket = (ticket) => {
+		this.setState({
+			popupIsOpen: true,
+			ticket,
+		});
+	};
+
+	closeTicket = () => {
+		this.setState({
+			popupIsOpen: false,
+		});
+	};
 
 
-  /**
-   *
-   */
+	checkoutTicket = () => {
+		if (!this.state.ticket) {
+			console.log("ingen ticket");
+			return;
+		}
+		// Close popup
+		this.closeTicket();
+		// Navigate away to ConfirmCheckout route
+		this.props.navigation.navigate('ConfirmCheckout', {
+			ticket: this.state.ticket,
+			onNavigateBack: this.handleOnNavigateBack.bind(this),
+		})
+	};
 
-  renderCheckOutButton(key) {
-    return (
-      <Button title="Checkout" key={key} onPress={() => this.checkoutTicket(this.state.array, key)}/>
-    )
-  }
-
-  static
-  navigationOptions = {
-    title: 'app.json',
-  };
-
-
-  render() {
-    return (
-
-      <View style={Styles.scrollableTab}>
-        <Text style={Styles.welcomeTab}>
-          AKTIV
-        </Text>
-        {this.state.array}
-
-      </View>
-
-    );
-  }
+	render() {
+		if (!this.state.isLoadingComplete) {
+			return (
+				<View style={{flex: 1, padding: 20, justifyContent: 'center', alignItems: 'stretch'}}>
+					<ActivityIndicator size="large" color="#FFFFFF"/>
+				</View>
+			)
+		} else {
+			return (
+				<View style={styles.container}>
+					<ScrollView
+						contentContainerStyle={styles.scrollContent}
+						// Hide all scroll indicators
+						showsHorizontalScrollIndicator={false}
+						showsVerticalScrollIndicator={false}
+					>
+						{this.activeTicketsArray.map((ticket, index) =>
+							<TicketPoster
+								ticket={ticket}
+								onOpen={this.openTicket}
+								key={index}
+							/>
+						)}
+					</ScrollView>
+					<CheckoutPopup
+						ticket={this.state.ticket}
+						isOpen={this.state.popupIsOpen}
+						onClose={this.closeTicket}
+						onCheckout={this.checkoutTicket}
+					/>
+				</View>
+			);
+		}
+	}
 }
+const styles = StyleSheet.create({
+	container: {
+		paddingTop: 20,         // start below status bar
+		flex: 1,
+		backgroundColor: 'transparent',         // Background color
+	},
+	scrollContent: {
+		flexDirection: 'row',   // arrange posters in rows
+		flexWrap: 'wrap',       // allow multiple rows
+	},
+});
