@@ -28,14 +28,16 @@ export default class TicketPoster extends Component {
 		}
 	};
 
+
+
 	render() {
 		const {ticket, ticket: {barNavn, antal, farve, checkind, nummer}, onOpen} = this.props;
 		return (
 			<TouchableOpacity style={styles.container} onPress={() => onOpen(ticket)}>
 				<View style={styles.imageContainer}>
 					<ImageBackground
-						source={TicketImageGenerator(farve)}
-						style={styles.image}>
+            source={TicketImageGenerator(farve)}   resizeMode="contain"
+            style={styles.image}>
 						<Text style={[styles.imageText, styles.firstTextOnTicket]} numberOfLines={1}>antal: {antal}</Text>
 						<Text style={styles.imageText} numberOfLines={1}>Billet nr: {nummer}</Text>
 						<Text style={styles.imageText} numberOfLines={1}>{barNavn}</Text>
@@ -66,6 +68,7 @@ const styles = StyleSheet.create({
 		marginTop: '25%',
 	},
 	image: {
-		...StyleSheet.absoluteFillObject, // fill up all space in a container
+    marginLeft:25,
+    flex: 1,
 	},
 });
