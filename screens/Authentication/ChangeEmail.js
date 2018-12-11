@@ -34,7 +34,6 @@ export default class SettingsScreen extends React.Component {
     var user = firebase.auth().currentUser;
     user.updateEmail(this.state.newEmail).then(() => {
       if (alert("Email was changed")){
-        console.log("hej")
         this.props.navigation.goBack()
       }
     }).catch((error) => { console.log(error.message); });

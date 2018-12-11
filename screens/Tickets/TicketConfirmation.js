@@ -38,6 +38,7 @@ export default class Confirmation extends Component {
 			that.state.ticketColor = obj.ticketsInfo.colour;
 			that.state.currentNum = obj.ticketsInfo.currentNumber;
 		});
+		console.log(this.state);
 		this.checkin();
 	}
 
@@ -47,6 +48,7 @@ export default class Confirmation extends Component {
 	componentWillMount() {
 		let that = this;
 		firebase.database().ref(`/Brugere/${globals.uid}/Billetter/Aktive`).on('value', function (snapshot) {
+			console.log(globals.uid);
 			that.setState({initialData: snapshot.val()});
 		});
 	}
@@ -58,14 +60,13 @@ export default class Confirmation extends Component {
 	async checkin() {
 		let that = this;
 		const active = this.state.initialData;
-		if (active === null || !active) {
-			return;
+		if (active !== null && active) {
+			Object.keys(active).forEach(function (key) {
+				if (active[key].barNavn === that.state.venueName) {
+					that.alreadyCheckedIn = true;
+				}
+			});
 		}
-		Object.keys(active).forEach(function (key) {
-			if (active[key].barNavn === that.state.venueName) {
-				that.alreadyCheckedIn = true;
-			}
-		});
 		if (this.alreadyCheckedIn) {
 			alert("you have already checked in");
 		} else {

@@ -10,7 +10,6 @@ import SettingsScreen from "./screens/Authentication/SettingsScreen";
 import AktivScreen from "./screens/Tickets/AktivScreen";
 import HistoryScreen from "./screens/Tickets/HistoryScreen";
 import BarListScreen from "./screens/Bars/BarListScreen";
-import BarDetailsScreen from "./screens/Bars/BarDetailsScreen";
 import {AppLoading, Icon} from 'expo';
 import ForgotPassword from "./screens/Authentication/ForgotPassword";
 import ChangePassword from "./screens/Authentication/ChangePassword";
@@ -39,7 +38,6 @@ const HomeStack = createStackNavigator({
 	BarList: BarListScreen,
 	BarPopUp: BarPopup,
 	ConfirmTicket: TicketConfirmation,
-	BarDetails: BarDetailsScreen,
 	TicketsActive: AktivScreen,
 	TicketsHistory: HistoryScreen,
 });
@@ -52,7 +50,6 @@ const SettingsStack = createStackNavigator({
 
 const MapsStack = createStackNavigator({
 	Maps: MapScreen,
-	BarDetails: BarDetailsScreen,
 });
 
 const MainAppStack = createBottomTabNavigator({
