@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  ActivityIndicator, ImageBackground, StatusBar, Text, TextInput, TouchableWithoutFeedback,
-  View,Keyboard
+	ActivityIndicator, ImageBackground, StatusBar, Text, TextInput, TouchableWithoutFeedback,
+	View, Keyboard, Image
 } from 'react-native';
 import Orientation from "react-native-orientation";
 import firebase from 'firebase';
@@ -75,8 +75,13 @@ export default class LoginForm extends React.Component {
           right: 0,
           bottom: 0,
           top: 0,
-        }} colors={['#e53935', '#e35d5b'] }>
-
+        }} colors={['#80d0c7', '#13547a'] }>
+          <View>
+            <Image
+              style={{width: 150, height: 150, left: 5, right: 5, marginTop: 110, alignSelf: 'center'}}
+              source={require('../../assets/images/icon.png')}
+            />
+          </View>
         <Input
               leftIcon={
                 <Icon
@@ -86,7 +91,7 @@ export default class LoginForm extends React.Component {
                 />
               }
 
-              containerStyle={{marginTop: 320, alignSelf: 'center', justifyContent: 'space-between'}}
+              containerStyle={{marginTop: 50, alignSelf: 'center', justifyContent: 'space-between'}}
             onChangeText={email => this.setState({email})}
             value={this.state.email}
             inputStyle={{marginLeft: 10, color: 'white'}}
