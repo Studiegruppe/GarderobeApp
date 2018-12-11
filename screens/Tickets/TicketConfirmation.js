@@ -3,6 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {defaultStyles} from "../../assets/Styles";
 import globals from "../../assets/Globals";
 import * as firebase from "firebase";
+import {LinearGradient} from "expo";
 
 export default class Confirmation extends Component {
 
@@ -18,6 +19,10 @@ export default class Confirmation extends Component {
 			initialData: 0,
 		};
 	}
+
+	static navigationOptions = {
+		header: null,
+	};
 
 	alreadyCheckedIn = false;
 	barId = this.props.navigation.state.params.barID || 0;
@@ -121,25 +126,31 @@ export default class Confirmation extends Component {
 	render() {
 		const {code, bar, amount, barID} = this.props.navigation.state.params;
 		return (
+			<LinearGradient  style={{
+				position: 'absolute',
+				left: 0,
+				right: 0,
+				bottom: 0,
+				top: 0,
+			}} colors={['#80d0c7', '#13547a']}>
 			<View style={styles.container}>
-				<TouchableOpacity
-					style={styles.buttonContainer}
-					// Go back when pressed
-					onPress={() => this.props.navigation.pop()}>
-					<Text style={styles.button}>Go Back</Text>
-				</TouchableOpacity>
-				<Text style={styles.header}>:)</Text>
-				<Text style={styles.header}>{bar}</Text>
-				<Text style={styles.header}>{amount} item{amount > 1 ? 's' : ''}</Text>
+
 				<Text style={styles.header}>Your confirmation code</Text>
 				<Text style={styles.code}>{code}</Text>
 				<TouchableOpacity
 					style={styles.buttonContainer}
 					// Go back when pressed
 					onPress={() => this.getBarInfo()}>
-					<Text style={styles.button}>Check In</Text>
+					<Text style={styles.button}>Confirm</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.buttonContainer}
+					// Go back when pressed
+					onPress={() => this.props.navigation.pop()}>
+					<Text style={styles.button}>Go Back</Text>
 				</TouchableOpacity>
 			</View>
+			</LinearGradient>
 		);
 	}
 }
@@ -153,6 +164,7 @@ const styles = StyleSheet.create({
 		...defaultStyles.text,
 		color: '#333',
 		fontSize: 20,
+		fontWeight: 'bold',
 	},
 	code: {
 		...defaultStyles.text,
@@ -161,7 +173,7 @@ const styles = StyleSheet.create({
 	},
 	buttonContainer: {
 		alignItems: 'center',
-		backgroundColor: '#673AB7',
+		backgroundColor: '#13547a',
 		borderRadius: 100,
 		margin: 20,
 		paddingVertical: 10,
@@ -170,6 +182,6 @@ const styles = StyleSheet.create({
 	button: {
 		...defaultStyles.text,
 		color: '#FFFFFF',
-		fontSize: 18,
+		fontSize: 20,
 	},
 });
