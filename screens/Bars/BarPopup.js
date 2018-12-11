@@ -257,7 +257,7 @@ export default class BarPopup extends Component {
 					{/* Footer */}
 					<View style={styles.footer}>
 						<TouchableHighlight
-							underlayColor="#9575CD"
+							underlayColor="#80D0C7"
 							style={styles.buttonContainer}
 							onPress={onBuyWardrobeTicket}
 						>
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
 	},
 	// Popup
 	modal: {
-		backgroundColor: 'white',
+		backgroundColor: 'rgba(255, 255, 255, 0.9)',
 	},
 	content: {
 		flex: 1,
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
 		padding: 20,
 	},
 	buttonContainer: {
-		backgroundColor: '#673AB7',
+		backgroundColor: 'rgba(19,84,122, 1)',
 		borderRadius: 100,
 		paddingVertical: 10,
 		paddingHorizontal: 15,

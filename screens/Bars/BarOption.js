@@ -5,8 +5,8 @@ import {Animated, StyleSheet, Text, TouchableOpacity,} from 'react-native';
 import {defaultStyles} from "../../assets/Styles";
 
 // Colors for smooth transition when user chooses an option
-const colorDefault = 'rgba(255, 255, 255, 1)',  // white
-	colorSelected = 'rgba(103,58,183, 1)';        // purple
+const colorDefault = 'rgba(19,84,122, 1)',  // white
+  colorSelected = 'rgba(255,255,255, 0.8)';        // purple
 
 export default class BarOption extends Component {
 	static propTypes = {

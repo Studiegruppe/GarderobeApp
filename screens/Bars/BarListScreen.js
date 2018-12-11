@@ -86,11 +86,11 @@ export default class BarListScreen extends React.Component {
 		}
 	};
 
-	render() {
+render() {
 		if (!this.state.isLoadingComplete) {
 			return (
 				<View style={{flex: 1, padding: 20, justifyContent: 'center', alignItems: 'stretch'}}>
-					<ActivityIndicator size="large"/>
+          <ActivityIndicator size="large" color="#FFFFFF"/>
 				</View>
 			)
 		} else
@@ -109,7 +109,6 @@ export default class BarListScreen extends React.Component {
 								key={index}
 							/>
 						)}
-
 					</ScrollView>
 					<BarPopup
 						bar={this.state.bar}

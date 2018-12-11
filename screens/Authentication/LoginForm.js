@@ -60,85 +60,82 @@ export default class LoginForm extends React.Component {
 		})
 	}
 
-	render() {
-		return (
-			//nedenstående function gør at når man trykker på skærmen så forsvinder keyboardet.
-			<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-				<LinearGradient style={{
-					position: 'absolute',
-					left: 0,
-					right: 0,
-					bottom: 0,
-					top: 0,
-				}} colors={['#80d0c7', '#13547a']}>
-					<View>
-						<Image
-							style={{width: 150, height: 150, left: 5, right: 5, marginTop: 110, alignSelf: 'center'}}
-							source={require('../../assets/images/jckt_logo_300x300.png')}
-						/>
-					</View>
-					<Input
-						leftIcon={
-							<Icon
-								name='email'
-								color='white'
-								size={25}
-							/>
-						}
+  render() {
+    return (
+      //nedenstående function gør at når man trykker på skærmen så forsvinder keyboardet.
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <LinearGradient style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          top: 0,
+        }} colors={['#80d0c7', '#13547a']}>
+          <View>
+            <Image
+              style={{width: 150, height: 150, left: 5, right: 5, marginTop: 110, alignSelf: 'center'}}
+              source={require('../../assets/images/jckt_logo_300x300.png')}
+            />
+          </View>
+          <Input
+            leftIcon={
+              <Icon
+                name='email'
+                color='white'
+                size={25}
+              />
+            }
 
-						containerStyle={{marginTop: 50, alignSelf: 'center', justifyContent: 'space-between'}}
-						onChangeText={email => this.setState({email})}
-						value={this.state.email}
-						inputStyle={{marginLeft: 10, color: 'white'}}
-						keyboardAppearance="light"
-						placeholder="E-mail"
-						autoFocus={false}
-						autoCapitalize="none"
-						autoCorrect={false}
-						keyboardType="email-address"
-						placeholderTextColor="white"
+            containerStyle={{marginTop: 50, alignSelf: 'center', justifyContent: 'space-between'}}
+            onChangeText={email => this.setState({email})}
+            value={this.state.email}
+            inputStyle={{marginLeft: 10, color: 'white'}}
+            keyboardAppearance="light"
+            placeholder="E-mail"
+            autoFocus={false}
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
+            placeholderTextColor="white"
 
-					/>
-					<Input
-						leftIcon={
-							<Icon
-								name='lock'
-								color='white'
-								size={25}
-							/>
-						}
+          />
+          <Input
+            leftIcon={
+              <Icon
+                name='lock'
+                color='white'
+                size={25}
+              />
+            }
 
-						containerStyle={{marginBottom: 150, alignSelf: 'center', justifyContent: 'space-between'}}
-						onChangeText={password => this.setState({password})}
-						value={this.state.password}
-						inputStyle={{marginLeft: 10, color: 'white'}}
-						keyboardAppearance="light"
-						placeholder="Password"
-						secureTextEntry={true}
-						autoFocus={false}
-						autoCapitalize="none"
-						autoCorrect={false}
-						keyboardType="default"
-						placeholderTextColor="white"
+            containerStyle={{marginBottom: 50, alignSelf: 'center', justifyContent: 'space-between'}}
+            onChangeText={password => this.setState({password})}
+            value={this.state.password}
+            inputStyle={{marginLeft: 10, color: 'white'}}
+            keyboardAppearance="light"
+            placeholder="Password"
+            secureTextEntry={true}
+            autoFocus={false}
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="default"
+            placeholderTextColor="white"
 
-					/>
+          />
 
+          <View style={{flex: 1, marginBottom: 10, marginTop: 20}}>
 
-					<View>
+            <Button title={'Sign in'} clear buttonStyle={Styles.buttonStyleLogin}
+                    titleStyle={{fontWeight: 'bold', fontSize: 23}} onPress={this.signIn.bind(this)}/>
 
-						<Button title={'Sign in'} clear buttonStyle={Styles.buttonStyleLogin}
-										titleStyle={{fontWeight: 'bold', fontSize: 23}} onPress={this.signIn.bind(this)}/>
+            <Button title="Create Account" clear buttonStyle={Styles.buttonStyleText1}
+                    titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('Register')}/>
+            <Button title="Forgot Password?" clear buttonStyle={Styles.buttonStyleText2}
+                    titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('ForgotPassword')}/>
+          </View>
+        </LinearGradient>
+      </TouchableWithoutFeedback>
 
-						<Button title="Create Account" clear buttonStyle={Styles.buttonStyleText1}
-										titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('Register')}/>
-						<Button title="Forgot Password?" clear buttonStyle={Styles.buttonStyleText2}
-										titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('ForgotPassword')}/>
-					</View>
-
-
-				</LinearGradient>
-			</TouchableWithoutFeedback>
-
-		);
-	}
+    );
+  }
 }
