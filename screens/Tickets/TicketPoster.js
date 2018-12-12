@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
   firstTextOnTicket: {
     marginTop: '25%',
   },
-
   amountText2: {
     transform: [{rotate: '270deg'}],
     backgroundColor: 'transparent',
@@ -93,7 +92,6 @@ const styles = StyleSheet.create({
     marginLeft: 250,
     marginTop: -54,
   },
-
   image: {
     flex: 1,
   },
