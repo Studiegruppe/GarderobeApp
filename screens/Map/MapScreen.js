@@ -45,29 +45,29 @@ export default class MapScreen extends React.Component {
 		let markerArray = [];
 		let that = this;
 
-		firebase.database().ref('Barer/').once('value', function (snapshot) {
-			let barer = snapshot.val();
-			debugBarer && console.log(barer);
-			for (let key in barer) {
-				if (barer.hasOwnProperty(key)) {
-					let bar = barer[key];
-					debug && !bar.longitude && console.log(`${bar.email}: is missing longitude in the database`);
-					debug && !bar.latitude && console.log(`${bar.email}: is missing latitude in the database`);
+		firebase.database().ref('Venues/').once('value', function (snapshot) {
+			let venues = snapshot.val();
+			debugBarer && console.log(venues);
+			for (let key in venues) {
+				if (venues.hasOwnProperty(key)) {
+					let venue = venues[key];
+					debug && !venue.longitude && console.log(`${venue.venueName}: is missing longitude in the database`);
+					debug && !venue.latitude && console.log(`${venue.venueName}: is missing latitude in the database`);
 					markerArray.push(
 						<MapView.Marker
 							coordinate={{
-								latitude: bar.Latitude,
-								longitude: bar.Longitude,
+								latitude: venue.latitude,
+								longitude: venue.longitude,
 							}}
 							key={key}
 						>
 							<MapView.Callout>
 								<View>
 									{
-										bar.Navn ? <Text style={{fontWeight: 'bold',}}>{bar.Navn}</Text> : <Text style={{color: 'red'}}>missing name</Text>
+										venue.venueName ? <Text style={{fontWeight: 'bold',}}>{venue.venueName}</Text> : <Text style={{color: 'red'}}>missing name</Text>
 									}
 									{
-										bar.address ? <Text>{bar.address}</Text> : <Text style={{color: 'red'}}>Missing address</Text>
+										venue.address ? <Text>{venue.address}</Text> : <Text style={{color: 'red'}}>Missing address</Text>
 									}
 								</View>
 							</MapView.Callout>

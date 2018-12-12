@@ -1,4 +1,4 @@
-import {ActivityIndicator, ScrollView, StyleSheet, Text, View} from "react-native";
+import {ActivityIndicator, ScrollView, StyleSheet, View} from "react-native";
 import React from "react";
 import firebase from 'firebase';
 import globals from "../../assets/Globals";
@@ -6,7 +6,7 @@ import TicketPoster from "./TicketPoster";
 import CheckoutPopup from "./CheckoutPopup";
 
 
-export default class AktivScreen extends React.Component {
+export default class ActiveTicketsScreen extends React.Component {
 
 	activeTicketsArray = [];
 
@@ -35,14 +35,13 @@ export default class AktivScreen extends React.Component {
 
 	getActiveTicketAsync() {
 		let that = this;
-		firebase.database().ref(`Brugere/${globals.uid}/Billetter/Aktive`).on('value', function (snapshot) {
+		firebase.database().ref(`Users/${globals.uid}/Tickets/Active`).on('value', function (snapshot) {
 			const user = snapshot.val();
 			for (let key in user) {
 				if (!user.hasOwnProperty(key)) {
 					continue;
 				}
-				let specifikBillet = user[key];
-				that.activeTicketsArray.push(specifikBillet);
+				that.activeTicketsArray.push(user[key]);
 			}
 		})
 	};
@@ -63,7 +62,6 @@ export default class AktivScreen extends React.Component {
 
 	checkoutTicket = () => {
 		if (!this.state.ticket) {
-			console.log("ingen ticket");
 			return;
 		}
 		// Close popup

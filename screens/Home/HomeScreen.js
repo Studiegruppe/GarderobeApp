@@ -1,8 +1,8 @@
 import React from 'react';
 import Tabs from './Tabs';
-import {StyleSheet, TouchableWithoutFeedback, View} from "react-native";
-import BarListScreen from "../Bars/BarListScreen";
-import AktivScreen from "../Tickets/AktivScreen";
+import {StyleSheet, View} from "react-native";
+import VenueListScreen from "../Venues/VenueListScreen";
+import ActiveTicketsScreen from "../Tickets/ActiveTicketsScreen";
 import HistoryScreen from "../Tickets/HistoryScreen";
 import {LinearGradient} from "expo";
 
@@ -23,11 +23,11 @@ export default class HomeScreen extends React.Component {
       }} colors={['#80d0c7', '#13547a']}>
         <View style={styles.container}>
           <Tabs>
-            <View title="BAR" style={styles.content}>
-              <BarListScreen navigation={this.props.navigation}/>
+            <View title="VENUES" style={styles.content}>
+              <VenueListScreen navigation={this.props.navigation}/>
             </View>
             <View title="ACTIVE" style={styles.content}>
-              <AktivScreen navigation={this.props.navigation}/>
+              <ActiveTicketsScreen navigation={this.props.navigation}/>
             </View>
             <View title="HISTORY" style={styles.content}>
               <HistoryScreen navigation={this.props.navigation}/>

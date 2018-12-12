@@ -7,7 +7,7 @@ import {ListItem} from 'react-native-elements';
 export default class HistoryScreen extends React.Component {
 
 	userId = globals.uid;
-	userPATH = `/Brugere/${this.userId}`;
+	userPATH = `/Users/${this.userId}`;
 
 	oldTicketsArray = [];
 
@@ -30,7 +30,7 @@ export default class HistoryScreen extends React.Component {
 
 	async retrieveOldTickets() {
 		const that = this;
-		await firebase.database().ref(`${that.userPATH}/Billetter/Inaktive`).on('value', function (snapshot) {
+		await firebase.database().ref(`${that.userPATH}/Tickets/Inactive`).on('value', function (snapshot) {
 			if (snapshot.val() !== null) {
 				Object.values(snapshot.val()).forEach(function (key) {
 					that.oldTicketsArray.push(key);
@@ -56,15 +56,14 @@ export default class HistoryScreen extends React.Component {
 							leftAvatar={
 								<Image
 									style={{width: 65, height: 65}}
-									source={{uri: item.barImage}}
+									source={{uri: item.venueImage}}
 								/>
 							}
-							title={item.barNavn}
+							title={item.venueName}
 							titleStyle={{color: 'black', fontWeight: 'bold'}}
-							subtitle={'Checked out: ' + item.checkud.substr(0, item.checkud.length - 7).slice(5, item.checkud.length)}
+							subtitle={'Checked out: ' + item.checkoutTimestamp.substr(0, item.checkoutTimestamp.length - 7).slice(5, item.checkoutTimestamp.length)}
 							subtitleStyle={{color: 'black'}}
 							containerStyle={{backgroundColor: 'transparent'}}
-							onPress={() => alert("on press her")}
 						/>
 					}
 					keyExtractor={(item, index) => index.toString()}

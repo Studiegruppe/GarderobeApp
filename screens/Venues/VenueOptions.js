@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Dimensions, ScrollView, StyleSheet, View} from 'react-native';
-import BarOption from "./BarOption";
+import VenueOption from "./VenueOption";
 
 const {width} = Dimensions.get('window');
 const optionWith = (width - 0) / 4 - 10;
 
-export default class BarOptions extends Component {
+export default class VenueOptions extends Component {
 
 	static propTypes = {
 		// Set of values to choose from
 		values: PropTypes.array.isRequired,
 		// Chosen value index
 		chosen: PropTypes.number,
-		// Gets called when user choses a value
+		// Gets called when user chooses a value
 		onChoose: PropTypes.func.isRequired,
 	};
 
@@ -40,7 +40,7 @@ export default class BarOptions extends Component {
 				>
 					{values.map((value, index) =>
 						<View style={{width: optionWith}} key={index}>
-							<BarOption
+							<VenueOption
 								value={value}
 								isChosen={index === chosen}
 								onChoose={() => onChoose(index)}
