@@ -77,6 +77,7 @@ export default class TicketCheckinConfirmation extends Component {
     }
     if (this.alreadyCheckedIn) {
       alert("you have already checked in");
+      this.props.navigation.popToTop();
     } else {
       this.generateTickets();
       this.incrementCounter();
@@ -141,6 +142,7 @@ export default class TicketCheckinConfirmation extends Component {
     });
   }
 
+
   render() {
     const {code, bar, amount, barID} = this.params;
     return (
@@ -204,3 +206,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+/*onPress={() => this.props.navigation.popToTop()}>*/

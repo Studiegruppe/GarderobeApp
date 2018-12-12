@@ -16,6 +16,9 @@ export default class SettingsScreen extends React.Component {
 			newEmail: "",
 		};
 	}
+	static navigationOptions = {
+		header: null,
+	};
 
 	// Reauthenticates the current user and returns a promise
 	reauthenticate = (currentPassword) => {

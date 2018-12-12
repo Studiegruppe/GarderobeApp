@@ -1,6 +1,7 @@
 import React from 'react';
 import {ActivityIndicator, Dimensions, ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {LinearGradient} from "expo";
+import {defaultStyles} from "../../assets/Styles";
 
 // Get screen dimensions
 const {width, height} = Dimensions.get('window');
@@ -41,10 +42,7 @@ export default class PaymentScreen extends React.Component {
 						source={require('../../assets/images/dankort.png')} resizeMode="contain"
 						style={styles.image}
 					/>
-					<Text style={{
-						textAlign: 'center',
-						marginBottom: 30,
-					}}>
+					<Text style={styles.text}>
 						Payment processing
 					</Text>
 					<ActivityIndicator size="large" color="#FFFFFF"
@@ -64,5 +62,12 @@ const styles = StyleSheet.create({
 		height: (height - 40) / 2 - 10,
 		width: width,
 		flex: 1,                          // take up all available space
+	},
+	text: {
+		...defaultStyles.text,
+		color: '#333',
+		fontSize: 20,
+		textAlign: 'center',
+		marginBottom: 30,
 	},
 });
