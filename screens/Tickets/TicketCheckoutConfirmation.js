@@ -27,6 +27,10 @@ export default class TicketCheckoutConfirmation extends Component {
     }
   }
 
+  static navigationOptions = {
+    header: null,
+  };
+
   async moveTicketsToInactive() {
     let that = this;
     console.log(this.params);
