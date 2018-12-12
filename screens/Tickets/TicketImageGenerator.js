@@ -1,17 +1,16 @@
-export const TicketImageGenerator = (color) => {
+export const TicketImageGenerator = (ticketColour) => {
 	let imageURI;
 
-	if (color === 'yellow') {
+	if (ticketColour === 'yellow') {
 		imageURI = require('../../assets/images/tickets/ticket_yellow.png');
-	} else if (color === 'red') {
-		imageURI = require( '../../assets/images/tickets/ticket_red.png');
-	} else if (color === 'green') {
-		imageURI = require( '../../assets/images/tickets/ticket_green.png');
-	} else if (color === 'blue') {
-		imageURI = require( '../../assets/images/tickets/ticket_blue.png');
-	}
-	else {
-		imageURI = require( '../../assets/images/jckt_logo.png');
+	} else if (ticketColour === 'red') {
+		imageURI = require('../../assets/images/tickets/ticket_red.png');
+	} else if (ticketColour === 'green') {
+		imageURI = require('../../assets/images/tickets/ticket_green.png');
+	} else if (ticketColour === 'blue') {
+		imageURI = require('../../assets/images/tickets/ticket_blue.png');
+	} else {
+		imageURI = require('../../assets/images/jckt_logo.png');
 	}
 	return imageURI;
 };

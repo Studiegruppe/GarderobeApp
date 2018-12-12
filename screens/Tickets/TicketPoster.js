@@ -17,7 +17,7 @@ export default class TicketPoster extends Component {
     // Ticket object
     ticket: PropTypes.object.isRequired,
     // Called when user taps on an active ticket
-    onOpen: PropTypes.func.isRequired,
+    onOpen: PropTypes.func,
   };
 
   ticketContainerStyle = function (color) {
@@ -30,19 +30,20 @@ export default class TicketPoster extends Component {
 
 
   render() {
-    const {ticket, ticket: {barNavn, antal, farve, checkind, nummer}, onOpen} = this.props;
+    const {ticket, ticket: {venueName, address, amount, ticketColour, checkinTimestamp, ticketNumber}, onOpen} = this.props;
     return (
       <TouchableOpacity style={styles.container} onPress={() => onOpen(ticket)}>
         <View style={styles.imageContainer}>
           <ImageBackground
-            source={TicketImageGenerator(farve)} resizeMode="contain"
+            source={TicketImageGenerator(ticketColour)} resizeMode="contain"
             style={styles.image}>
-            <Text style={[styles.imageText1, styles.firstTextOnTicket]} numberOfLines={1}>Antal: {antal}</Text>
-            <Text style={styles.imageText} numberOfLines={1}>{barNavn}</Text>
+            <Text style={[styles.imageText1, styles.firstTextOnTicket]} numberOfLines={1}>Items: {amount}</Text>
+            <Text style={styles.imageText} numberOfLines={1}>{venueName}</Text>
+            <Text style={styles.imageText} numberOfLines={1}>{address}</Text>
             <Text style={styles.imageText}
-                  numberOfLines={1}>{checkind.substr(0, checkind.length - 7).slice(5, checkind.length)}</Text>
-            <Text style={styles.amountText} numberOfLines={1}> NR: {nummer}</Text>
-            <Text style={styles.amountText2} numberOfLines={1}> NR: {nummer}</Text>
+                  numberOfLines={1}>{checkinTimestamp.substr(0, checkinTimestamp.length - 7).slice(5, checkinTimestamp.length)}</Text>
+            <Text style={styles.ticketNumberTextRight} numberOfLines={1}> NR: {ticketNumber}</Text>
+            <Text style={styles.ticketNumberTextLeft} numberOfLines={1}> NR: {ticketNumber}</Text>
           </ImageBackground>
         </View>
       </TouchableOpacity>
@@ -74,23 +75,23 @@ const styles = StyleSheet.create({
     paddingTop: 0,
   },
   firstTextOnTicket: {
-    marginTop: '25%',
+    marginTop: '22%',
   },
-  amountText2: {
+  ticketNumberTextLeft: {
     transform: [{rotate: '270deg'}],
     backgroundColor: 'transparent',
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: 25,
     marginLeft: -250,
     marginTop: -25,
   },
-  amountText: {
+  ticketNumberTextRight: {
     transform: [{rotate: '90deg'}],
     backgroundColor: 'transparent',
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: 25,
     marginLeft: 250,
-    marginTop: -54,
+    marginTop: -55,
   },
   image: {
     flex: 1,

@@ -8,13 +8,13 @@ import {defaultStyles} from "../../assets/Styles";
 const colorDefault = 'rgba(19,84,122, 1)',  // white
   colorSelected = 'rgba(255,255,255, 0.8)';        // purple
 
-export default class BarOption extends Component {
+export default class VenueOption extends Component {
 	static propTypes = {
 		// Value to display
 		value: PropTypes.string.isRequired,
-		// Wheter this values was chosen by user or not
+		// Whether this values was chosen by user or not
 		isChosen: PropTypes.bool.isRequired,
-		// Gets called when user choses this value
+		// Gets called when user chooses this value
 		onChoose: PropTypes.func.isRequired,
 	};
 

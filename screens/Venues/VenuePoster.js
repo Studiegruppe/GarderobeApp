@@ -10,27 +10,27 @@ const {width, height} = Dimensions.get('window');
 const cols = 3, rows = 3;
 
 
-export default class BarPoster extends Component {
+export default class VenuePoster extends Component {
 
 	// Component prop types
 	static propTypes = {
 		// Bar object with title, genre, and poster
-		bar: PropTypes.object.isRequired,
+		venue: PropTypes.object.isRequired,
 		// Called when user taps on a poster
 		onOpen: PropTypes.func.isRequired,
 	};
 
 	render() {
-		const {bar, bar: {Navn, image, type, postalCode}, onOpen} = this.props;
+		const {venue, venue: {venueName, venueImage, type, postalArea}, onOpen} = this.props;
 		return (
-			<TouchableOpacity style={styles.container} onPress={() => onOpen(bar)}>
+			<TouchableOpacity style={styles.container} onPress={() => onOpen(venue)}>
 				<View style={styles.imageContainer}>
 					<Image
-						source={{uri: image ? image : 'https://ichef.bbci.co.uk/news/660/cpsprodpb/16620/production/_91408619_55df76d5-2245-41c1-8031-07a4da3f313f.jpg'}}
+						source={{uri: venueImage ? venueImage : 'https://static.designmynight.com/uploads/2016/10/Generic-1-optimised.jpg'}}
 						style={styles.image}/>
 				</View>
-				<Text style={styles.title} numberOfLines={1}>{Navn}</Text>
-				<Text style={styles.genre} numberOfLines={1}>{type + ', ' + postalCode}</Text>
+				<Text style={styles.title} numberOfLines={1}>{venueName}</Text>
+				<Text style={styles.genre} numberOfLines={1}>{type + ', ' + postalArea}</Text>
 			</TouchableOpacity>
 		);
 	}

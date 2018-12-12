@@ -13,19 +13,19 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {defaultStyles} from "../../assets/Styles";
-import BarOptions from "./BarOptions";
+import VenueOptions from "./VenueOptions";
 
 // Get screen dimensions
 const {width, height} = Dimensions.get('window');
 // Set default popup height to 50% of screen height
 const defaultHeight = height * 0.5;
 
-export default class BarPopup extends Component {
+export default class VenuePopup extends Component {
 
 	static propTypes = {
 		isOpen: PropTypes.bool.isRequired,
-		// Bar object that has NOTHING YET
-		bar: PropTypes.object,
+		// Venue object that contains all the needed info about a given venue
+		venue: PropTypes.object,
 		// Index of chosen amount
 		chosenAmount: PropTypes.number,
 		// Gets called when user chooses amount
@@ -63,10 +63,8 @@ export default class BarPopup extends Component {
 			onMoveShouldSetPanResponder: (evt, gestureState) => {
 				const {dx, dy} = gestureState;
 				// Ignore taps
-				if (dx !== 0 && dy === 0) {
-					return true;
-				}
-				return false;
+				return dx !== 0 && dy === 0;
+
 			},
 			onPanResponderGrant: (evt, gestureState) => {
 				// Store previous height before user changed it
@@ -82,7 +80,7 @@ export default class BarPopup extends Component {
 				LayoutAnimation.easeInEaseOut();
 
 				// Switch to expanded mode if popup pulled up above 80% mark
-				if (newHeight > height - height / 5) {
+				if (newHeight > height - height / 3) {
 					this.setState({expanded: true});
 				} else {
 					this.setState({expanded: false});
@@ -165,18 +163,18 @@ export default class BarPopup extends Component {
 	getStyles = () => {
 		return {
 			imageContainer: this.state.expanded ? {
-				width: width / 2,         // half of screen width
+				width: width / 1.5,         // half of screen width
 			} : {
 				maxWidth: 110,            // limit width
 				marginRight: 10,
 			},
-			barContainer: this.state.expanded ? {
-				flexDirection: 'column',  // arrange image and bar info in a column
+			venueContainer: this.state.expanded ? {
+				flexDirection: 'column',  // arrange image and venue info in a column
 				alignItems: 'center',     // and center them
 			} : {
-				flexDirection: 'row',     // arrange image and bar info in a row
+				flexDirection: 'row',     // arrange image and venue info in a row
 			},
-			barInfo: this.state.expanded ? {
+			venueInfo: this.state.expanded ? {
 				flex: 0,
 				alignItems: 'center',     // center horizontally
 				paddingTop: 20,
@@ -200,13 +198,13 @@ export default class BarPopup extends Component {
 
 	render() {
 		const {
-			bar,
+			venue,
 			chosenAmount,
 			onChooseAmount,
 			onBuyWardrobeTicket
 		} = this.props;
-		// Pull out bar data
-		const {Navn, type, image, postalCode, possibleAmounts} = bar || {};
+		// Pull out venue data
+		const {venueName, type, venueImage, postalArea, possibleAmounts} = venue || {};
 		// Render nothing if not visible
 		if (!this.state.visible) {
 			return null;
@@ -228,25 +226,25 @@ export default class BarPopup extends Component {
 
 					{/* Content */}
 					<View style={styles.content}>
-						{/* Bar poster, title and type + postal area */}
+						{/* Venue poster, title and type + postal area */}
 						<View
-							style={[styles.barContainer, this.getStyles().barContainer]}
+							style={[styles.venueContainer, this.getStyles().venueContainer]}
 							{...this._panResponder.panHandlers}
 						>
 							{/* Poster */}
 							<View style={[styles.imageContainer, this.getStyles().imageContainer]}>
-								<Image source={{uri: image}} style={styles.image}/>
+								<Image source={{uri: venueImage}} style={styles.image}/>
 							</View>
 							{/* Name, type and postal area */}
-							<View style={[styles.barInfo, this.getStyles().barInfo]}>
-								<Text style={[styles.title, this.getStyles().title]}>{Navn}</Text>
-								<Text style={styles.genre}>{type + ', ' + postalCode}</Text>
+							<View style={[styles.venueInfo, this.getStyles().venueInfo]}>
+								<Text style={[styles.title, this.getStyles().title]}>{venueName}</Text>
+								<Text style={styles.genre}>{type + ', ' + postalArea}</Text>
 							</View>
 						</View>
 						<View>
 							{/* Amount */}
 							<Text style={styles.sectionHeader}>Amount of items</Text>
-							<BarOptions
+							<VenueOptions
 								values={possibleAmounts}
 								chosen={chosenAmount}
 								onChoose={onChooseAmount}
@@ -293,8 +291,8 @@ const styles = StyleSheet.create({
 		margin: 20,
 		marginBottom: 0,
 	},
-	// Bar container
-	barContainer: {
+	// Venue container
+	venueContainer: {
 		flex: 1,                            // take up all available space
 		marginBottom: 20,
 	},
@@ -305,7 +303,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,                   // rounded corners
 		...StyleSheet.absoluteFillObject,   // fill up all space in a container
 	},
-	barInfo: {
+	venueInfo: {
 		backgroundColor: 'transparent',     // looks nicer when switching to/from expanded mode
 	},
 	title: {

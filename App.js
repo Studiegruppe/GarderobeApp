@@ -7,15 +7,15 @@ import LoginForm from "./screens/Authentication/LoginForm";
 import RegisterScreen from "./screens/Authentication/RegisterScreen";
 import MapScreen from "./screens/Map/MapScreen";
 import SettingsScreen from "./screens/Authentication/SettingsScreen";
-import AktivScreen from "./screens/Tickets/AktivScreen";
+import ActiveTicketsScreen from "./screens/Tickets/ActiveTicketsScreen";
 import HistoryScreen from "./screens/Tickets/HistoryScreen";
-import BarListScreen from "./screens/Bars/BarListScreen";
+import VenueListScreen from "./screens/Venues/VenueListScreen";
 import {AppLoading, Icon} from 'expo';
 import ForgotPassword from "./screens/Authentication/ForgotPassword";
 import ChangePassword from "./screens/Authentication/ChangePassword";
 import ChangeEmail from "./screens/Authentication/ChangeEmail";
 import TicketCheckinConfirmation from "./screens/Tickets/TicketCheckinConfirmation";
-import BarPopup from "./screens/Bars/BarPopup";
+import VenuePopup from "./screens/Venues/VenuePopup";
 import HomeScreen from "./screens/Home/HomeScreen";
 import TicketCheckoutConfirmation from "./screens/Tickets/TicketCheckoutConfirmation";
 import PaymentScreen from "./screens/Payment/PaymentScreen";
@@ -37,12 +37,12 @@ const LoginStack = createStackNavigator({
 
 const HomeStack = createStackNavigator({
 	Home: HomeScreen,
-	BarList: BarListScreen,
-	BarPopUp: BarPopup,
+	BarList: VenueListScreen,
+	BarPopUp: VenuePopup,
 	ConfirmCheckin: TicketCheckinConfirmation,
 	ConfirmCheckout: TicketCheckoutConfirmation,
 	Payment: PaymentScreen,
-	TicketsActive: AktivScreen,
+	TicketsActive: ActiveTicketsScreen,
 	TicketsHistory: HistoryScreen,
 });
 

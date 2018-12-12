@@ -1,15 +1,15 @@
 import React from 'react';
 import firebase from 'firebase';
 import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native';
-import BarPoster from "./BarPoster";
-import BarPopup from "./BarPopup";
+import VenuePoster from "./VenuePoster";
+import VenuePopup from "./VenuePopup";
 
 
 const possibleAmounts = ['0', '1', '2', '3', '4', '5'];
 
-export default class BarListScreen extends React.Component {
+export default class VenueListScreen extends React.Component {
 
-	barArray = [];
+	venueArray = [];
 
 	constructor(props) {
 		super(props);
@@ -23,17 +23,17 @@ export default class BarListScreen extends React.Component {
 
 	get barsFromApiAsync() {
 		const that = this;
-		firebase.database().ref('Barer').on('value', function (snapshot) {
-			const barer = snapshot.val();
+		firebase.database().ref('Venues').on('value', function (snapshot) {
+			const venues = snapshot.val();
 
-			for (let key in barer) {
-				if (!barer.hasOwnProperty(key)) {
+			for (let key in venues) {
+				if (!venues.hasOwnProperty(key)) {
 					continue;
 				}
-				const specifikBar = barer[key];
+				const specificVenue = venues[key];
 				//Add possible amounts to each individual bar
-				Object.assign(specifikBar, {possibleAmounts: possibleAmounts, barID: key});
-				that.barArray.push(specifikBar);
+				Object.assign(specificVenue, {possibleAmounts: possibleAmounts, venueID: key});
+				that.venueArray.push(specificVenue);
 			}
 		});
 	}
@@ -47,10 +47,10 @@ export default class BarListScreen extends React.Component {
 		}, 2000);
 	}
 
-	openBar = (bar) => {
+	openBar = (venue) => {
 		this.setState({
 			popupIsOpen: true,
-			bar,
+			venue,
 		});
 	};
 
@@ -78,10 +78,11 @@ export default class BarListScreen extends React.Component {
 			// Navigate away to ConfirmCheckin route
 			this.props.navigation.navigate('Payment', {
 				code: Math.random().toString(36).substring(6).toUpperCase() + Math.random().toString(36).substring(6).toUpperCase(),
-				barName: this.state.bar.Navn,
+				venueName: this.state.venue.venueName,
 				amount: this.state.chosenAmount,
-				barID: this.state.bar.barID,
-				barImage: this.state.bar.image,
+				venueID: this.state.venue.venueID,
+				venueImage: this.state.venue.venueImage,
+				address: this.state.venue.address,
 			})
 		}
 	};
@@ -102,16 +103,16 @@ render() {
 						showsHorizontalScrollIndicator={false}
 						showsVerticalScrollIndicator={false}
 					>
-						{this.barArray.map((bar, index) =>
-							<BarPoster
-								bar={bar}
+						{this.venueArray.map((venue, index) =>
+							<VenuePoster
+								venue={venue}
 								onOpen={this.openBar}
 								key={index}
 							/>
 						)}
 					</ScrollView>
-					<BarPopup
-						bar={this.state.bar}
+					<VenuePopup
+						venue={this.state.venue}
 						isOpen={this.state.popupIsOpen}
 						onClose={this.closeBar}
 						chosenAmount={this.state.chosenAmount}

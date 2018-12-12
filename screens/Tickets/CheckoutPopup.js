@@ -115,7 +115,7 @@ export default class CheckoutPopup extends Component {
 			onCheckout,
 		} = this.props;
 		// Pull out ticket data
-		const {barNavn, antal, farve, checkind, nummer} = ticket || {};
+		const {name, amount, ticketColour, checkinTimestamp, ticketNumber} = ticket || {};
 		// Render nothing if not visible
 		if (!this.state.visible) {
 			return null;
@@ -142,15 +142,15 @@ export default class CheckoutPopup extends Component {
               {/* Poster */}
               <View style={[styles.imageContainer, this.getStyles().imageContainer]}>
                 <ImageBackground
-                  source={TicketImageGenerator(farve)} resizeMode="contain"
+                  source={TicketImageGenerator(ticketColour)} resizeMode="contain"
                   style={styles.image}>
 
-                  <Text style={[styles.imageText1, styles.firstTextOnTicket]} numberOfLines={1}>antal: {antal}</Text>
-                  <Text style={styles.imageText} numberOfLines={1}>{barNavn}</Text>
+                  <Text style={[styles.imageText1, styles.firstTextOnTicket]} numberOfLines={1}>Amount: {amount}</Text>
+                  <Text style={styles.imageText} numberOfLines={1}>{name}</Text>
                   <Text style={styles.imageText}
-                        numberOfLines={1}>{checkind.substr(0, checkind.length - 7).slice(5, checkind.length)}</Text>
-                  <Text style={styles.amountText} numberOfLines={1}>NR: {nummer}</Text>
-                  <Text style={styles.amountText2} numberOfLines={1}>NR: {nummer}</Text>
+                        numberOfLines={1}>{checkinTimestamp.substr(0, checkinTimestamp.length - 7).slice(5, checkinTimestamp.length)}</Text>
+                  <Text style={styles.ticketNumberTextRight} numberOfLines={1}>NR: {ticketNumber}</Text>
+                  <Text style={styles.ticketNumberTextLeft} numberOfLines={1}>NR: {ticketNumber}</Text>
                 </ImageBackground>
               </View>
             </View>
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  amountText: {
+  ticketNumberTextRight: {
     transform: [{rotate: '90deg'}],
     backgroundColor: 'transparent',
     textAlign: 'center',
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     marginLeft: 240,
     marginTop: -45,
   },
-  amountText2: {
+  ticketNumberTextLeft: {
     transform: [{rotate: '270deg'}],
     backgroundColor: 'transparent',
     textAlign: 'center',

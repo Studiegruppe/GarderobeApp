@@ -4,7 +4,6 @@ import {defaultStyles} from "../../assets/Styles";
 import firebase from "firebase";
 import globals from "../../assets/Globals";
 import TicketPoster from "./TicketPoster";
-import CheckoutPopup from "./CheckoutPopup";
 import {LinearGradient} from "expo";
 
 export default class TicketCheckoutConfirmation extends Component {
@@ -12,13 +11,12 @@ export default class TicketCheckoutConfirmation extends Component {
 
   params = this.props.navigation.state.params;
   ticket = this.params.ticket;
-  userId = globals.uid;
+  userID = globals.uid;
   userEmail = globals.userEmail;
-  barID = this.ticket.barID || 0;
-  userPATH = `/Brugere/${this.userId}`;
-  barPATH = `/Barer/${this.barID}`;
-  ticketID = this.ticket.ticketId;
-  barImage = this.ticket.barImage;
+  venueID = this.ticket.venueID || 0;
+  userPATH = `/Users/${this.userID}`;
+  venuePATH = `/Venues/${this.venueID}`;
+  ticketID = this.ticket.ticketID;
 
   constructor(props) {
     super(props);
@@ -33,43 +31,45 @@ export default class TicketCheckoutConfirmation extends Component {
 
   async moveTicketsToInactive() {
     let that = this;
-    console.log(this.params);
-    this.ticket.checkud = new Date().toUTCString();
-    await firebase.database().ref(`${that.userPATH}/Billetter/Inaktive/`).child(that.barID.toString() + ':' + that.ticketID.toString()).update(
+    this.ticket.checkoutTimestamp = new Date().toUTCString();
+    console.log(that.ticket);
+    await firebase.database().ref(`${that.userPATH}/Tickets/Inactive/`).child(that.venueID.toString() + ':' + that.ticketID.toString()).update(
       {
-        antal: that.ticket.antal,
+        amount: that.ticket.amount,
         userID: that.ticket.userID,
         userEmail: that.ticket.userEmail,
-        checkind: that.ticket.checkind,
-        checkud: that.ticket.checkud,
-        farve: that.ticket.farve,
-        nummer: that.ticket.nummer,
-        ticketId: that.ticketID,
-        barNavn: that.ticket.barNavn,
-        barID: that.ticket.barID,
-        barImage: that.barImage,
+        checkinTimestamp: that.ticket.checkinTimestamp,
+        checkoutTimestamp: that.ticket.checkoutTimestamp,
+        ticketColour: that.ticket.ticketColour,
+        ticketNumber: that.ticket.ticketNumber,
+        ticketID: that.ticketID,
+        venueName: that.ticket.venueName,
+        venueID: that.ticket.venueID,
+        venueImage: that.ticket.venueImage,
+        address: that.ticket.address,
       });
 
-    await firebase.database().ref(`${that.barPATH}/InaktiveBilletter/`).child(that.barID.toString() + ':' + that.ticketID.toString()).update(
+    await firebase.database().ref(`${that.venuePATH}/Tickets/Inactive/`).child(that.venueID.toString() + ':' + that.ticketID.toString()).update(
       {
-        antal: that.ticket.antal,
+        amount: that.ticket.amount,
         userID: that.ticket.userID,
         userEmail: that.ticket.userEmail,
-        checkind: that.ticket.checkind,
-        checkud: that.ticket.checkud,
-        farve: that.ticket.farve,
-        nummer: that.ticket.nummer,
-        ticketId: that.ticketID,
-        barNavn: that.ticket.barNavn,
-        barID: that.ticket.barID,
-        barImage: that.barImage,
+        checkinTimestamp: that.ticket.checkinTimestamp,
+        checkoutTimestamp: that.ticket.checkoutTimestamp,
+        ticketColour: that.ticket.ticketColour,
+        ticketNumber: that.ticket.ticketNumber,
+        ticketID: that.ticketID,
+        venueName: that.ticket.venueName,
+        venueID: that.ticket.venueID,
+        venueImage: that.ticket.venueImage,
+        address: that.ticket.address,
       });
   }
 
   async removeTicketsFromActive() {
     let that = this;
-    await firebase.database().ref(`${that.barPATH}/AktiveBilletter/${that.barID.toString() + ':' + that.ticketID.toString()}`).remove();
-    await firebase.database().ref(`${that.userPATH}/Billetter/Aktive/${that.barID.toString() + ':' + that.ticketID.toString()}`).remove();
+    await firebase.database().ref(`${that.venuePATH}/Tickets/Active/${that.venueID.toString() + ':' + that.ticketID.toString()}`).remove();
+    await firebase.database().ref(`${that.userPATH}/Tickets/Active/${that.venueID.toString() + ':' + that.ticketID.toString()}`).remove();
   }
 
 

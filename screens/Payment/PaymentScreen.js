@@ -20,10 +20,11 @@ export default class PaymentScreen extends React.Component {
 		setTimeout(() => {
 			this.props.navigation.navigate('ConfirmCheckin', {
 				code: this.params.code,
-				barName: this.params.barName,
+				venueName: this.params.venueName,
 				amount: this.params.amount,
-				barID: this.params.barID,
-				barImage: this.params.barImage,
+				venueID: this.params.venueID,
+				venueImage: this.params.venueImage,
+				address: this.params.address,
 			})
 		}, 2000);
 	}
@@ -39,7 +40,7 @@ export default class PaymentScreen extends React.Component {
 			}} colors={['#80d0c7', '#13547a']}>
 				<View style={styles.container}>
 					<ImageBackground
-						source={require('../../assets/images/dankort.png')} resizeMode="contain"
+						source={require('../../assets/images/creditCard.png')} resizeMode="contain"
 						style={styles.image}
 					/>
 					<Text style={styles.text}>
