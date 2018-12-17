@@ -9,10 +9,7 @@ const debug = false;
 
 export default class MapScreen extends React.Component {
 
-	/**
-	 * Header removal
-	 * @type {{header: null}}
-	 */
+	//Remove the default header
 	static navigationOptions = {
 		header: null,
 	};
@@ -28,9 +25,7 @@ export default class MapScreen extends React.Component {
 		};
 	}
 
-	/**
-	 * When mapScreen is loaded below functions are called
-	 */
+	//Call methods before MapScreen is loaded
 	componentWillMount() {
 		this._getLocationAsync();
 		this.generateMarkers();
@@ -39,7 +34,7 @@ export default class MapScreen extends React.Component {
 
 	/**
 	 * Getting users location PERMISSION
- 	 * @returns {Promise<void>}
+	 * @returns {Promise<void>}
 	 * @private
 	 */
 	_getLocationAsync = async () => {
@@ -55,7 +50,7 @@ export default class MapScreen extends React.Component {
 
 	/**
 	 * Function for generating map-pins using Latitude and longitude storing rendable code in array
- 	 */
+	 */
 	generateMarkers() {
 		let markerArray = [];
 		let that = this;
@@ -79,7 +74,8 @@ export default class MapScreen extends React.Component {
 							<MapView.Callout>
 								<View>
 									{
-										venue.venueName ? <Text style={{fontWeight: 'bold',}}>{venue.venueName}</Text> : <Text style={{color: 'red'}}>missing name</Text>
+										venue.venueName ? <Text style={{fontWeight: 'bold',}}>{venue.venueName}</Text> :
+											<Text style={{color: 'red'}}>missing name</Text>
 									}
 									{
 										venue.address ? <Text>{venue.address}</Text> : <Text style={{color: 'red'}}>Missing address</Text>
