@@ -4,11 +4,12 @@ import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native';
 import VenuePoster from "./VenuePoster";
 import VenuePopup from "./VenuePopup";
 
-
-const possibleAmounts = [ '1', '2', '3', '4', '5'];
+//The potential amounts a user can select
+const possibleAmounts = ['1', '2', '3', '4', '5'];
 
 export default class VenueListScreen extends React.Component {
 
+	//An empty array of venues
 	venueArray = [];
 
 	constructor(props) {
@@ -16,15 +17,13 @@ export default class VenueListScreen extends React.Component {
 		this.state = {
 			isLoadingComplete: false,
 			popupIsOpen: false,
-			// Amount of items to checkin chosen by user
+			// Amount of items to check in chosen by user
 			chosenAmount: null,
 		}
 	}
 
-	/**
-	 * Getting all venues from the database
-	 */
-	get barsFromApiAsync() {
+	//Get all venues from the database
+	get venuesFromApiAsync() {
 		const that = this;
 		firebase.database().ref('Venues').on('value', function (snapshot) {
 			const venues = snapshot.val();
@@ -34,15 +33,17 @@ export default class VenueListScreen extends React.Component {
 					continue;
 				}
 				const specificVenue = venues[key];
-				//Add possible amounts to each individual bar
+				//Add possible amounts to each individual bar aswell as their venueID
 				Object.assign(specificVenue, {possibleAmounts: possibleAmounts, venueID: key});
+				//Add the specificVenue object to the venueArray array
 				that.venueArray.push(specificVenue);
 			}
 		});
 	}
 
+	//When the component mounted we load all venues from our firebase API
 	componentDidMount() {
-		this.barsFromApiAsync;
+		this.venuesFromApiAsync;
 		setTimeout(() => {
 			this.setState({
 				isLoadingComplete: true
@@ -50,18 +51,16 @@ export default class VenueListScreen extends React.Component {
 		}, 2000);
 	}
 
-	/**
-	 * popup for the selected venue
-	 * @param venue
-	 */
-	openBar = (venue) => {
+	//When our venue is clicked set the popupIsOpen to true set the state to include the venue
+	openVenue = (venue) => {
 		this.setState({
 			popupIsOpen: true,
 			venue,
 		});
 	};
 
-	closeBar = () => {
+	//When our user closes the venue popup (either by tapping outside the box, or by navigating to checkin), we close the venue popup
+	closeVenue = () => {
 		this.setState({
 			popupIsOpen: false,
 			// Reset values to default ones
@@ -69,22 +68,21 @@ export default class VenueListScreen extends React.Component {
 		});
 	};
 
+	//Sets the amount chosen by our user into our state
 	chooseAmount = (amount) => {
 		this.setState({
 			chosenAmount: amount,
 		});
 	};
 
-	/**
-	 * Selecting amount of items to checkin, and navigating to payment
-	 */
+	//If the user has selected an amount we close the venue and pass along information to the Payment screen
 	buyWardrobeTicket = () => {
 		// Make sure they selected amount
 		if (!this.state.chosenAmount) {
 			alert('Please select amount of items');
 		} else {
 			// Close popup
-			this.closeBar();
+			this.closeVenue();
 			// Navigate away to ConfirmCheckin route
 			this.props.navigation.navigate('Payment', {
 				code: Math.random().toString(36).substring(6).toUpperCase() + Math.random().toString(36).substring(6).toUpperCase(),
@@ -97,14 +95,16 @@ export default class VenueListScreen extends React.Component {
 		}
 	};
 
-render() {
+	render() {
+		//If we haven't loaded show the activityindicator
 		if (!this.state.isLoadingComplete) {
 			return (
 				<View style={{flex: 1, padding: 20, justifyContent: 'center', alignItems: 'stretch'}}>
-          <ActivityIndicator size="large" color="#FFFFFF"/>
+					<ActivityIndicator size="large" color="#FFFFFF"/>
 				</View>
 			)
-		} else
+		} else {
+			//Render out all our venues
 			return (
 				<View style={styles.container}>
 					<ScrollView
@@ -116,21 +116,23 @@ render() {
 						{this.venueArray.map((venue, index) =>
 							<VenuePoster
 								venue={venue}
-								onOpen={this.openBar}
+								onOpen={this.openVenue}
 								key={index}
 							/>
 						)}
 					</ScrollView>
+					{/*Add a venue popup that starts hidden*/}
 					<VenuePopup
 						venue={this.state.venue}
 						isOpen={this.state.popupIsOpen}
-						onClose={this.closeBar}
+						onClose={this.closeVenue}
 						chosenAmount={this.state.chosenAmount}
 						onChooseAmount={this.chooseAmount}
 						onBuyWardrobeTicket={this.buyWardrobeTicket}
 					/>
 				</View>
 			)
+		}
 	}
 }
 

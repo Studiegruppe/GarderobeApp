@@ -6,7 +6,7 @@ import {defaultStyles} from "../../assets/Styles";
 
 // Colors for smooth transition when user chooses an option
 const colorDefault = 'rgba(19,84,122, 1)',  // white
-  colorSelected = 'rgba(255,255,255, 0.8)';        // purple
+	colorSelected = 'rgba(255,255,255, 0.8)';        // purple
 
 export default class VenueOption extends Component {
 	static propTypes = {
@@ -18,10 +18,13 @@ export default class VenueOption extends Component {
 		onChoose: PropTypes.func.isRequired,
 	};
 
-	state = {
-		// Animate background color change when value gets chosen
-		background: new Animated.Value(0)
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			// Animate background color change when value gets chosen
+			background: new Animated.Value(0)
+		};
+	}
 
 	// Animate option selection if value was already chosen not by a user
 	componentWillMount() {
