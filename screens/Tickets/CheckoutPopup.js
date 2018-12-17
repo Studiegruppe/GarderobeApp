@@ -21,8 +21,9 @@ const defaultHeight = height * 0.5;
 export default class CheckoutPopup extends Component {
 
 	static propTypes = {
+		// Boolean whether the popup is opened or not
 		isOpen: PropTypes.bool.isRequired,
-		// Ticket object that has NOTHING YET
+		// Ticket object
 		ticket: PropTypes.object,
 		// Gets called when user checks their ticket out
 		onCheckout: PropTypes.func,
@@ -82,22 +83,29 @@ export default class CheckoutPopup extends Component {
 				width: width,         // 100% of screen width
 			},
 			ticketContainer: this.state.expanded ? {
+				//If expanded
 				flexDirection: 'column',  // arrange image and ticket info in a column
 				alignItems: 'center',     // and center them
 			} : {
+				//If not expanded
 				flexDirection: 'row',     // arrange image and ticket info in a row
 			},
 			ticketInfo: this.state.expanded ? {
+				//If expanded
 				flex: 0,
 				alignItems: 'center',     // center horizontally
 				paddingTop: 20,
 			} : {
+				//If not expanded
 				flex: 1,
 				justifyContent: 'center', // center vertically
 			},
 			title: this.state.expanded ? {
+				//If expanded
 				textAlign: 'center',
-			} : {},
+			} : {
+				//If not expanded do nothing
+			},
 		};
 	};
 
@@ -110,11 +118,12 @@ export default class CheckoutPopup extends Component {
 	}
 
 	render() {
+		// Pull out the object/functions from the passed props
 		const {
 			ticket,
 			onCheckout,
 		} = this.props;
-		// Pull out ticket data
+		// Pull out ticket data and assign to constants
 		const {venueName, address, amount, ticketColour, checkinTimestamp, ticketNumber} = ticket || {};
 		// Render nothing if not visible
 		if (!this.state.visible) {
@@ -139,7 +148,7 @@ export default class CheckoutPopup extends Component {
 						{/* Ticket poster, title and type + postal area */}
 						<View
 							style={[styles.ticketContainer, this.getStyles().ticketContainer]}>
-							{/* Poster */}
+							{/* Ticket poster */}
 							<View style={[styles.imageContainer, this.getStyles().imageContainer]}>
 								<ImageBackground
 									source={TicketImageGenerator(ticketColour)} resizeMode="contain"
