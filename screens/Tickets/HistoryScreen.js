@@ -28,6 +28,10 @@ export default class HistoryScreen extends React.Component {
 		}, 2000);
 	}
 
+	/**
+	 * Getting all inactive tickets bound to the user
+ 	 * @returns {Promise<void>}
+	 */
 	async retrieveOldTickets() {
 		const that = this;
 		await firebase.database().ref(`${that.userPATH}/Tickets/Inactive`).on('value', function (snapshot) {
