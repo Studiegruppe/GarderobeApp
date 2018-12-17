@@ -6,6 +6,9 @@ import {defaultStyles} from "../../assets/Styles";
 // Get screen dimensions
 const {width, height} = Dimensions.get('window');
 
+/**
+ * Entire class used to simulate a payment transaction
+ */
 export default class PaymentScreen extends React.Component {
 
 
