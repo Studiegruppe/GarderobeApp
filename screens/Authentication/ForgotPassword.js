@@ -17,6 +17,9 @@ export default class ForgotPassword extends React.Component {
     }
   }
 
+  /**
+   * Resets password using firebase method
+   */
   onResetPasswordPress = () => {
     firebase.auth().sendPasswordResetEmail(this.state.email)
       .then(() => {

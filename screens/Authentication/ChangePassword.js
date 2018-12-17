@@ -20,14 +20,20 @@ export default class SettingsScreen extends React.Component {
     header: null,
   };
 
-  // Reauthenticates the current user and returns a promise.
+  /**
+   * Reauthenticates the current user and returns a promise.
+   * @param currentPassword
+   * @returns {Promise<firebase.auth.UserCredential>}
+   */
   reauthenticate = (currentPassword) => {
     const user = firebase.auth().currentUser;
     const credential = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
     return user.reauthenticateAndRetrieveDataWithCredential(credential);
   };
 
-  // Changes user's password
+  /**
+   * Changes user's password
+   */
   onChangePasswordPress = () => {
     var user = firebase.auth().currentUser;
     user.updatePassword(this.state.newPassword).then(() => {

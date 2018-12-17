@@ -18,6 +18,9 @@ export default class RegisterScreen extends React.Component {
 		}
 	}
 
+	/**
+	 * Button handler for creating user
+	 */
 	onButtonPress() {
 		const {email, password} = this.state;
 
@@ -33,6 +36,9 @@ export default class RegisterScreen extends React.Component {
 
 	}
 
+	/**
+	 * On creation sucess
+	 */
 	onSignUpSucces() {
 		this.setState({
 			email: '',
@@ -44,6 +50,10 @@ export default class RegisterScreen extends React.Component {
 		this.setProfile();
 	}
 
+	/**
+	 * On creation error
+	 * @param err
+	 */
 	onSignUpFailed(err) {
 		this.setState({
 			loading: false,
@@ -52,6 +62,9 @@ export default class RegisterScreen extends React.Component {
 
 	}
 
+	/**
+	 * Setting current logged in user
+ 	 */
 	setProfile = () => {
 		const ref = firebase.database().ref(`/Brugere/${globals.uid}`);
 		const obj = {
