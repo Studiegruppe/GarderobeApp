@@ -6,9 +6,7 @@ import {defaultStyles} from "../../assets/Styles";
 // Get screen dimensions
 const {width, height} = Dimensions.get('window');
 
-/**
- * Entire class used to simulate a payment transaction
- */
+//Simulate payment
 export default class PaymentScreen extends React.Component {
 
 
@@ -20,6 +18,7 @@ export default class PaymentScreen extends React.Component {
 
 
 	componentDidMount() {
+		//Idle for two seconds whilst showing an image of a creditcard before passing on information into ConfirmCheckin
 		setTimeout(() => {
 			this.props.navigation.navigate('ConfirmCheckin', {
 				code: this.params.code,
