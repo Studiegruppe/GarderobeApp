@@ -64,7 +64,7 @@ export default class RegisterScreen extends React.Component {
 
 	/**
 	 * Setting current logged in user
- 	 */
+	 */
 	setProfile = () => {
 		const ref = firebase.database().ref(`/Brugere/${globals.uid}`);
 		const obj = {
