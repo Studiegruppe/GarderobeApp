@@ -8,6 +8,10 @@ import {LinearGradient} from "expo";
 
 export default class HomeScreen extends React.Component {
 
+  /**
+   * Removing the header
+   * @type {{header: null}}
+   */
   static navigationOptions = {
     header: null,
   };

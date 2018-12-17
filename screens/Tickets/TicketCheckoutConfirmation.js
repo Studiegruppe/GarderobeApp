@@ -29,6 +29,11 @@ export default class TicketCheckoutConfirmation extends Component {
     header: null,
   };
 
+  /**
+   * Creates a database entry in "Inactive" with a currently active ticket
+   *
+   * @returns {Promise<void>}
+   */
   async moveTicketsToInactive() {
     let that = this;
     this.ticket.checkoutTimestamp = new Date().toUTCString();
@@ -66,6 +71,10 @@ export default class TicketCheckoutConfirmation extends Component {
       });
   }
 
+  /**
+   * Removes the selected ticket from both venues and users
+   * @returns {Promise<void>}
+   */
   async removeTicketsFromActive() {
     let that = this;
     await firebase.database().ref(`${that.venuePATH}/Tickets/Active/${that.venueID.toString() + ':' + that.ticketID.toString()}`).remove();
@@ -73,6 +82,10 @@ export default class TicketCheckoutConfirmation extends Component {
   }
 
 
+  /**
+   * Checkout navigation
+   * @returns {Promise<void>}
+   */
   async checkout() {
     this.moveTicketsToInactive();
     this.removeTicketsFromActive();

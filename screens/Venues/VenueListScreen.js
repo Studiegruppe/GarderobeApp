@@ -5,7 +5,7 @@ import VenuePoster from "./VenuePoster";
 import VenuePopup from "./VenuePopup";
 
 
-const possibleAmounts = ['0', '1', '2', '3', '4', '5'];
+const possibleAmounts = [ '1', '2', '3', '4', '5'];
 
 export default class VenueListScreen extends React.Component {
 
@@ -21,6 +21,9 @@ export default class VenueListScreen extends React.Component {
 		}
 	}
 
+	/**
+	 * Getting all venues from the database
+	 */
 	get barsFromApiAsync() {
 		const that = this;
 		firebase.database().ref('Venues').on('value', function (snapshot) {
@@ -47,6 +50,10 @@ export default class VenueListScreen extends React.Component {
 		}, 2000);
 	}
 
+	/**
+	 * popup for the selected venue
+	 * @param venue
+	 */
 	openBar = (venue) => {
 		this.setState({
 			popupIsOpen: true,
@@ -68,6 +75,9 @@ export default class VenueListScreen extends React.Component {
 		});
 	};
 
+	/**
+	 * Selecting amount of items to checkin, and navigating to payment
+	 */
 	buyWardrobeTicket = () => {
 		// Make sure they selected amount
 		if (!this.state.chosenAmount) {

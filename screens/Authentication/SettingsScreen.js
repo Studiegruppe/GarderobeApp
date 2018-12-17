@@ -20,7 +20,9 @@ export default class SettingsScreen extends React.Component {
 		header: null,
 	};
 
-	// Occurs when signout is pressed...
+	/**
+	 * Occurs when signout is pressed
+	 */
 	onSignoutPress = () => {
 		firebase.auth().signOut();
 	};

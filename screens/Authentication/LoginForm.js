@@ -30,6 +30,10 @@ export default class LoginForm extends React.Component {
 		}
 	}
 
+	/**
+	 * Sign in using firebase
+	 * @returns {Promise<void>}
+	 */
 	async signIn() {
 		const {email, password} = this.state;
 		this.setState({
@@ -40,6 +44,9 @@ export default class LoginForm extends React.Component {
 			.catch(this.onSignInFailed.bind(this));
 	}
 
+	/**
+	 * On sucess sign in
+	 */
 	onSignInSuccess() {
 		this.setState({
 			email: '',
@@ -53,6 +60,10 @@ export default class LoginForm extends React.Component {
 		}
 	}
 
+	/**
+	 * On error sign in
+	 * @param error
+	 */
 	onSignInFailed(error) {
 		this.setState({
 			loading: false,

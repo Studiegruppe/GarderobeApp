@@ -6,6 +6,9 @@ import TicketPoster from "./TicketPoster";
 import CheckoutPopup from "./CheckoutPopup";
 
 
+/**
+ * Class used to show an useres active tickets
+ */
 export default class ActiveTicketsScreen extends React.Component {
 
 	activeTicketsArray = [];
@@ -33,6 +36,9 @@ export default class ActiveTicketsScreen extends React.Component {
 	};
 
 
+	/**
+	 * Firebase call to get a users active tickets --> push into activeTicketArray
+	 */
 	getActiveTicketAsync() {
 		let that = this;
 		firebase.database().ref(`Users/${globals.uid}/Tickets/Active`).on('value', function (snapshot) {
@@ -46,6 +52,10 @@ export default class ActiveTicketsScreen extends React.Component {
 		})
 	};
 
+	/**
+	 * When a venue is selected an overlay appears with a tick in which is either open or closed
+	 * @param ticket
+	 */
 	openTicket = (ticket) => {
 		this.setState({
 			popupIsOpen: true,
@@ -60,6 +70,9 @@ export default class ActiveTicketsScreen extends React.Component {
 	};
 
 
+	/**
+	 * Closing pop-up and navigating to the ConfirmCheckout route
+ 	 */
 	checkoutTicket = () => {
 		if (!this.state.ticket) {
 			return;

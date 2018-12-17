@@ -20,14 +20,21 @@ export default class SettingsScreen extends React.Component {
 		header: null,
 	};
 
-	// Reauthenticates the current user and returns a promise
+	/**
+	 * Reauthenticates the current user and returns a promise
+	 * @param currentPassword
+	 * @returns {Promise<firebase.auth.UserCredential>}
+	 */
 	reauthenticate = (currentPassword) => {
 		const user = firebase.auth().currentUser;
 		const credential = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
 		return user.reauthenticateAndRetrieveDataWithCredential(credential);
 	};
 
-	// Changes user's email
+
+	/**
+	 * Changes user's email
+	 */
 	onChangeEmailPress = () => {
 		const user = firebase.auth().currentUser;
 		user.updateEmail(this.state.newEmail).then(() => {
@@ -38,6 +45,7 @@ export default class SettingsScreen extends React.Component {
 			console.log(error.message);
 		});
 	};
+
 
 	render() {
 		return (

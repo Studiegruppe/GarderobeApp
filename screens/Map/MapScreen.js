@@ -9,6 +9,10 @@ const debug = false;
 
 export default class MapScreen extends React.Component {
 
+	/**
+	 * Header removal
+	 * @type {{header: null}}
+	 */
 	static navigationOptions = {
 		header: null,
 	};
@@ -24,12 +28,20 @@ export default class MapScreen extends React.Component {
 		};
 	}
 
+	/**
+	 * When mapScreen is loaded below functions are called
+	 */
 	componentWillMount() {
 		this._getLocationAsync();
 		this.generateMarkers();
 
 	}
 
+	/**
+	 * Getting users location PERMISSION
+ 	 * @returns {Promise<void>}
+	 * @private
+	 */
 	_getLocationAsync = async () => {
 		let {status} = await Permissions.askAsync(Permissions.LOCATION);
 		if (status === 'granted') {
@@ -41,6 +53,9 @@ export default class MapScreen extends React.Component {
 		}
 	};
 
+	/**
+	 * Function for generating map-pins using Latitude and longitude storing rendable code in array
+ 	 */
 	generateMarkers() {
 		let markerArray = [];
 		let that = this;
@@ -82,6 +97,9 @@ export default class MapScreen extends React.Component {
 		});
 	}
 
+	/**
+	 * Render method setting region + zoom distances(delta)
+	 */
 	render() {
 		return (
 			<MapView

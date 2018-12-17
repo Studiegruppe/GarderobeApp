@@ -1,3 +1,10 @@
+/**
+ * Grabbing ticket colours
+ *
+ * @param ticketColour
+ * @returns {*}
+ * @constructor
+ */
 export const TicketImageGenerator = (ticketColour) => {
 	let imageURI;
 
