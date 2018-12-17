@@ -21,19 +21,18 @@ import TicketCheckoutConfirmation from "./screens/Tickets/TicketCheckoutConfirma
 import PaymentScreen from "./screens/Payment/PaymentScreen";
 
 const LoginStack = createStackNavigator({
-    Login: LoginForm,
-    ForgotPassword: ForgotPassword,
-    Register: RegisterScreen,
-  },
-  {
-    navigationOptions: () => ({
-      headerTransparent: true,
-      headerBackTitle: 'Back',
-      headerTintColor: 'white'
-    }),
-  }
+		Login: LoginForm,
+		ForgotPassword: ForgotPassword,
+		Register: RegisterScreen,
+	},
+	{
+		navigationOptions: () => ({
+			headerTransparent: true,
+			headerBackTitle: 'Back',
+			headerTintColor: 'white'
+		}),
+	}
 );
-
 
 const HomeStack = createStackNavigator({
 	Home: HomeScreen,
@@ -47,9 +46,9 @@ const HomeStack = createStackNavigator({
 });
 
 const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-  ChangePassword: ChangePassword,
-  ChangeEmail: ChangeEmail,
+	Settings: SettingsScreen,
+	ChangePassword: ChangePassword,
+	ChangeEmail: ChangeEmail,
 });
 
 const MapsStack = createStackNavigator({
@@ -76,15 +75,15 @@ const MainAppStack = createBottomTabNavigator({
 				return <Icon.Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor}/>;
 			},
 		}),
-    tabBarOptions: {
-      activeTintColor: '#80D0C7',
-      inactiveTintColor: '#13547A',
-      style: {
-        backgroundColor: 'transparent',
-      },
-    },
-    initialRouteName: 'Home',
-  }
+		tabBarOptions: {
+			activeTintColor: '#80D0C7',
+			inactiveTintColor: '#13547A',
+			style: {
+				backgroundColor: 'transparent',
+			},
+		},
+		initialRouteName: 'Home',
+	}
 );
 
 export default class App extends React.Component {
@@ -98,15 +97,15 @@ export default class App extends React.Component {
 		}
 	}
 
-  componentWillMount() {
-    firebase.initializeApp({
-      apiKey: "AIzaSyCxecGEtoqgPPDWftVQpXVKIZLdsQNDPAs",
-      authDomain: "garderobeapp-49283.firebaseapp.com",
-      databaseURL: "https://garderobeapp-49283.firebaseio.com",
-      projectId: "garderobeapp-49283",
-      storageBucket: "garderobeapp-49283.appspot.com",
-      messagingSenderId: "271748622389"
-    });
+	componentWillMount() {
+		firebase.initializeApp({
+			apiKey: "AIzaSyCxecGEtoqgPPDWftVQpXVKIZLdsQNDPAs",
+			authDomain: "garderobeapp-49283.firebaseapp.com",
+			databaseURL: "https://garderobeapp-49283.firebaseio.com",
+			projectId: "garderobeapp-49283",
+			storageBucket: "garderobeapp-49283.appspot.com",
+			messagingSenderId: "271748622389"
+		});
 
 		firebase.auth().onAuthStateChanged(user => {
 			if (user) {
@@ -118,32 +117,32 @@ export default class App extends React.Component {
 			}
 		});
 	}
-  
-  _cacheResourcesAsync() {
-    return true;
-  }
 
-  render() {
-    if (!this.state.appIsReady) {
-      return (
-        <AppLoading
-          startAsync={this._cacheResourcesAsync}
-          onFinish={() => this.setState({appIsReady: true})}
-          onError={console.warn}
-        />
-      )
-    }
-    switch (this.state.loggedIn) {
-      case true:
-        return (
-          <MainAppStack/>
-        );
-      case false:
-        return (
-          <LoginStack/>
-        );
-      default:
-        return <ActivityIndicator size="large"/>;
-    }
-  }
+	_cacheResourcesAsync() {
+		return true;
+	}
+
+	render() {
+		if (!this.state.appIsReady) {
+			return (
+				<AppLoading
+					startAsync={this._cacheResourcesAsync}
+					onFinish={() => this.setState({appIsReady: true})}
+					onError={console.warn}
+				/>
+			)
+		}
+		switch (this.state.loggedIn) {
+			case true:
+				return (
+					<MainAppStack/>
+				);
+			case false:
+				return (
+					<LoginStack/>
+				);
+			default:
+				return <ActivityIndicator size="large"/>;
+		}
+	}
 }
