@@ -10,7 +10,10 @@ export default class Tabs extends Component {
 		activeTab: 0
 	};
 
-  // Pull children out of props passed from App component
+
+  /**
+   * Pull children out of props passed from App component
+   */
   render({ children } = this.props) {
     return (
       <View style={styles.container}>
