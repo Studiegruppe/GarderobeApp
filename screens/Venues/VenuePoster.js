@@ -21,10 +21,12 @@ export default class VenuePoster extends Component {
 	};
 
 	render() {
+		//Pull out venue constants from the passed props, aswell as the onOpen function
 		const {venue, venue: {venueName, venueImage, type, postalArea}, onOpen} = this.props;
 		return (
 			<TouchableOpacity style={styles.container} onPress={() => onOpen(venue)}>
 				<View style={styles.imageContainer}>
+					{/* Render the venueImage provided in the database, else show a generic image*/}
 					<Image
 						source={{uri: venueImage ? venueImage : 'https://static.designmynight.com/uploads/2016/10/Generic-1-optimised.jpg'}}
 						style={styles.image}/>

@@ -30,7 +30,7 @@ export default class HistoryScreen extends React.Component {
 
 	/**
 	 * Getting all inactive tickets bound to the user
- 	 * @returns {Promise<void>}
+	 * @returns {Promise<void>}
 	 */
 	async retrieveOldTickets() {
 		const that = this;

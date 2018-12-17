@@ -35,10 +35,10 @@ export default class VenuePopup extends Component {
 		// Gets called when popup is closed
 		onClose: PropTypes.func,
 	};
+	// When user starts pulling popup previous height gets stored here
 	// to help us calculate new height value during and after pulling
 	_previousHeight = 0;
 
-	// When user starts pulling popup previous height gets stored here
 
 	constructor(props) {
 		super(props);

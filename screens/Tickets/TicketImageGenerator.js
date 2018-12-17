@@ -1,5 +1,5 @@
 /**
- * Grabbing ticket colours
+ * Grabbing ticket colours and returning the correct ticket image, if none are found it returns our logo
  *
  * @param ticketColour
  * @returns {*}
