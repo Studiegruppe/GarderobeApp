@@ -61,7 +61,7 @@ export default class SettingsScreen extends React.Component {
 								size={25}
 							/>
 						}
-						containerStyle={{marginTop: 220, marginBottom: 240, alignSelf: 'center', justifyContent: 'space-between'}}
+						containerStyle={{marginTop: 220, marginBottom: 70, alignSelf: 'center', justifyContent: 'space-between'}}
 						onChangeText={newEmail => this.setState({newEmail})}
 						value={this.state.newEmail}
 						inputStyle={{marginLeft: 10, color: 'white'}}
@@ -77,7 +77,7 @@ export default class SettingsScreen extends React.Component {
 					<View>
 						<Button title="Change Email" clear buttonStyle={Styles.ButtonChangeEmail}
 										titleStyle={{fontWeight: 'bold', fontSize: 23, color: 'white'}}
-										onPress={this.onChangeEmailPress()}/>
+										onPress={() => this.onChangeEmailPress()}/>
 					</View>
 				</LinearGradient>
 			</TouchableWithoutFeedback>

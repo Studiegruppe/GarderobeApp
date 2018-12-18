@@ -84,7 +84,7 @@ export default class SettingsScreen extends React.Component {
 								size={25}
 							/>
 						}
-						containerStyle={{marginBottom: 190, alignSelf: 'center', justifyContent: 'space-between'}}
+						containerStyle={{marginBottom: 70, alignSelf: 'center', justifyContent: 'space-between'}}
 						onChangeText={newPassword => this.setState({newPassword})}
 						value={this.state.newPassword}
 						inputStyle={{marginLeft: 10, color: 'white'}}
@@ -100,7 +100,7 @@ export default class SettingsScreen extends React.Component {
 					<View>
 						<Button title="Change Password" clear buttonStyle={Styles.ButtonChangePassword}
 										titleStyle={{fontWeight: 'bold', fontSize: 23, color: 'white'}}
-										onPress={this.onChangePasswordPress}/>
+										onPress={() => this.onChangePasswordPress}/>
 					</View>
 				</LinearGradient>
 			</TouchableWithoutFeedback>
