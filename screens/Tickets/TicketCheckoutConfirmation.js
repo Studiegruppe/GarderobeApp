@@ -94,7 +94,6 @@ export default class TicketCheckoutConfirmation extends Component {
 	}
 
 	render() {
-		console.log(this.params);
 		return (
 			<LinearGradient style={{
 				position: 'absolute',

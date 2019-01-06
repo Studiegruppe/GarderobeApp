@@ -116,10 +116,20 @@ export default class LoginForm extends React.Component {
 					/>
 					<Text style={{alignSelf: 'center', color: 'red', marginBottom: 10, marginTop: 20}}>{this.state.error}</Text>
 					<View style={{flex: 1, marginBottom: 10, marginTop: 20}}>
-						<Button title={'Sign in'} clear buttonStyle={Styles.buttonStyleLogin}
-										titleStyle={{fontWeight: 'bold', fontSize: 23}} onPress={this.signIn.bind(this)}/>
-						<Button title="Create Account" clear buttonStyle={Styles.buttonStyleText1}
-										titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('Register')}/>
+						<Button
+							title={'Sign in'}
+							clear
+							buttonStyle={Styles.buttonStyleLogin}
+							titleStyle={{fontWeight: 'bold', fontSize: 23}}
+							onPress={this.signIn.bind(this)}
+						/>
+						<Button
+							title="Create Account"
+							clear
+							buttonStyle={Styles.buttonStyleText1}
+							titleStyle={{fontSize: 15}}
+							onPress={() => this.props.navigation.navigate('Register')}
+						/>
 						<Button title="Forgot Password?" clear buttonStyle={Styles.buttonStyleText2}
 										titleStyle={{fontSize: 15}} onPress={() => this.props.navigation.navigate('ForgotPassword')}/>
 					</View>

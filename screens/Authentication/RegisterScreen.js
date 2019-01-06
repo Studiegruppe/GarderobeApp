@@ -14,7 +14,8 @@ export default class RegisterScreen extends React.Component {
 		this.state = {
 			email: '',
 			password: '',
-			loading: false
+			loading: false,
+			error: '',
 		}
 	}
 
@@ -23,31 +24,22 @@ export default class RegisterScreen extends React.Component {
 	 */
 	onButtonPress() {
 		const {email, password} = this.state;
-
-		this.setState({
-			error: '',
-			loading: true
-		});
-
-
 		firebase.auth().createUserWithEmailAndPassword(email, password)
-			.then(this.onSignUpSucces.bind(this))
+			.then(this.onSignUpSuccess.bind(this))
 			.catch(this.onSignUpFailed.bind(this));
 
 	}
 
 	/**
-	 * On creation sucess
+	 * On creation success
 	 */
-	onSignUpSucces() {
+	onSignUpSuccess() {
 		this.setState({
 			email: '',
 			password: '',
-			loading: false,
 			error: ''
 		});
 		alert("Bruger er nu oprettet");
-		this.setProfile();
 	}
 
 	/**
@@ -56,31 +48,10 @@ export default class RegisterScreen extends React.Component {
 	 */
 	onSignUpFailed(err) {
 		this.setState({
-			loading: false,
 			error: err.message
 		});
 
 	}
-
-	/**
-	 * Setting current logged in user
-	 */
-	setProfile = () => {
-		const ref = firebase.database().ref(`/Brugere/${globals.uid}`);
-		const obj = {
-
-			Billetter: {
-				Inaktive: {
-					ignore: 'ignore'
-				},
-				Aktive: {
-					ignore: 'ignore'
-				}
-			}
-		};
-		ref.set(obj)
-	};
-
 
 	render() {
 		return (
@@ -143,6 +114,7 @@ export default class RegisterScreen extends React.Component {
 						placeholderTextColor="white"
 
 					/>
+						<Text style={{alignSelf: 'center', color: 'red', marginBottom: 10, marginTop: 20}}>{this.state.error}</Text>
 					<View>
 						<Button style={Styles.buttonStyleReg} clear title={"Sign Up"}
 										titleStyle={{fontWeight: 'bold', fontSize: 23}}
