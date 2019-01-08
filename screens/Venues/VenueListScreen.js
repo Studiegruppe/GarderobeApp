@@ -11,6 +11,7 @@ export default class VenueListScreen extends React.Component {
 
 	//An empty array of venues
 	venueArray = [];
+	mounted;
 
 	constructor(props) {
 		super(props);
@@ -43,12 +44,19 @@ export default class VenueListScreen extends React.Component {
 
 	//When the component mounted we load all venues from our firebase API
 	componentDidMount() {
+		this.mounted = true;
 		this.venuesFromApiAsync;
 		setTimeout(() => {
-			this.setState({
-				isLoadingComplete: true
-			})
+			if (this.mounted) {
+				this.setState({
+					isLoadingComplete: true
+				})
+			}
 		}, 2000);
+	}
+
+	componentWillUnmount() {
+		this.mounted = false;
 	}
 
 	//When our venue is clicked set the popupIsOpen to true set the state to include the venue

@@ -9,6 +9,8 @@ const debug = false;
 
 export default class MapScreen extends React.Component {
 
+	mounted;
+
 	//Remove the default header
 	static navigationOptions = {
 		header: null,
@@ -26,10 +28,14 @@ export default class MapScreen extends React.Component {
 	}
 
 	//Call methods before MapScreen is loaded
-	componentWillMount() {
+	componentDidMount() {
+		this.mounted = true;
 		this._getLocationAsync();
 		this.generateMarkers();
+	}
 
+	componentWillUnmount() {
+		this.mounted = false;
 	}
 
 	/**
@@ -41,8 +47,10 @@ export default class MapScreen extends React.Component {
 		let {status} = await Permissions.askAsync(Permissions.LOCATION);
 		if (status === 'granted') {
 			let location = await Location.getCurrentPositionAsync({});
-			this.setState({latitude: location.coords.latitude, longitude: location.coords.longitude});
-			this.setState({flex: 1});
+			if (this.mounted) {
+				this.setState({latitude: location.coords.latitude, longitude: location.coords.longitude});
+				this.setState({flex: 1});
+			}
 		} else {
 			alert("Permission to access location was denied");
 		}

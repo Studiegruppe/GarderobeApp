@@ -10,6 +10,7 @@ export default class HistoryScreen extends React.Component {
 	userPATH = `/Users/${this.userId}`;
 
 	oldTicketsArray = [];
+	mounted;
 
 	constructor(props) {
 		super(props);
@@ -19,13 +20,21 @@ export default class HistoryScreen extends React.Component {
 		}
 	};
 
-	componentWillMount() {
+	componentDidMount() {
+		this.mounted = true;
+
 		this.retrieveOldTickets();
 		setTimeout(() => {
-			this.setState({
-				isLoadingComplete: true
-			})
-		}, 2000);
+			if (this.mounted) {
+				this.setState({
+					isLoadingComplete: true
+				})
+			}
+		}, 1000);
+	}
+
+	componentWillUnmount() {
+		this.mounted = false;
 	}
 
 	/**

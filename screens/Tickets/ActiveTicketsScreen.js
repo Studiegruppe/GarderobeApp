@@ -1,4 +1,4 @@
-import {ActivityIndicator, ScrollView, StyleSheet, View} from "react-native";
+import {ActivityIndicator, ScrollView, StyleSheet, Text, View} from "react-native";
 import React from "react";
 import firebase from 'firebase';
 import globals from "../../assets/Globals";
@@ -13,6 +13,7 @@ export default class ActiveTicketsScreen extends React.Component {
 
 	//Empty ticket array to be filled with active tickets
 	activeTicketsArray = [];
+	mounted;
 
 	constructor(props) {
 		super(props);
@@ -23,12 +24,19 @@ export default class ActiveTicketsScreen extends React.Component {
 	}
 
 	componentDidMount() {
+		this.mounted = true;
 		this.getActiveTicketAsync();
 		setTimeout(() => {
-			this.setState({
-				isLoadingComplete: true
-			})
+			if (this.mounted) {
+				this.setState({
+					isLoadingComplete: true
+				})
+			}
 		}, 1000);
+	}
+
+	componentWillUnmount() {
+		this.mounted = false;
 	}
 
 	//This function is called whenever we navigate back to the activeTicketsScreen after checking a ticket out.
@@ -111,7 +119,8 @@ export default class ActiveTicketsScreen extends React.Component {
 				</View>
 			)
 			//Else we show our active tickets that get generated below
-		} else {
+		}
+		if (this.activeTicketsArray.length > 0) {
 			return (
 				<View style={styles.container}>
 					<ScrollView
@@ -139,6 +148,12 @@ export default class ActiveTicketsScreen extends React.Component {
 					/>
 				</View>
 			);
+		} else {
+			return (
+				<View style={styles.noContents}>
+					<Text>You have no active tickets</Text>
+				</View>
+			)
 		}
 	}
 }
@@ -152,4 +167,10 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',   // arrange posters in rows
 		flexWrap: 'wrap',       // allow multiple rows
 	},
+	noContents: {
+		flex: 1,
+		backgroundColor: 'transparent',
+		alignItems: 'center',
+		justifyContent: 'center',
+	}
 });
