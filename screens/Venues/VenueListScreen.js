@@ -87,7 +87,7 @@ export default class VenueListScreen extends React.Component {
 			this.props.navigation.navigate('Payment', {
 				code: Math.random().toString(36).substring(6).toUpperCase() + Math.random().toString(36).substring(6).toUpperCase(),
 				venueName: this.state.venue.venueName,
-				amount: this.state.chosenAmount,
+				amount: this.state.chosenAmount + 1,
 				venueID: this.state.venue.venueID,
 				venueImage: this.state.venue.venueImage,
 				address: this.state.venue.address,

@@ -72,7 +72,7 @@ export default class TicketCheckinConfirmation extends Component {
 			//For each active ticket in the initialData object in the state we run an if statement to see if an active
 			//ticket already exists in the bar that our user is trying to check in to
 			Object.keys(activeTickets).forEach(function (key) {
-				if (activeTickets[key].name === that.state.venueName) {
+				if (activeTickets[key].venueName === that.state.venueName) {
 					that.alreadyCheckedIn = true;
 				}
 			});
