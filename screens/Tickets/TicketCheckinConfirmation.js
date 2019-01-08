@@ -26,6 +26,7 @@ export default class TicketCheckinConfirmation extends Component {
 	checkoutTimestamp = null;
 	venueImage = this.params.venueImage;
 	address = this.params.address;
+	mounted;
 
 	constructor(props) {
 		super(props);
@@ -56,11 +57,18 @@ export default class TicketCheckinConfirmation extends Component {
 	}
 
 	//Gets all the active tickets for the user when the component is about to be mounted
-	componentWillMount() {
+	componentDidMount() {
+		this.mounted = true;
 		let that = this;
 		firebase.database().ref(`${this.userPATH}/Tickets/Active`).on('value', function (snapshot) {
-			that.setState({initialData: snapshot.val()});
+			if (that.mounted) {
+				that.setState({initialData: snapshot.val()});
+			}
 		});
+	}
+
+	componentWillUnmount() {
+		this.mounted = false;
 	}
 
 	//The checkin method
